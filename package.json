@@ -1,8 +1,12 @@
 {
-  "name": "harry-potter-diary",
+  "name": "mystical-memoir",
   "version": "1.0.0",
-  "description": "A magical Harry Potter themed digital diary with todo lists, drawing, stickers, and sharing capabilities",
+  "description": "A magical mystical themed digital journal with enchanted elements, todo lists, drawing, stickers, and sharing capabilities",
   "main": "server/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:QAPournima/MysticalMemoir.git"
+  },
   "scripts": {
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "server": "nodemon server/index.js",
@@ -26,7 +30,7 @@
     "nodemon": "^3.0.1",
     "concurrently": "^8.2.2"
   },
-  "keywords": ["diary", "harry-potter", "pwa", "journal", "todo", "drawing"],
-  "author": "Your Name",
+  "keywords": ["mystical", "memoir", "journal", "diary", "magical", "enchanted", "pwa", "todo", "drawing", "sparkles"],
+  "author": "QAPournima",
   "license": "MIT"
 } 

@@ -6,30 +6,30 @@ import './Navbar.css';
 
 const Navbar = ({ currentHouse, setCurrentHouse, onLogout }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [showHouseSelector, setShowHouseSelector] = useState(false);
+  const [showElementSelector, setShowElementSelector] = useState(false);
   const location = useLocation();
-  const { getHouseInfo, HOUSES, changeHouse } = useTheme();
+  const { getElementInfo, ELEMENTS, changeElement } = useTheme();
 
-  const currentHouseInfo = getHouseInfo(currentHouse);
+  const currentElementInfo = getElementInfo(currentHouse);
 
   const navigationItems = [
     { path: '/', label: 'Home', icon: '🏠' },
-    { path: '/diary', label: 'Diary', icon: '📖' },
+    { path: '/diary', label: 'Memoir', icon: '📖' },
     { path: '/todos', label: 'Tasks', icon: '📝' },
     { path: '/drawing', label: 'Draw', icon: '🎨' },
     { path: '/gallery', label: 'Gallery', icon: '🖼️' },
     { path: '/settings', label: 'Settings', icon: '⚙️' }
   ];
 
-  const handleHouseChange = (house) => {
-    console.log('🏠 Navbar house change requested:', house);
-    setCurrentHouse(house);
-    changeHouse(house); // This will trigger the notification and save to localStorage
-    setShowHouseSelector(false);
+  const handleElementChange = (element) => {
+    console.log('✨ Navbar element change requested:', element);
+    setCurrentHouse(element); // Still using setCurrentHouse for backwards compatibility
+    changeElement(element); // This will trigger the notification and save to localStorage
+    setShowElementSelector(false);
     // Add magical effect
-    document.body.classList.add('house-changing');
+    document.body.classList.add('element-changing');
     setTimeout(() => {
-      document.body.classList.remove('house-changing');
+      document.body.classList.remove('element-changing');
     }, 500);
   };
 
@@ -41,45 +41,45 @@ const Navbar = ({ currentHouse, setCurrentHouse, onLogout }) => {
         {/* Logo and Title */}
         <div className="navbar-brand">
           <Link to="/" className="brand-link">
-            <div className="brand-icon">🏰</div>
+            <div className="brand-icon">✨</div>
             <div className="brand-text">
-              <h1 className="brand-title">Magical Diary</h1>
-              <p className="brand-subtitle">{currentHouseInfo.name}</p>
+              <h1 className="brand-title">Mystical Memoir</h1>
+              <p className="brand-subtitle">{currentElementInfo.name}</p>
             </div>
           </Link>
         </div>
 
-        {/* House Selector */}
+        {/* Element Selector */}
         <div className="house-selector-container">
           <button
             className="house-selector-btn"
-            onClick={() => setShowHouseSelector(!showHouseSelector)}
+            onClick={() => setShowElementSelector(!showElementSelector)}
           >
-            <span className="house-mascot">{currentHouseInfo.mascot}</span>
-            <span className="house-name">{currentHouseInfo.name}</span>
+            <span className="house-mascot">{currentElementInfo.mascot}</span>
+            <span className="house-name">{currentElementInfo.name}</span>
             <span className="dropdown-arrow">▼</span>
           </button>
 
-          {showHouseSelector && (
+          {showElementSelector && (
             <motion.div
               className="house-dropdown"
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
             >
-              {Object.entries(HOUSES).map(([key, house]) => (
+              {Object.entries(ELEMENTS).map(([key, element]) => (
                 <button
                   key={key}
                   className={`house-option ${key === currentHouse ? 'active' : ''}`}
                   onClick={() => {
-                    console.log('🏠 Navbar house option clicked:', key, house.name);
-                    handleHouseChange(key);
+                    console.log('✨ Navbar element option clicked:', key, element.name);
+                    handleElementChange(key);
                   }}
                 >
-                  <span className="house-mascot">{house.mascot}</span>
+                  <span className="house-mascot">{element.mascot}</span>
                   <div className="house-info">
-                    <span className="house-name">{house.name}</span>
-                    <span className="house-traits">{house.traits[0]}, {house.traits[1]}</span>
+                    <span className="house-name">{element.name}</span>
+                    <span className="house-traits">{element.traits[0]}, {element.traits[1]}</span>
                   </div>
                 </button>
               ))}

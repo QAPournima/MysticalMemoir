@@ -304,10 +304,14 @@ const TodoList = () => {
                       <div className="todo-header-card">
                         <h3 className="todo-title">{todo.title}</h3>
                         <span className="house-indicator">
-                          {todo.house === 'gryffindor' && '🦁'}
-                          {todo.house === 'slytherin' && '🐍'}
-                          {todo.house === 'ravenclaw' && '🦅'}
-                          {todo.house === 'hufflepuff' && '🦡'}
+                          {todo.house === 'gryffindor' && '🔥'}
+                          {todo.house === 'slytherin' && '🌿'}
+                          {todo.house === 'ravenclaw' && '🌙'}
+                          {todo.house === 'hufflepuff' && '⭐'}
+                          {todo.house === 'ember' && '🔥'}
+                          {todo.house === 'nature' && '🌿'}
+                          {todo.house === 'moonlight' && '🌙'}
+                          {todo.house === 'starlight' && '⭐'}
                         </span>
                       </div>
                       
@@ -361,10 +365,14 @@ const TodoList = () => {
               <div className="quest-info">
                 <h1 className="quest-page-title">{currentTodo.title}</h1>
                 <span className="quest-house">
-                  {currentTodo.house === 'gryffindor' && '🦁 Gryffindor'}
-                  {currentTodo.house === 'slytherin' && '🐍 Slytherin'}
-                  {currentTodo.house === 'ravenclaw' && '🦅 Ravenclaw'}
-                  {currentTodo.house === 'hufflepuff' && '🦡 Hufflepuff'}
+                  {currentTodo.house === 'gryffindor' && '🔥 Gryffindor'}
+                  {currentTodo.house === 'slytherin' && '🌿 Slytherin'}
+                  {currentTodo.house === 'ravenclaw' && '🌙 Ravenclaw'}
+                  {currentTodo.house === 'hufflepuff' && '⭐ Hufflepuff'}
+                  {currentTodo.house === 'ember' && '🔥 Ember'}
+                  {currentTodo.house === 'nature' && '🌿 Nature'}
+                  {currentTodo.house === 'moonlight' && '🌙 Moonlight'}
+                  {currentTodo.house === 'starlight' && '⭐ Starlight'}
                 </span>
               </div>
               <button

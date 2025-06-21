@@ -5,21 +5,21 @@ import { useTheme } from '../../context/ThemeContext';
 import AuthBackgroundMusic from '../UI/AuthBackgroundMusic';
 import './SortingCeremony.css';
 
-const SortingCeremony = ({ onSorted, userName, userData }) => {
-  const { HOUSES } = useTheme();
+const ElementDiscovery = ({ onSorted, userName, userData }) => {
+  const { ELEMENTS } = useTheme();
   const navigate = useNavigate();
-  const [currentStep, setCurrentStep] = useState('intro'); // intro, ceremony, legilimency, analysis, sorting, result
+  const [currentStep, setCurrentStep] = useState('intro'); // intro, show, reading, analysis, discovery, result
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
-  const [sortedHouse, setSortedHouse] = useState(null);
-  const [isHatThinking, setIsHatThinking] = useState(false);
+  const [discoveredElement, setDiscoveredElement] = useState(null);
+  const [isOracleThinking, setIsOracleThinking] = useState(false);
   const [personalInsights, setPersonalInsights] = useState([]);
   const [currentThought, setCurrentThought] = useState(0);
   const [currentAnnouncement, setCurrentAnnouncement] = useState(0);
   const [showFinalResult, setShowFinalResult] = useState(false);
 
-  // Birth-based Sorting Algorithm (using day and month like astrology)
-  const getBirthBasedHouse = (dateOfBirth) => {
+  // Birth-based Element Discovery Algorithm (using day and month like astrology)
+  const getBirthBasedElement = (dateOfBirth) => {
     if (!dateOfBirth) return null;
     
     const date = new Date(dateOfBirth);
@@ -28,14 +28,14 @@ const SortingCeremony = ({ onSorted, userName, userData }) => {
     
     // Algorithm based on birth patterns
     const birthNumber = (month * 31) + day;
-    const houseIndex = birthNumber % 4;
+    const elementIndex = birthNumber % 4;
     
-    const houses = ['gryffindor', 'ravenclaw', 'hufflepuff', 'slytherin'];
-    return houses[houseIndex];
+    const elements = ['moonlight', 'ember', 'nature', 'starlight'];
+    return elements[elementIndex];
   };
 
-  // Generate personalized insights based on birth data and house
-  const generatePersonalInsights = (house, birthData) => {
+  // Generate personalized insights based on birth data and element
+  const generatePersonalInsights = (element, birthData) => {
     const date = new Date(birthData.dateOfBirth);
     const month = date.getMonth() + 1;
     const day = date.getDate();
@@ -46,37 +46,37 @@ const SortingCeremony = ({ onSorted, userName, userData }) => {
     const birthMonth = monthNames[month - 1];
     
     const insights = {
-      gryffindor: [
-        `Born in ${birthMonth}, you possess the fiery determination characteristic of true Gryffindors.`,
-        `Your birth on the ${day}${getDaySuffix(day)} reveals a natural inclination toward brave leadership.`,
-        `The Sorting Hat senses in you the courage to stand against injustice, much like Harry Potter himself.`,
-        `Your mind shows flashes of daring adventures and heroic deeds yet to come.`,
-        `The hat detects a strong moral compass that will guide you through dark times.`
+      moonlight: [
+        `Born in ${birthMonth}, you possess the tranquil wisdom that flows through Moonlight spirits.`,
+        `Your birth on the ${day}${getDaySuffix(day)} reveals a natural connection to intuition and serenity.`,
+        `The Oracle senses in you the peaceful strength to guide others through uncertainty.`,
+        `Your mind shows depths of understanding that emerge in quiet contemplation.`,
+        `The mystic energies detect a calm presence that brings clarity to chaotic moments.`
       ],
-      ravenclaw: [
-        `Your ${birthMonth} birth grants you the wisdom-seeking nature valued by Ravenclaw.`,
-        `The ${day}${getDaySuffix(day)} day of your birth aligns with the scholarly pursuits of this noble house.`,
-        `I see in your thoughts a thirst for knowledge that rivals even Hermione Granger's dedication.`,
-        `Your mind palace already contains mysteries waiting to be unraveled.`,
-        `The hat perceives your potential to solve puzzles that would confound others.`
+      ember: [
+        `Your ${birthMonth} birth ignites the passionate flame that burns within Ember souls.`,
+        `The ${day}${getDaySuffix(day)} day marks you as one whose courage burns bright in darkness.`,
+        `I see in your spirit the same fierce determination that moves mountains.`,
+        `Your essence reveals someone who acts with heart and never backs down from challenge.`,
+        `The Oracle perceives your ability to inspire others with your unwavering passion.`
       ],
-      hufflepuff: [
-        `Born in ${birthMonth}, you embody the loyal and steadfast nature of Hufflepuff house.`,
-        `Your birth on the ${day}${getDaySuffix(day)} reveals a heart full of kindness and dedication.`,
-        `The Sorting Hat recognizes in you the same unwavering loyalty as Cedric Diggory.`,
-        `Your thoughts reveal someone who values friendship above personal glory.`,
-        `I sense you will be the foundation upon which others build their courage.`
+      nature: [
+        `Born in ${birthMonth}, you embody the harmonious growth that defines Nature's essence.`,
+        `Your birth on the ${day}${getDaySuffix(day)} reveals a heart that nurtures and heals.`,
+        `The mystic forces recognize in you the patient wisdom of ancient forests.`,
+        `Your thoughts reveal someone who finds strength in balance and natural cycles.`,
+        `I sense you will be the foundation that helps others grow and flourish.`
       ],
-      slytherin: [
-        `Your ${birthMonth} birth bestows upon you the ambitious drive that Slytherin values.`,
-        `The ${day}${getDaySuffix(day)} day marks you as one destined for greatness through cunning and determination.`,
-        `The hat sees in your mind the strategic thinking that could rival Severus Snape himself.`,
-        `Your thoughts reveal hidden depths and the ability to achieve what others deem impossible.`,
-        `I perceive in you the resourcefulness to turn any situation to your advantage.`
+      starlight: [
+        `Your ${birthMonth} birth aligns you with the infinite dreams that Starlight embodies.`,
+        `The ${day}${getDaySuffix(day)} day marks you as a visionary who reaches for the impossible.`,
+        `The Oracle sees in your soul the magical spark that turns dreams into reality.`,
+        `Your essence reveals hidden depths and the power to manifest wonder.`,
+        `I perceive in you the creativity to illuminate paths others cannot see.`
       ]
     };
     
-    return insights[house] || [];
+    return insights[element] || [];
   };
 
   const getDaySuffix = (day) => {
@@ -89,35 +89,35 @@ const SortingCeremony = ({ onSorted, userName, userData }) => {
     }
   };
 
-  // Legilimency thoughts during analysis
-  const legilimencyThoughts = [
-    "Interesting... let me see what lies within your mind...",
-    "Ah yes, I can sense your deepest values and desires...",
-    "Your memories reveal much about your character...",
-    "I see courage... intelligence... loyalty... ambition...",
-    "Difficult, very difficult to choose just one quality...",
-    "Your heart speaks louder than your fears...",
-    "The path you've walked has shaped who you are...",
-    "I sense great potential within you..."
+  // Mystical Oracle insights during analysis
+  const oracleThoughts = [
+    "Welcome to the Mystic Element Discovery Show... let me sense your true nature...",
+    "Ah yes, I can feel the cosmic energies that flow through you...",
+    "Your spiritual essence reveals much about your inner element...",
+    "I sense moonlight... ember... nature... starlight... all swirling within...",
+    "Fascinating, very fascinating... the elements are speaking to me...",
+    "Your soul's frequency resonates with ancient mysteries...",
+    "The astral patterns of your being are becoming clear...",
+    "I perceive great elemental potential within your spirit..."
   ];
 
-  // Final sorting magical announcements
-  const sortingAnnouncements = [
-    "The ancient magic flows through me... I have decided!",
-    "The threads of destiny have been woven... Your path is clear!",
-    "By the power of the founders... I proclaim your house!",
-    "The mystical forces have spoken... Your true home awaits!"
+  // Final discovery magical announcements
+  const discoveryAnnouncements = [
+    "The mystical energies have aligned... I have seen your truth!",
+    "The elemental forces have spoken... Your destiny is revealed!",
+    "By the power of the ancient elements... I proclaim your nature!",
+    "The cosmic dance has ended... Your true element emerges!"
   ];
 
-  // Enhanced Legilimency process
-  const startLegilimency = () => {
-    setIsHatThinking(true);
+  // Enhanced Oracle reading process
+  const startOracleReading = () => {
+    setIsOracleThinking(true);
     setCurrentThought(0);
     
     // Cycle through thoughts
     const thoughtInterval = setInterval(() => {
       setCurrentThought(prev => {
-        if (prev >= legilimencyThoughts.length - 1) {
+        if (prev >= oracleThoughts.length - 1) {
           clearInterval(thoughtInterval);
           setTimeout(() => startAnalysis(), 1000);
           return prev;
@@ -129,17 +129,17 @@ const SortingCeremony = ({ onSorted, userName, userData }) => {
 
   const startAnalysis = () => {
     setCurrentStep('analysis');
-    setIsHatThinking(true);
+    setIsOracleThinking(true);
     
     // Analyze birth data and generate insights
     setTimeout(() => {
-      const house = getBirthBasedHouse(userData.dateOfBirth);
-      const insights = generatePersonalInsights(house, userData);
+      const element = getBirthBasedElement(userData.dateOfBirth);
+      const insights = generatePersonalInsights(element, userData);
       
-      setSortedHouse(house);
+      setDiscoveredElement(element);
       setPersonalInsights(insights);
-      setIsHatThinking(false);
-      setCurrentStep('sorting');
+      setIsOracleThinking(false);
+      setCurrentStep('discovery');
       
       // Start magical announcements
       setTimeout(() => startMagicalAnnouncements(), 1000);
@@ -152,7 +152,7 @@ const SortingCeremony = ({ onSorted, userName, userData }) => {
     // Cycle through magical announcements
     const announcementInterval = setInterval(() => {
       setCurrentAnnouncement(prev => {
-        if (prev >= sortingAnnouncements.length - 1) {
+        if (prev >= discoveryAnnouncements.length - 1) {
           clearInterval(announcementInterval);
           setTimeout(() => {
             setCurrentStep('result');
@@ -165,9 +165,9 @@ const SortingCeremony = ({ onSorted, userName, userData }) => {
     }, 2000);
   };
 
-  const enterHogwarts = () => {
-    // Apply house theme and complete sorting
-    onSorted(sortedHouse);
+  const enterMysticRealm = () => {
+    // Apply element theme and complete discovery
+    onSorted(discoveredElement);
     
     // Navigate to home page after a short delay
     setTimeout(() => {
@@ -176,65 +176,118 @@ const SortingCeremony = ({ onSorted, userName, userData }) => {
   };
 
   const skipToResult = () => {
-    // Get the house based on birth data
-    const house = getBirthBasedHouse(userData.dateOfBirth);
-    const insights = generatePersonalInsights(house, userData);
+    // Get the element based on birth data
+    const element = getBirthBasedElement(userData.dateOfBirth);
+    const insights = generatePersonalInsights(element, userData);
     
-    setSortedHouse(house);
+    setDiscoveredElement(element);
     setPersonalInsights(insights);
     setCurrentStep('result');
     setTimeout(() => setShowFinalResult(true), 1000);
     
-    // Call the parent callback to complete sorting
+    // Call the parent callback to complete discovery
     setTimeout(() => {
-      onSorted(house);
+      onSorted(element);
     }, 2000);
   };
 
-  const sortingQuestions = [
+  const startShow = () => {
+    setCurrentStep('show');
+    setTimeout(() => setCurrentStep('reading'), 3000);
+  };
+
+  // Trigger oracle reading when step changes
+  useEffect(() => {
+    if (currentStep === 'reading') {
+      startOracleReading();
+    }
+  }, [currentStep]);
+
+  const answerQuestion = (answer) => {
+    const newAnswers = [...answers, answer];
+    setAnswers(newAnswers);
+
+    if (currentQuestion < elementQuestions.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
+    } else {
+      // Start discovery process
+      setCurrentStep('discovery');
+      setIsOracleThinking(true);
+      
+      // Calculate element based on answers
+      setTimeout(() => {
+        const elementScores = {
+          moonlight: 0,
+          ember: 0,
+          nature: 0,
+          starlight: 0
+        };
+
+        newAnswers.forEach(answer => {
+          elementScores[answer.element]++;
+        });
+
+        // Find the element with highest score
+        const discoveredElementKey = Object.keys(elementScores).reduce((a, b) => 
+          elementScores[a] > elementScores[b] ? a : b
+        );
+
+        setDiscoveredElement(discoveredElementKey);
+        setIsOracleThinking(false);
+        setCurrentStep('result');
+
+        // Call parent callback after 3 seconds
+        setTimeout(() => {
+          onSorted(discoveredElementKey);
+        }, 4000);
+      }, 4000);
+    }
+  };
+
+  const elementQuestions = [
     {
-      question: "You're walking down a dark corridor at Hogwarts. What draws your attention?",
+      question: "You're walking through an enchanted forest. What calls to your spirit?",
       answers: [
-        { text: "The mysterious glowing door at the end", house: 'gryffindor', trait: 'courage' },
-        { text: "The ancient book left on a nearby table", house: 'ravenclaw', trait: 'wisdom' },
-        { text: "The hidden passage behind a tapestry", house: 'slytherin', trait: 'cunning' },
-        { text: "The warm light coming from under a door", house: 'hufflepuff', trait: 'loyalty' }
+        { text: "The serene moonlit clearing ahead", element: 'moonlight', trait: 'wisdom' },
+        { text: "The warm campfire glowing between trees", element: 'ember', trait: 'passion' },
+        { text: "The ancient oak tree with deep roots", element: 'nature', trait: 'growth' },
+        { text: "The shooting star streaking overhead", element: 'starlight', trait: 'dreams' }
       ]
     },
     {
-      question: "What magical creature would you most like to study?",
+      question: "What mystical companion would you choose?",
       answers: [
-        { text: "A fierce dragon breathing fire", house: 'gryffindor', trait: 'bravery' },
-        { text: "A wise phoenix with healing tears", house: 'ravenclaw', trait: 'knowledge' },
-        { text: "A cunning basilisk with deadly eyes", house: 'slytherin', trait: 'ambition' },
-        { text: "A loyal hippogriff who remembers kindness", house: 'hufflepuff', trait: 'friendship' }
+        { text: "A wise owl with silver eyes", element: 'moonlight', trait: 'serenity' },
+        { text: "A fierce wolf with a burning spirit", element: 'ember', trait: 'courage' },
+        { text: "A gentle deer who knows secret paths", element: 'nature', trait: 'harmony' },
+        { text: "A magical butterfly that glows with starlight", element: 'starlight', trait: 'wonder' }
       ]
     },
     {
-      question: "What would you see in the Mirror of Erised?",
+      question: "What would you see in a crystal ball?",
       answers: [
-        { text: "Yourself as a celebrated hero", house: 'gryffindor', trait: 'glory' },
-        { text: "Yourself solving the world's mysteries", house: 'ravenclaw', trait: 'discovery' },
-        { text: "Yourself as the most powerful wizard", house: 'slytherin', trait: 'power' },
-        { text: "Yourself surrounded by loved ones", house: 'hufflepuff', trait: 'belonging' }
+        { text: "Yourself guiding others with quiet wisdom", element: 'moonlight', trait: 'guidance' },
+        { text: "Yourself standing brave against challenges", element: 'ember', trait: 'bravery' },
+        { text: "Yourself nurturing a beautiful garden", element: 'nature', trait: 'nurturing' },
+        { text: "Yourself creating something magical and new", element: 'starlight', trait: 'creativity' }
       ]
     },
     {
-      question: "Which magical subject excites you most?",
+      question: "Which mystical realm draws you most?",
       answers: [
-        { text: "Defense Against the Dark Arts", house: 'gryffindor', trait: 'protection' },
-        { text: "Ancient Runes and Arithmancy", house: 'ravenclaw', trait: 'learning' },
-        { text: "Potions and their secrets", house: 'slytherin', trait: 'mastery' },
-        { text: "Herbology and Care of Magical Creatures", house: 'hufflepuff', trait: 'nurturing' }
+        { text: "The Lunar Sanctuary of peaceful reflection", element: 'moonlight', trait: 'contemplation' },
+        { text: "The Flame Forge where passion burns bright", element: 'ember', trait: 'intensity' },
+        { text: "The Living Grove of eternal growth", element: 'nature', trait: 'balance' },
+        { text: "The Starlit Observatory of infinite dreams", element: 'starlight', trait: 'imagination' }
       ]
     },
     {
-      question: "What quality do you value most in others?",
+      question: "What quality do you treasure most in yourself?",
       answers: [
-        { text: "Their willingness to stand up for what's right", house: 'gryffindor', trait: 'justice' },
-        { text: "Their ability to think deeply and creatively", house: 'ravenclaw', trait: 'intelligence' },
-        { text: "Their determination to achieve their goals", house: 'slytherin', trait: 'achievement' },
-        { text: "Their kindness and reliability", house: 'hufflepuff', trait: 'goodness' }
+        { text: "Your ability to bring calm to chaos", element: 'moonlight', trait: 'tranquility' },
+        { text: "Your willingness to fight for what matters", element: 'ember', trait: 'determination' },
+        { text: "Your gift for helping others flourish", element: 'nature', trait: 'support' },
+        { text: "Your power to imagine the impossible", element: 'starlight', trait: 'vision' }
       ]
     }
   ];
@@ -247,50 +300,9 @@ const SortingCeremony = ({ onSorted, userName, userData }) => {
   // Trigger legilimency when step changes
   useEffect(() => {
     if (currentStep === 'legilimency') {
-      startLegilimency();
+      startOracleReading();
     }
   }, [currentStep]);
-
-  const answerQuestion = (answer) => {
-    const newAnswers = [...answers, answer];
-    setAnswers(newAnswers);
-
-    if (currentQuestion < sortingQuestions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
-    } else {
-      // Start sorting process
-      setCurrentStep('sorting');
-      setIsHatThinking(true);
-      
-      // Calculate house based on answers
-      setTimeout(() => {
-        const houseScores = {
-          gryffindor: 0,
-          ravenclaw: 0,
-          slytherin: 0,
-          hufflepuff: 0
-        };
-
-        newAnswers.forEach(answer => {
-          houseScores[answer.house]++;
-        });
-
-        // Find the house with highest score
-        const sortedHouseKey = Object.keys(houseScores).reduce((a, b) => 
-          houseScores[a] > houseScores[b] ? a : b
-        );
-
-        setSortedHouse(sortedHouseKey);
-        setIsHatThinking(false);
-        setCurrentStep('result');
-
-        // Call parent callback after 3 seconds
-        setTimeout(() => {
-          onSorted(sortedHouseKey);
-        }, 4000);
-      }, 4000);
-    }
-  };
 
   return (
     <div className="sorting-ceremony">
@@ -298,7 +310,7 @@ const SortingCeremony = ({ onSorted, userName, userData }) => {
       <div className="magical-background">
         <div className="stars"></div>
         <div className="floating-particles">
-          {['✨', '🪄', '⚡', '🦉', '📜', '🕯️', '⭐', '🏰'].map((symbol, index) => (
+          {['🌙', '🔥', '🌿', '⭐', '🔮', '✨', '🌟', '💫'].map((symbol, index) => (
             <span key={index} className={`floating-symbol symbol-${index}`}>
               {symbol}
             </span>
@@ -318,18 +330,18 @@ const SortingCeremony = ({ onSorted, userName, userData }) => {
               transition={{ duration: 0.8 }}
             >
               <div className="ceremony-header">
-                <h1 className="ceremony-title">Hogwarts</h1>
-                <p className="ceremony-subtitle">HOUSE SORTING CEREMONY</p>
+                <h1 className="ceremony-title">Mystical Memoir</h1>
+                <p className="ceremony-subtitle">ELEMENT DISCOVERY EXPERIENCE</p>
               </div>
 
               <div className="sorting-hat-container">
                 <img 
                   src="/image/SortingHat .gif" 
-                  alt="Sorting Hat"
+                  alt="Mystic Oracle"
                   className="sorting-hat"
                 />
                 <div className="house-emblems">
-                  {Object.entries(HOUSES).map(([key, house], index) => (
+                  {Object.entries(ELEMENTS).map(([key, element], index) => (
                     <motion.div
                       key={key}
                       className={`house-emblem ${key}`}
@@ -346,18 +358,18 @@ const SortingCeremony = ({ onSorted, userName, userData }) => {
                         stiffness: 100
                       }}
                     >
-                      <div className="emblem-icon">{house.mascot}</div>
-                      <div className="emblem-name">{house.name}</div>
+                      <div className="emblem-icon">{element.mascot}</div>
+                      <div className="emblem-name">{element.name}</div>
                     </motion.div>
                   ))}
                 </div>
               </div>
 
               <div className="intro-text">
-                <h2>Discover your Hogwarts House</h2>
+                <h2>Discover Your Elemental Nature</h2>
                 <p>
-                  Don the Sorting Hat to be placed into your rightful Hogwarts house.<br/>
-                  The Sorting Hat's decision is final.
+                  Connect with the Mystic Oracle to discover your true elemental essence.<br/>
+                  The Oracle's insight reveals your deepest spiritual nature.
                 </p>
                 <motion.div
                   className="scroll-instruction"
@@ -365,18 +377,18 @@ const SortingCeremony = ({ onSorted, userName, userData }) => {
                   animate={{ opacity: [0, 1, 0] }}
                   transition={{ duration: 2, repeat: Infinity }}
                 >
-                  ↓ Click the button to begin the ceremony ↓
+                  ↓ Click the button to begin your discovery ↓
                 </motion.div>
               </div>
 
               <motion.button
                 className="start-ceremony-btn"
-                onClick={startCeremony}
+                onClick={startShow}
                 whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(138, 43, 226, 0.5)" }}
                 whileTap={{ scale: 0.95 }}
               >
-                <img src="/image/SortingHat .gif" alt="Sorting Hat" className="btn-icon" />
-                START THE SORTING CEREMONY
+                <img src="/image/SortingHat .gif" alt="Mystic Oracle" className="btn-icon" />
+                START THE ELEMENT DISCOVERY
               </motion.button>
             </motion.div>
           )}
@@ -449,7 +461,7 @@ const SortingCeremony = ({ onSorted, userName, userData }) => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8 }}
                 >
-                  "{legilimencyThoughts[currentThought]}"
+                  "{oracleThoughts[currentThought]}"
                 </motion.p>
               </div>
             </motion.div>
@@ -507,11 +519,11 @@ const SortingCeremony = ({ onSorted, userName, userData }) => {
                 <div className="progress-bar">
                   <div 
                     className="progress-fill"
-                    style={{ width: `${((currentQuestion + 1) / sortingQuestions.length) * 100}%` }}
+                    style={{ width: `${((currentQuestion + 1) / elementQuestions.length) * 100}%` }}
                   ></div>
                 </div>
                 <p className="question-counter">
-                  Question {currentQuestion + 1} of {sortingQuestions.length}
+                  Question {currentQuestion + 1} of {elementQuestions.length}
                 </p>
               </div>
 
@@ -527,11 +539,11 @@ const SortingCeremony = ({ onSorted, userName, userData }) => {
                 </div>
 
                 <h3 className="question-text">
-                  {sortingQuestions[currentQuestion].question}
+                  {elementQuestions[currentQuestion].question}
                 </h3>
 
                 <div className="answers-grid">
-                  {sortingQuestions[currentQuestion].answers.map((answer, index) => (
+                  {elementQuestions[currentQuestion].answers.map((answer, index) => (
                     <motion.button
                       key={index}
                       className="answer-option"
@@ -550,9 +562,123 @@ const SortingCeremony = ({ onSorted, userName, userData }) => {
             </motion.div>
           )}
 
-          {currentStep === 'sorting' && (
+          {currentStep === 'show' && (
             <motion.div
-              key="sorting"
+              key="show"
+              className="ceremony-animation"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <div className="hat-placing">
+                <motion.img
+                  src="/image/SortingHat .gif"
+                  alt="Mystic Oracle"
+                  className="large-sorting-hat"
+                  initial={{ y: -200, rotate: 0 }}
+                  animate={{ y: 0, rotate: [0, -10, 10, -5, 0] }}
+                  transition={{ duration: 2, ease: "easeOut" }}
+                />
+                <motion.p
+                  className="ceremony-narration"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1.5 }}
+                >
+                  The Mystic Oracle awakens to sense {userName || 'your'} true elemental nature...
+                </motion.p>
+              </div>
+            </motion.div>
+          )}
+
+          {currentStep === 'reading' && (
+            <motion.div
+              key="reading"
+              className="legilimency-screen"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <motion.button
+                className="skip-button"
+                onClick={skipToResult}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 2 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                ⚡ Skip to Result
+              </motion.button>
+
+              <div className="hat-mind-reading">
+                <motion.img
+                  src="/image/SortingHat .gif"
+                  alt="Mystic Oracle"
+                  className="mystical-hat"
+                  animate={{ 
+                    rotate: [-2, 2, -2],
+                    scale: [1, 1.05, 1]
+                  }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                />
+
+                <motion.p
+                  className="hat-thoughts"
+                  key={currentThought}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8 }}
+                >
+                  "{oracleThoughts[currentThought]}"
+                </motion.p>
+              </div>
+            </motion.div>
+          )}
+
+          {currentStep === 'analysis' && (
+            <motion.div
+              key="analysis"
+              className="analysis-screen"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <motion.button
+                className="skip-button"
+                onClick={skipToResult}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                ⚡ Skip to Result
+              </motion.button>
+
+              <div className="deep-analysis">
+                <motion.img
+                  src="/image/SortingHat .gif"
+                  alt="Mystic Oracle"
+                  className="analyzing-hat"
+                  animate={{ 
+                    rotate: [0, 5, -5, 0],
+                    y: [0, -10, 0]
+                  }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                />
+                
+                <p className="analysis-text">
+                  The Oracle delves deep into your spiritual essence, reading the cosmic patterns 
+                  of your birth and the vibrations of your soul's true nature...
+                </p>
+              </div>
+            </motion.div>
+          )}
+
+          {currentStep === 'discovery' && (
+            <motion.div
+              key="discovery"
               className="sorting-animation"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -571,7 +697,7 @@ const SortingCeremony = ({ onSorted, userName, userData }) => {
 
               <motion.img
                 src="/image/SortingHat .gif"
-                alt="Sorting Hat"
+                alt="Mystic Oracle"
                 className="dramatic-hat"
                 animate={{
                   rotate: [0, -15, 15, -10, 10, -5, 5, 0],
@@ -590,7 +716,7 @@ const SortingCeremony = ({ onSorted, userName, userData }) => {
                   transition={{ duration: 0.8 }}
                   className="magical-announcement"
                 >
-                  "{sortingAnnouncements[currentAnnouncement]}"
+                  "{discoveryAnnouncements[currentAnnouncement]}"
                 </motion.p>
               </div>
 
@@ -607,10 +733,10 @@ const SortingCeremony = ({ onSorted, userName, userData }) => {
             </motion.div>
           )}
 
-          {currentStep === 'result' && sortedHouse && (
+          {currentStep === 'result' && discoveredElement && (
             <motion.div
               key="result"
-              className={`result-screen ${sortedHouse}`}
+              className={`result-screen ${discoveredElement}`}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ type: "spring", stiffness: 100 }}
@@ -623,7 +749,7 @@ const SortingCeremony = ({ onSorted, userName, userData }) => {
               >
                 <motion.img
                   src="/image/SortingHat .gif"
-                  alt="Sorting Hat"
+                  alt="Mystic Oracle"
                   className="final-hat"
                   initial={{ y: -100, rotate: -20 }}
                   animate={{ y: 0, rotate: 0 }}
@@ -637,12 +763,12 @@ const SortingCeremony = ({ onSorted, userName, userData }) => {
                   transition={{ type: "spring", stiffness: 200, delay: 1.2 }}
                 >
                   <motion.h1 
-                    className={`proclaimed-house-name ${sortedHouse}`}
+                    className={`proclaimed-house-name ${discoveredElement}`}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1.5 }}
                   >
-                    {HOUSES[sortedHouse].name.toUpperCase()}!
+                    {ELEMENTS[discoveredElement].name.toUpperCase()}!
                   </motion.h1>
                   
                   <motion.div
@@ -651,7 +777,7 @@ const SortingCeremony = ({ onSorted, userName, userData }) => {
                     animate={{ scale: 1, rotate: 0 }}
                     transition={{ type: "spring", stiffness: 150, delay: 1.8 }}
                   >
-                    {HOUSES[sortedHouse].mascot}
+                    {ELEMENTS[discoveredElement].mascot}
                   </motion.div>
                 </motion.div>
 
@@ -661,7 +787,7 @@ const SortingCeremony = ({ onSorted, userName, userData }) => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 2.2 }}
                 >
-                  Welcome to {HOUSES[sortedHouse].name} House!
+                  You are aligned with the {ELEMENTS[discoveredElement].name} Element!
                 </motion.p>
 
                 {showFinalResult && (
@@ -677,9 +803,9 @@ const SortingCeremony = ({ onSorted, userName, userData }) => {
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.8 }}
                     >
-                      <p>Your house values:</p>
+                      <p>Your element embodies:</p>
                       <div className="traits-list">
-                        {HOUSES[sortedHouse].traits.map((trait, index) => (
+                        {ELEMENTS[discoveredElement].traits.map((trait, index) => (
                           <motion.span 
                             key={index} 
                             className="trait-badge"
@@ -699,7 +825,7 @@ const SortingCeremony = ({ onSorted, userName, userData }) => {
                       animate={{ opacity: 1 }}
                       transition={{ delay: 1.5 }}
                     >
-                      <h3>The Sorting Hat's Insights About You:</h3>
+                      <h3>The Oracle's Insights About You:</h3>
                       <div className="insights-list">
                         {personalInsights.map((insight, index) => (
                           <motion.p
@@ -716,16 +842,16 @@ const SortingCeremony = ({ onSorted, userName, userData }) => {
                     </motion.div>
 
                     <motion.button
-                      className={`enter-hogwarts-btn ${sortedHouse}`}
-                      onClick={enterHogwarts}
+                      className={`enter-mystical-realm-btn ${discoveredElement}`}
+                      onClick={enterMysticRealm}
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: 3 }}
                       whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(255, 215, 0, 0.6)" }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      <span className="btn-house-icon">{HOUSES[sortedHouse].mascot}</span>
-                      Enter {HOUSES[sortedHouse].name} House
+                      <span className="btn-house-icon">{ELEMENTS[discoveredElement].mascot}</span>
+                      Enter the Mystical Realm
                     </motion.button>
                   </motion.div>
                 )}
@@ -770,4 +896,4 @@ const SortingCeremony = ({ onSorted, userName, userData }) => {
   );
 };
 
-export default SortingCeremony; 
+export default ElementDiscovery; 

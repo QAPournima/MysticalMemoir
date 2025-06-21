@@ -340,10 +340,14 @@ const MagicalSearch = ({
                     className="filter-select magical-input"
                   >
                     <option value="all">All Houses</option>
-                    <option value="gryffindor">🦁 Gryffindor</option>
-                    <option value="slytherin">🐍 Slytherin</option>
-                    <option value="ravenclaw">🦅 Ravenclaw</option>
-                    <option value="hufflepuff">🦡 Hufflepuff</option>
+                    <option value="gryffindor">🔥 Ember</option>
+                    <option value="hufflepuff">⭐ Starlight</option>
+                    <option value="ravenclaw">🌙 Moonlight</option>
+                    <option value="slytherin">🌿 Nature</option>
+                    <option value="ember">🔥 Ember</option>
+                    <option value="starlight">⭐ Starlight</option>
+                    <option value="moonlight">🌙 Moonlight</option>
+                    <option value="nature">🌿 Nature</option>
                   </select>
                 </div>
               )}

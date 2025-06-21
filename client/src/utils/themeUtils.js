@@ -3,12 +3,10 @@
 export const clearInvalidThemeCache = () => {
   const validThemes = [
     'default',
-    'darkArts', 
-    'hogwartsSnow',
-    'greatHall',
-    'diagonAlley',
-    'triwizard',
-    'greenhouse'
+    'shadowRealm', 
+    'winterWonderland',
+    'mysticMarket',
+    'enchantedGarden'
   ];
   
   const savedTheme = localStorage.getItem('selected_ui_theme');

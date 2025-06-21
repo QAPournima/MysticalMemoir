@@ -5,44 +5,60 @@ import './MusicPlayer.css';
 
 const MUSIC_TRACKS = [
   {
-    id: 'dark-secrets',
-    name: 'Dark Secrets at the Black Castle',
-    file: 'dark-secrets-at-the-black-castle-163584.mp3',
-    mood: 'mysterious',
-    icon: '🏰',
-    description: 'Mysterious and enchanting castle ambience'
-  },
-  {
-    id: 'ways-wizard',
-    name: 'Ways of the Wizard',
-    file: 'ways-of-the-wizard-197105.mp3',
-    mood: 'magical',
-    icon: '🧙‍♂️',
-    description: 'Mystical wizard melodies and spells'
-  },
-  {
     id: 'magic-tree',
     name: 'The Magic Tree',
-    file: 'the-magic-tree-150606.mp3',
+    file: 'the-magic-tree.mp3',
     mood: 'peaceful',
     icon: '🌳',
     description: 'Peaceful magical forest sounds'
   },
   {
-    id: 'hogwarts-express',
-    name: 'Hogwarts Express',
-    file: 'hogwarts-express-inspired-by-harry-potter-305578.mp3',
-    mood: 'adventurous',
-    icon: '🚂',
-    description: 'Epic journey to Hogwarts adventure'
+    id: 'magic-air',
+    name: 'Magic in the Air',
+    file: 'magic-in-the-air.mp3',
+    mood: 'mystical',
+    icon: '✨',
+    description: 'Mystical ambient magic'
   },
   {
-    id: 'school-magic',
-    name: 'School of Magic',
-    file: 'school-of-magic-inspired-by-harry-potter-289617.mp3',
-    mood: 'academic',
-    icon: '📚',
-    description: 'Scholarly magical atmosphere'
+    id: 'magic-healing',
+    name: 'Magic Healing Cosmic Sleep',
+    file: 'magic-healing-cosmic-sleep.mp3',
+    mood: 'calming',
+    icon: '🌙',
+    description: 'Cosmic healing and mystical sleep'
+  },
+  {
+    id: 'magic-christmas',
+    name: 'Magic Christmas',
+    file: 'magic-christmas_medium.mp3',
+    mood: 'festive',
+    icon: '🎄',
+    description: 'Magical Christmas atmosphere'
+  },
+  {
+    id: 'magic-jingle-bells',
+    name: 'Magic Jingle Bell Christmas',
+    file: 'magic-jingle-bell-christmas-magic.mp3',
+    mood: 'cheerful',
+    icon: '🔔',
+    description: 'Cheerful magical Christmas bells'
+  },
+  {
+    id: 'magic-xmas-jingle',
+    name: 'Magic Xmas Jingle',
+    file: 'magic-xmas-jingle.mp3',
+    mood: 'festive',
+    icon: '🎅',
+    description: 'Festive Christmas magic'
+  },
+  {
+    id: 'magic',
+    name: 'Pure Magic',
+    file: 'magic.mp3',
+    mood: 'magical',
+    icon: '🪄',
+    description: 'Pure magical essence'
   }
 ];
 
@@ -156,9 +172,25 @@ const MusicPlayer = () => {
       
       await audio.play();
       setIsPlaying(true);
+      console.log('🎵 Background music playing:', track.name);
       
     } catch (error) {
-      console.error('Error playing background music:', error);
+      console.log('🎵 Autoplay prevented for background music. User interaction needed.');
+      console.log('🎵 Track ready:', track.name);
+      setCurrentTrack(track);
+      setBackgroundTrack(track);
+      
+      // Show a subtle notification that music is ready but needs user interaction
+      if (window.dispatchEvent) {
+        const event = new CustomEvent('magicalNotification', {
+          detail: {
+            title: '🎵 Music Ready',
+            body: `${track.name} is ready to play. Click anywhere to start the music!`,
+            duration: 4000
+          }
+        });
+        window.dispatchEvent(event);
+      }
     }
   };
 

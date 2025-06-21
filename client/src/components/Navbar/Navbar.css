@@ -370,7 +370,12 @@
   }
 }
 
-/* House changing effect */
+/* Element changing effect */
+body.element-changing {
+  transition: all 0.5s ease;
+}
+
+/* House changing effect (legacy support) */
 body.house-changing {
   transition: all 0.5s ease;
 }

@@ -18,7 +18,7 @@ const Home = () => {
     currentStreak: 0
   });
 
-  const currentHouse = localStorage.getItem('selected_house') || 'gryffindor';
+  const currentHouse = localStorage.getItem('selected_element') || localStorage.getItem('selected_house') || 'moonlight';
   const houseInfo = getHouseInfo(currentHouse);
   const userName = localStorage.getItem('user_name') || 'Young Wizard';
 
@@ -139,7 +139,7 @@ const Home = () => {
           <div className="shelf-header">
             <h2 className="shelf-title">
               <span className="shelf-icon">📚</span>
-              Recent Diary Chronicles
+              Recent Memoir Chronicles
             </h2>
             <Link to="/diary" className="shelf-link">View All →</Link>
           </div>
@@ -255,7 +255,7 @@ const Home = () => {
         <div className="actions-grid">
           <Link to="/diary/new" className="action-card diary-action">
             <div className="action-icon">📝</div>
-            <div className="action-title">New Diary Entry</div>
+            <div className="action-title">New Memoir Entry</div>
             <div className="action-subtitle">Capture today's magic</div>
           </Link>
           

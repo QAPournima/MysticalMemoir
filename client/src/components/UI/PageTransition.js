@@ -25,7 +25,7 @@ const PageTransition = ({ children }) => {
         "Summoning the next page...",
         "Time-Turner spinning...",
         "Weaving magic...",
-        "Accessing Hogwarts archives...",
+        "Accessing mystical archives...",
         "Traveling through time..."
       ];
       

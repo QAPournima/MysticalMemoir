@@ -66,8 +66,8 @@ const Login = ({ onLogin }) => {
       <div className="auth-content">
         <div className="auth-header">
           <div className="app-logo">
-            <h1 className="logo-text">Harry Potter</h1>
-            <div className="logo-subtitle">Magical Diary</div>
+            <h1 className="logo-text">Mystical Memoir</h1>
+            <div className="logo-subtitle">Enchanted Journal</div>
           </div>
         </div>
 
@@ -76,7 +76,7 @@ const Login = ({ onLogin }) => {
           <div className="auth-form-header">
             <h2 className="auth-title">Welcome Back</h2>
             <p className="auth-subtitle">
-              Enter your credentials to access your magical diary
+              Enter your credentials to access your mystical memoir
             </p>
           </div>
 
@@ -97,7 +97,7 @@ const Login = ({ onLogin }) => {
                 value={formData.email}
                 onChange={handleChange}
                 className="magical-input"
-                placeholder="your.email@hogwarts.edu"
+                placeholder="your.email@example.com"
                 required
               />
             </div>
@@ -111,25 +111,25 @@ const Login = ({ onLogin }) => {
                 value={formData.password}
                 onChange={handleChange}
                 className="magical-input"
-                placeholder="Enter your magical password"
+                placeholder="Enter your mystical password"
                 required
               />
             </div>
 
             <button
               type="submit"
-              className={`auth-button ${currentHouse ? currentHouse + '-button' : 'gryffindor-button'}`}
+              className={`auth-button ${currentHouse ? currentHouse + '-button' : 'mystical-button'}`}
               disabled={isLoading}
             >
               {isLoading ? (
                 <>
                   <span className="loading-spinner"></span>
-                  Casting Spell...
+                  Connecting...
                 </>
               ) : (
                 <>
-                  <span className="button-icon">🪄</span>
-                  Enter the Magical World
+                  <span className="button-icon">✨</span>
+                  Enter the Mystical Realm
                 </>
               )}
             </button>
@@ -137,9 +137,9 @@ const Login = ({ onLogin }) => {
 
           <div className="auth-footer">
             <p className="auth-link-text">
-              New to the magical world?{' '}
+              New to the mystical realm?{' '}
               <Link to="/signup" className="auth-link">
-                Create your magical account
+                Create your mystical account
               </Link>
             </p>
           </div>

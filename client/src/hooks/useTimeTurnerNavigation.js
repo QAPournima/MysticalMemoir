@@ -27,14 +27,14 @@ export const useTimeTurnerNavigation = () => {
 
   const navigateToPage = (page) => {
     const messages = {
-      home: "Returning to magical library...",
-      diary: "Opening diary chronicles...",
-      todos: "Accessing magical quests...",
+      home: "Returning to mystical library...",
+      diary: "Opening memoir chronicles...",
+      todos: "Accessing mystical quests...",
       drawing: "Entering the art studio...",
       gallery: "Visiting the gallery...",
-      settings: "Adjusting magical preferences...",
+      settings: "Adjusting mystical preferences...",
       login: "Returning to entrance hall...",
-      signup: "Preparing for sorting ceremony..."
+      signup: "Preparing for element discovery..."
     };
 
     const message = messages[page] || "Weaving magic...";

@@ -3,12 +3,12 @@ import { useTheme } from '../../context/ThemeContext';
 import './Settings.css';
 
 const Settings = ({ currentHouse, setCurrentHouse }) => {
-  const { HOUSES, UI_THEMES, getHouseInfo, currentUITheme, changeUITheme, changeHouse, preferences, updatePreferences, sendMagicalNotification } = useTheme();
+  const { ELEMENTS, UI_THEMES, getElementInfo, currentUITheme, changeUITheme, changeElement, preferences, updatePreferences, sendMagicalNotification } = useTheme();
   
-  const handleHouseChange = (house) => {
-    console.log('🏠 Settings house change requested:', house);
-    setCurrentHouse(house);
-    changeHouse(house); // This will trigger the notification
+  const handleElementChange = (element) => {
+    console.log('✨ Settings element change requested:', element);
+    setCurrentHouse(element); // Keep for backwards compatibility
+    changeElement(element); // This will trigger the notification
   };
 
   const handlePreferenceChange = (key, value) => {
@@ -19,7 +19,7 @@ const Settings = ({ currentHouse, setCurrentHouse }) => {
     if (key === 'notifications' && value === true) {
       setTimeout(() => {
         sendMagicalNotification('Notifications Enabled!', {
-          body: 'You\'ll now receive magical updates from your diary! 🦉✨',
+          body: 'You\'ll now receive mystical updates from your memoir! 🌟✨',
           tag: 'notification-enabled'
         });
       }, 1000);
@@ -29,36 +29,36 @@ const Settings = ({ currentHouse, setCurrentHouse }) => {
   return (
     <div className="settings">
       <div className="settings-header">
-        <h1 className="magical-title">⚙️ Magical Settings</h1>
+        <h1 className="magical-title">⚙️ Mystical Settings</h1>
         <p className="settings-subtitle">
-          Customize your magical diary experience
+          Customize your mystical memoir experience
         </p>
       </div>
       
       <div className="settings-content">
-        {/* House Selection */}
+        {/* Element Selection */}
         <div className="settings-section magical-card">
-          <h3 className="section-title">🏰 Choose Your House</h3>
+          <h3 className="section-title">🌟 Choose Your Element</h3>
           <p className="section-description">
-            Select your Hogwarts house to customize the app's theme and experience.
+            Select your mystical element to customize the app's theme and experience.
           </p>
           
           <div className="house-grid">
-            {Object.entries(HOUSES).map(([key, house]) => (
+            {Object.entries(ELEMENTS).map(([key, element]) => (
               <button
                 key={key}
                 onClick={() => {
-                  console.log('🏠 House card clicked:', key, house.name);
-                  handleHouseChange(key);
+                  console.log('✨ Element card clicked:', key, element.name);
+                  handleElementChange(key);
                 }}
                 className={`house-card ${key === currentHouse ? 'selected' : ''}`}
               >
-                <div className="house-mascot">{house.mascot}</div>
+                <div className="house-mascot">{element.mascot}</div>
                 <div className="house-info">
-                  <h4 className="house-name">{house.name}</h4>
-                  <p className="house-founder">Founded by {house.founder}</p>
+                  <h4 className="house-name">{element.name}</h4>
+                  <p className="house-founder">{element.essence}</p>
                   <div className="house-traits">
-                    {house.traits.slice(0, 2).map((trait, index) => (
+                    {element.traits.slice(0, 2).map((trait, index) => (
                       <span key={index} className="trait">{trait}</span>
                     ))}
                   </div>
@@ -72,7 +72,7 @@ const Settings = ({ currentHouse, setCurrentHouse }) => {
         <div className="settings-section magical-card">
           <h3 className="section-title">🎨 Visual Themes</h3>
           <p className="section-description">
-            Choose the magical atmosphere and environment for your diary experience.
+            Choose the mystical atmosphere and environment for your memoir experience.
           </p>
           
           <div className="theme-grid">
@@ -156,7 +156,7 @@ const Settings = ({ currentHouse, setCurrentHouse }) => {
                    onClick={() => {
                      console.log('🧪 Testing general notification system...');
                      sendMagicalNotification('Test Notification', {
-                       body: 'This is a test notification to verify the system is working! 🦉✨',
+                       body: 'This is a test notification to verify the system is working! 🌟✨',
                        tag: 'test-notification'
                      });
                    }}
@@ -168,17 +168,17 @@ const Settings = ({ currentHouse, setCurrentHouse }) => {
                  
                  <button
                    onClick={() => {
-                     console.log('🏠 Testing house notification...');
-                     const houseInfo = getHouseInfo(currentHouse);
-                     sendMagicalNotification('House Test!', {
-                       body: `Welcome to ${houseInfo.name}! ${houseInfo.mascot} ${houseInfo.traits[0]} and ${houseInfo.traits[1]} await you! ⚡`,
-                       tag: 'house-test'
+                     console.log('✨ Testing element notification...');
+                     const elementInfo = getElementInfo(currentHouse);
+                     sendMagicalNotification('Element Test!', {
+                       body: `Welcome to ${elementInfo.name}! ${elementInfo.mascot} ${elementInfo.traits[0]} and ${elementInfo.traits[1]} await you! ⚡`,
+                       tag: 'element-test'
                      });
                    }}
                    className="magical-button"
                    style={{ fontSize: '0.9rem', padding: '8px 16px' }}
                  >
-                   🏠 Test House Notification
+                   🌟 Test Element Notification
                  </button>
                </div>
              )}
@@ -187,21 +187,21 @@ const Settings = ({ currentHouse, setCurrentHouse }) => {
 
         {/* About */}
         <div className="settings-section magical-card">
-          <h3 className="section-title">📖 About Magical Diary</h3>
+          <h3 className="section-title">📖 About Mystical Memoir</h3>
           <p className="about-text">
-            Welcome to your magical diary experience! This Harry Potter-themed journal app 
-            lets you capture your thoughts, create todo lists, draw magical artwork, and 
+            Welcome to your mystical memoir experience! This enchanted journal app 
+            lets you capture your thoughts, create todo lists, draw mystical artwork, and 
             share your memories with friends.
           </p>
           
           <div className="features-grid">
             <div className="feature-item">
               <span className="feature-icon">📝</span>
-              <span className="feature-text">Rich Text Diary Entries</span>
+              <span className="feature-text">Rich Text Memoir Entries</span>
             </div>
             <div className="feature-item">
               <span className="feature-icon">✅</span>
-              <span className="feature-text">Magical Todo Lists</span>
+              <span className="feature-text">Mystical Todo Lists</span>
             </div>
             <div className="feature-item">
               <span className="feature-icon">🎨</span>
@@ -213,7 +213,7 @@ const Settings = ({ currentHouse, setCurrentHouse }) => {
             </div>
             <div className="feature-item">
               <span className="feature-icon">✨</span>
-              <span className="feature-text">Magical Stickers</span>
+              <span className="feature-text">Mystical Stickers</span>
             </div>
             <div className="feature-item">
               <span className="feature-icon">📤</span>

@@ -12,7 +12,7 @@ import useAutoSave from '../../hooks/useAutoSave';
 import MagicalTimestamp from '../UI/MagicalTimestamp';
 import './DiaryEditor.css';
 
-// Magical diary responses inspired by interactive diary concept
+// Mystical memoir responses inspired by interactive journal concept
 const MAGICAL_RESPONSES = [
   {
     triggers: ['sad', 'upset', 'crying', 'hurt', 'pain', 'sadness', 'depressed', 'down'],
@@ -148,7 +148,7 @@ const DiaryEditor = () => {
   const [uploadingImage, setUploadingImage] = useState(false);
   const [currentEntry, setCurrentEntry] = useState(null);
   
-  // Magical diary interaction states
+  // Mystical memoir interaction states
   const [magicalMode, setMagicalMode] = useState(false);
   const [showMagicalResponse, setShowMagicalResponse] = useState(false);
   const [currentResponse, setCurrentResponse] = useState('');
@@ -211,7 +211,7 @@ const DiaryEditor = () => {
     }
   }, [magicalMode]);
 
-  // Magical diary interaction effect
+  // Mystical memoir interaction effect
   useEffect(() => {
     if (magicalMode && formData.content.length > 5) {
       console.log('Checking for magical response. Content:', formData.content);
@@ -787,7 +787,7 @@ const DiaryEditor = () => {
 
   const handleSave = async () => {
     if (!formData.title.trim()) {
-      alert('Please enter a title for your diary entry');
+      alert('Please enter a title for your memoir entry');
       return;
     }
 
@@ -803,15 +803,15 @@ const DiaryEditor = () => {
 
       if (isEditing) {
         await updateDiaryEntry(id, entryData);
-        sendMagicalNotification('Diary Entry Updated', {
-          body: `Your entry "${entryData.title}" has been magically preserved! ✨`,
-          tag: 'diary-update'
+        sendMagicalNotification('Memoir Entry Updated', {
+          body: `Your entry "${entryData.title}" has been mystically preserved! ✨`,
+          tag: 'memoir-update'
         });
       } else {
         await createDiaryEntry(entryData);
-        sendMagicalNotification('New Diary Entry Created', {
-          body: `Your magical thoughts about "${entryData.title}" have been recorded! 📖`,
-          tag: 'diary-create'
+        sendMagicalNotification('New Memoir Entry Created', {
+          body: `Your mystical thoughts about "${entryData.title}" have been recorded! 📖`,
+          tag: 'memoir-create'
         });
       }
       
@@ -905,12 +905,12 @@ const DiaryEditor = () => {
 
   const handleShare = async () => {
     try {
-      // Create a shareable image of the diary entry
+      // Create a shareable image of the memoir entry
       const element = editorRef.current;
       const canvas = await html2canvas(element);
       const image = canvas.toDataURL('image/png');
       
-      const shareText = `Check out my magical diary entry: "${formData.title}"`;
+      const shareText = `Check out my mystical memoir entry: "${formData.title}"`;
       const shareUrl = `${window.location.origin}/diary/${id}`;
       
       if (navigator.share) {
@@ -960,7 +960,7 @@ const DiaryEditor = () => {
           <div className="header-content">
             <h1 className="editor-title">
               <span className="house-mascot-circle">{houseInfo.mascot}</span>
-              {isEditing ? '✏️ Edit Entry' : '✨ New Magical Entry'}
+              {isEditing ? '✏️ Edit Entry' : '✨ New Mystical Entry'}
             </h1>
             
             <div className="editor-actions">
@@ -1028,9 +1028,9 @@ const DiaryEditor = () => {
           
           {magicalMode && (
             <div className="magical-mode-indicator magical-active">
-              ✨ <strong>Interactive Diary Mode Active</strong> ✨
+              ✨ <strong>Interactive Memoir Mode Active</strong> ✨
               <br />
-              <span className="mode-instruction">Write words like "hello", "happy", "sad", "scared", "love", "dream", "magic", or "friend" and watch the diary respond below your text!</span>
+              <span className="mode-instruction">Write words like "hello", "happy", "sad", "scared", "love", "dream", "magic", or "friend" and watch the memoir respond below your text!</span>
               <br />
               <span className="button-hints">🧪 <strong>Test Response</strong> | 🔄 <strong>Reset Triggers</strong> | 🪄 <strong>Get Writing Prompt</strong></span>
             </div>
@@ -1109,7 +1109,7 @@ const DiaryEditor = () => {
               <button
                 onClick={handleModeToggleClick}
                 className={`magical-mode-btn ${magicalMode ? 'active' : ''}`}
-                title={magicalMode ? 'Exit interactive mode and restore your draft' : 'Enter interactive diary mode'}
+                title={magicalMode ? 'Exit interactive mode and restore your draft' : 'Enter interactive memoir mode'}
                 style={{
                   backgroundColor: magicalMode ? houseColors.accent : houseColors.primary,
                   color: 'white',
@@ -1222,7 +1222,7 @@ const DiaryEditor = () => {
               value={formData.content}
               onChange={(content) => setFormData(prev => ({ ...prev, content }))}
               modules={quillModules}
-              placeholder={magicalMode ? "The diary awaits your deepest thoughts..." : "Write your magical thoughts here..."}
+              placeholder={magicalMode ? "The memoir awaits your deepest thoughts..." : "Write your mystical thoughts here..."}
               className={`content-quill ${magicalMode ? 'magical-mode-active' : ''}`}
             />
             
@@ -1269,7 +1269,7 @@ const DiaryEditor = () => {
             >
               <div className="sticker-picker magical-card">
                 <h3>✨ Choose Magical Stickers</h3>
-                <p className="sticker-instruction">Click a sticker to add it to your diary entry</p>
+                <p className="sticker-instruction">Click a sticker to add it to your memoir entry</p>
                 <div className="sticker-categories">
                   <div className="category-section">
                     <h4>🪄 Magical</h4>
@@ -1440,7 +1440,7 @@ const DiaryEditor = () => {
               exit={{ opacity: 0, scale: 0.9 }}
             >
               <div className="modal-header">
-                <h3>🖋️ Switch to Interactive Diary Mode?</h3>
+                <h3>🖋️ Switch to Interactive Memoir Mode?</h3>
               </div>
               
               <div className="modal-content">

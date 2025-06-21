@@ -36,7 +36,7 @@ html, body {
 }
 
 /* Force transparent backgrounds for most elements */
-.sorting-ceremony *:not(.insight-text):not(.answer-option):not(.trait-badge):not(.enter-hogwarts-btn):not(.start-ceremony-btn):not(.skip-button):not(.magical-background):not(.stars):not(.floating-symbol) {
+.sorting-ceremony *:not(.insight-text):not(.answer-option):not(.trait-badge):not(.enter-mystical-realm-btn):not(.start-ceremony-btn):not(.skip-button):not(.magical-background):not(.stars):not(.floating-symbol) {
   background: transparent !important;
   background-color: transparent !important;
 }
@@ -751,8 +751,8 @@ html, body {
   background: transparent;
 }
 
-/* Enter Hogwarts Button */
-.enter-hogwarts-btn {
+/* Enter Mystical Realm Button */
+.enter-mystical-realm-btn {
   background: linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7);
   color: white;
   border: none;
@@ -773,32 +773,32 @@ html, body {
   border: 3px solid transparent;
 }
 
-.enter-hogwarts-btn.gryffindor {
+.enter-mystical-realm-btn.gryffindor {
   background: linear-gradient(135deg, #B8860B, #FF6600, #D3A625);
   border-color: #D3A625;
   box-shadow: 0 10px 30px rgba(255, 102, 0, 0.5);
 }
 
-.enter-hogwarts-btn.slytherin {
+.enter-mystical-realm-btn.slytherin {
   background: linear-gradient(135deg, #1B5E20, #2E7D32, #C0C0C0);
   border-color: #C0C0C0;
   box-shadow: 0 10px 30px rgba(27, 94, 32, 0.5);
 }
 
-.enter-hogwarts-btn.ravenclaw {
+.enter-mystical-realm-btn.ravenclaw {
   background: linear-gradient(135deg, #0c2f57, #1565C0, #CD7F32);
   border-color: #CD7F32;
   box-shadow: 0 10px 30px rgba(12, 47, 87, 0.5);
 }
 
-.enter-hogwarts-btn.hufflepuff {
+.enter-mystical-realm-btn.hufflepuff {
   background: linear-gradient(135deg, #FFDB00, #F57C00, #000000);
   border-color: #000000;
   box-shadow: 0 10px 30px rgba(255, 219, 0, 0.5);
   color: #000000;
 }
 
-.enter-hogwarts-btn:hover {
+.enter-mystical-realm-btn:hover {
   transform: translateY(-3px);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
 }
@@ -1280,7 +1280,7 @@ html, body {
     padding: 0 15px;
   }
 
-  .enter-hogwarts-btn {
+  .enter-mystical-realm-btn {
     padding: 16px 32px;
     font-size: 1.1rem;
   }
@@ -1413,7 +1413,7 @@ html, body {
     padding: 0 10px;
   }
 
-  .enter-hogwarts-btn {
+  .enter-mystical-realm-btn {
     padding: 12px 24px;
     font-size: 0.9rem;
   }

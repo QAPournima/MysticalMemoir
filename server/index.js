@@ -37,7 +37,7 @@ app.use('/api/drawings', drawingRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'OK', message: 'Magical diary server is running!' });
+  res.json({ status: 'OK', message: 'Mystical memoir server is running!' });
 });
 
 // Serve React app for all other routes
@@ -48,11 +48,11 @@ app.get('*', (req, res) => {
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).json({ error: 'Something magical went wrong!' });
+  res.status(500).json({ error: 'Something mystical went wrong!' });
 });
 
 app.listen(PORT, () => {
-  console.log(`🪄 Magical diary server is running on port ${PORT}`);
+  console.log(`🪄 Mystical memoir server is running on port ${PORT}`);
 });
 
 module.exports = app; 

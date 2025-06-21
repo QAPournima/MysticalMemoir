@@ -7,79 +7,77 @@ const ThemeAnimations = () => {
   const currentTheme = getCurrentUITheme();
   const [particles, setParticles] = useState([]);
 
-  // Theme-specific particle configurations
-  const themeConfigs = {
+  const themeAnimations = {
     default: {
-      leftParticles: ['✨', '🪄', '⚡', '📜', '🏰', '🦉'],
-      rightParticles: ['🕯️', '📖', '🔮', '⭐', '🌟', '✨'],
-      colors: ['#D4AF37', '#8B4513', '#FFD700'],
-      particleCount: 8
+      name: 'Classic Mystical',
+      particles: ['✨', '⭐', '🌟', '💫'],
+      background: null,
+      animationName: 'defaultBackgroundAnimation',
+      description: 'Classic mystical atmosphere'
     },
-    darkArts: {
-      leftParticles: ['🕷️', '🦇', '💀', '🐍', '⚡', '🌑', '🔮', '🗝️'],
-      rightParticles: ['🕯️', '📿', '🔥', '💨', '👁️', '🌫️', '⚰️', '🎭'],
-      colors: ['#4A148C', '#2D1B2E', '#6A1B9A'],
-      particleCount: 12
+    shadowRealm: {
+      name: 'Shadow Realm',
+      particles: ['🕷️', '🦇', '💀', '⚡'],
+      background: null,
+      animationName: 'shadowRealmAnimation',
+      description: 'Dark and mysterious realm'
     },
-    hogwartsSnow: {
-      leftParticles: ['❄️', '☃️', '🎄', '🦌', '⭐', '🌨️', '🕯️'],
-      rightParticles: ['🏰', '✨', '🌟', '❄️', '☃️', '🎄', '🦉'],
-      colors: ['#ffffff', '#d4af37', '#1b1b2f'],
-      particleCount: 16
+    winterWonderland: {
+      name: 'Winter Wonderland',
+      particles: ['❄️', '⛄', '🎄', '⭐'],
+      background: null,
+      animationName: 'winterWonderlandAnimation',
+      description: 'Mystical winter landscape'
     },
-    greatHall: {
-      leftParticles: ['🕯️', '🍖', '🍞', '🏆', '🦉', '✨', '🍷', '🧙‍♂️'],
-      rightParticles: ['🕯️', '🍯', '🧺', '🪙', '👑', '🔥', '🏆', '✨'],
-      colors: ['#FBBF24', '#F59E0B', '#D97706'],
-      particleCount: 12
+    mysticMarket: {
+      name: 'Mystic Market',
+      particles: ['🪙', '📚', '🔮', '⚡'],
+      background: null,
+      animationName: 'mysticMarketAnimation',
+      description: 'Bustling marketplace'
     },
-    diagonAlley: {
-      leftParticles: ['🪙', '📚', '🔮', '🦉', '📜', '⚡', '🛍️', '🗝️'],
-      rightParticles: ['🏪', '🛍️', '💰', '🪄', '📖', '✨', '🎪', '🔮'],
-      colors: ['#059669', '#7C3AED', '#F59E0B'],
-      particleCount: 12
-    },
-    triwizard: {
-      leftParticles: ['🏆', '🔥', '🐉', '⚡', '🪄', '⭐', '🛡️', '⚔️'],
-      rightParticles: ['🏆', '🛡️', '⚔️', '🦅', '🐍', '🦡', '🐉', '🔥'],
-      colors: ['#B91C1C', '#1D4ED8', '#FBBF24'],
-      particleCount: 14
-    },
-    greenhouse: {
-      leftParticles: ['🌿', '🌱', '🌸', '🍄', '🦋', '🐛', '🌻', '🌺'],
-      rightParticles: ['🌻', '🌺', '🍃', '🌷', '🌹', '✨', '🌿', '🦋'],
-      colors: ['#15803D', '#84CC16', '#FDE047'],
-      particleCount: 14
+    enchantedGarden: {
+      name: 'Enchanted Garden',
+      particles: ['🌿', '🌸', '🦋', '🌻'],
+      background: null,
+      animationName: 'enchantedGardenAnimation',
+      description: 'Botanical wonderland'
     }
+  };
 
+  // Legacy theme name mapping for backwards compatibility
+  const legacyThemeMapping = {
+    'Classic Mystical': 'default',
+    'Shadow Realm': 'shadowRealm',
+    'Winter Wonderland': 'winterWonderland',
+    'Mystic Market': 'mysticMarket',
+    'Enchanted Garden': 'enchantedGarden'
   };
 
   useEffect(() => {
     // Map theme names to config keys
     const themeNameMap = {
-      'Classic Hogwarts': 'default',
-      'Dark Arts': 'darkArts',
-      'Hogwarts in the Snow': 'hogwartsSnow',
-      'Great Hall': 'greatHall',
-      'Diagon Alley': 'diagonAlley',
-      'Triwizard Tournament': 'triwizard',
-      "Professor Sprout's Greenhouse": 'greenhouse'
+      'Classic Mystical': 'default',
+      'Shadow Realm': 'shadowRealm',
+      'Winter Wonderland': 'winterWonderland',
+      'Mystic Market': 'mysticMarket',
+      'Enchanted Garden': 'enchantedGarden'
     };
     
     const configKey = themeNameMap[currentTheme.name] || 'default';
-    const config = themeConfigs[configKey];
+    const config = themeAnimations[configKey];
     
     console.log('🎨 ThemeAnimations: Active theme:', currentTheme.name, '-> Config:', configKey);
     
     // Generate particles for left and right sides
     const newParticles = [];
-    const particleCount = config.particleCount;
+    const particleCount = config.particles.length;
 
     // Left side particles
     for (let i = 0; i < particleCount / 2; i++) {
       newParticles.push({
         id: `left-${i}`,
-        symbol: config.leftParticles[i % config.leftParticles.length],
+        symbol: config.particles[i % config.particles.length],
         side: 'left',
         animationDelay: Math.random() * 10,
         duration: 15 + Math.random() * 10,
@@ -93,7 +91,7 @@ const ThemeAnimations = () => {
     for (let i = 0; i < particleCount / 2; i++) {
       newParticles.push({
         id: `right-${i}`,
-        symbol: config.rightParticles[i % config.rightParticles.length],
+        symbol: config.particles[i % config.particles.length],
         side: 'right',
         animationDelay: Math.random() * 10,
         duration: 15 + Math.random() * 10,
@@ -104,6 +102,17 @@ const ThemeAnimations = () => {
     }
 
     setParticles(newParticles);
+
+    // Apply background animation
+    const backgroundElement = document.querySelector('.magical-background');
+    const animationName = config.animationName;
+    if (backgroundElement && animationName) {
+      backgroundElement.style.animation = `${animationName} 20s ease-in-out infinite`;
+      backgroundElement.style.animationDelay = '0s';
+      backgroundElement.style.animationFillMode = 'both';
+    } else if (backgroundElement) {
+      backgroundElement.style.animation = 'defaultBackgroundAnimation 30s ease-in-out infinite';
+    }
   }, [currentTheme]);
 
   return (
@@ -170,7 +179,7 @@ const ThemeAnimations = () => {
 
       {/* Theme-specific floating elements */}
       <div className="floating-theme-elements">
-        {currentTheme.name === 'Dark Arts' && (
+        {currentTheme.name === 'Shadow Realm' && (
           <>
             <div className="dark-smoke smoke-1"></div>
             <div className="dark-smoke smoke-2"></div>
@@ -187,7 +196,7 @@ const ThemeAnimations = () => {
           </>
         )}
         
-        {currentTheme.name === 'Hogwarts in the Snow' && (
+        {currentTheme.name === 'Winter Wonderland' && (
           <div className="snow-overlay">
             {[...Array(30)].map((_, i) => (
               <div key={`snow-${i}`} className={`snowflake snowflake-${i % 6}`}>❄</div>
@@ -200,32 +209,28 @@ const ThemeAnimations = () => {
             {[...Array(10)].map((_, i) => (
               <div key={`candle-${i}`} className={`floating-candle-snow candle-snow-${i}`}>🕯️</div>
             ))}
-            <div className="flying-owl">🦉</div>
+            <div className="flying-owl"></div>
           </div>
         )}
         
-        {currentTheme.name === 'Great Hall' && (
-          <div className="candle-glow-overlay">
+        {currentTheme.name === 'Mystic Market' && (
+          <div className="market-overlay">
             {[...Array(6)].map((_, i) => (
-              <div key={i} className={`floating-candle candle-${i}`}>🕯️</div>
+              <div key={`coin-${i}`} className={`floating-coin coin-${i}`}>🪙</div>
+            ))}
+            {[...Array(4)].map((_, i) => (
+              <div key={`book-${i}`} className={`floating-book book-${i}`}>📚</div>
+            ))}
+            {[...Array(5)].map((_, i) => (
+              <div key={`crystal-${i}`} className={`floating-crystal crystal-${i}`}>🔮</div>
+            ))}
+            {[...Array(3)].map((_, i) => (
+              <div key={`owl-${i}`} className={`market-owl owl-${i}`}>🦉</div>
             ))}
           </div>
         )}
         
-        {currentTheme.name === 'Triwizard Tournament' && (
-          <div className="tournament-overlay">
-            {[...Array(6)].map((_, i) => (
-              <div key={`trophy-${i}`} className={`floating-trophy trophy-${i}`}>🏆</div>
-            ))}
-            {[...Array(8)].map((_, i) => (
-              <div key={`champion-${i}`} className={`champion-element champion-${i % 4}`}>
-                {i % 4 === 0 ? '🔥' : i % 4 === 1 ? '🐉' : i % 4 === 2 ? '⚡' : '🪄'}
-              </div>
-            ))}
-          </div>
-        )}
-        
-        {(currentTheme.name === "Professor Sprout's Greenhouse" || currentTheme.name?.includes('Greenhouse')) && (
+        {(currentTheme.name === 'Enchanted Garden' || currentTheme.name?.includes('Garden')) && (
           <div className="nature-overlay">
             {[...Array(8)].map((_, i) => (
               <div key={`leaf-${i}`} className={`floating-leaf leaf-${i}`}>🍃</div>

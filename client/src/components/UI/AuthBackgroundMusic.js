@@ -5,6 +5,7 @@ import './AuthBackgroundMusic.css';
 const AuthBackgroundMusic = ({ isPlaying = true }) => {
   const [isMuted, setIsMuted] = useState(false);
   const [volume, setVolume] = useState(0.3); // Soft volume
+  const [musicReady, setMusicReady] = useState(false);
   const audioRef = useRef(null);
 
   useEffect(() => {
@@ -25,9 +26,15 @@ const AuthBackgroundMusic = ({ isPlaying = true }) => {
       
       const playPromise = audio.play();
       if (playPromise !== undefined) {
-        playPromise.catch(error => {
-          console.log('Audio autoplay prevented:', error);
-        });
+        playPromise
+          .then(() => {
+            console.log('🎵 Music started successfully');
+            setMusicReady(true);
+          })
+          .catch(error => {
+            console.log('🎵 Audio autoplay prevented by browser:', error);
+            console.log('🎵 User will need to click to enable music');
+          });
       }
     } else {
       audio.pause();
@@ -39,6 +46,33 @@ const AuthBackgroundMusic = ({ isPlaying = true }) => {
       }
     };
   }, [isPlaying, isMuted, volume]);
+
+  const handleUserInteraction = async () => {
+    const audio = audioRef.current;
+    if (audio && isPlaying && !isMuted) {
+      try {
+        await audio.play();
+        console.log('🎵 Music started after user interaction');
+        setMusicReady(true);
+      } catch (error) {
+        console.error('🎵 Error playing music:', error);
+      }
+    }
+  };
+
+  // Add click listener to enable music on user interaction
+  useEffect(() => {
+    const handleClick = () => {
+      handleUserInteraction();
+    };
+
+    document.addEventListener('click', handleClick, { once: true });
+    return () => {
+      document.removeEventListener('click', handleClick);
+    };
+  }, [isPlaying, isMuted]);
+
+
 
   const toggleMute = () => {
     const newMuteState = !isMuted;
@@ -58,7 +92,7 @@ const AuthBackgroundMusic = ({ isPlaying = true }) => {
     <>
       <audio
         ref={audioRef}
-        src="/HP background sound/dark-secrets-at-the-black-castle-163584.mp3"
+        src="/HP background sound/the-magic-tree.mp3"
         preload="auto"
       />
       
@@ -74,7 +108,7 @@ const AuthBackgroundMusic = ({ isPlaying = true }) => {
             className={`mute-btn ${isMuted ? 'muted' : 'unmuted'}`}
             title={isMuted ? 'Unmute background music' : 'Mute background music'}
           >
-            {isMuted ? '🔇' : '🎵'}
+            {isMuted ? '🔇' : musicReady ? '🎵' : '🎵'}
           </button>
           
           {!isMuted && (
@@ -99,7 +133,9 @@ const AuthBackgroundMusic = ({ isPlaying = true }) => {
         </div>
         
         <div className="music-info">
-          <span className="music-label">🎼 Hogwarts Ambience</span>
+          <span className="music-label">
+            🎼 {musicReady ? 'Mystical Ambience' : 'Music Ready'}
+          </span>
         </div>
       </motion.div>
     </>

@@ -98,8 +98,8 @@ function AppContent() {
   if (isLoading) {
     const loadingMessages = [
       "Loading magical content...",
-      "Summoning Hogwarts houses...",
-      "Preparing magical diary...",
+      "Summoning mystical elements...",
+      "Preparing mystical memoir...",
       "Casting loading spells...",
       "Accessing magical archives...",
       "Weaving house magic..."

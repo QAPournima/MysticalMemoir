@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
-import SortingCeremony from './SortingCeremony';
+import ElementDiscovery from './SortingCeremony';
 import AuthBackgroundMusic from '../UI/AuthBackgroundMusic';
 import './Auth.css';
 
 const SignUp = ({ onSignUp }) => {
-  const { HOUSES, getHouseInfo } = useTheme();
+  const { ELEMENTS, getElementInfo } = useTheme();
   const navigate = useNavigate();
-  const [currentStep, setCurrentStep] = useState('form'); // 'form', 'sorting', 'complete'
+  const [currentStep, setCurrentStep] = useState('form'); // 'form', 'discovery', 'complete'
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -16,12 +16,12 @@ const SignUp = ({ onSignUp }) => {
     password: '',
     confirmPassword: '',
     dateOfBirth: '',
-    selectedHouse: ''
+    selectedElement: ''
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const houseInfo = formData.selectedHouse ? getHouseInfo(formData.selectedHouse) : null;
+  const elementInfo = formData.selectedElement ? getElementInfo(formData.selectedElement) : null;
 
   const handleChange = (e) => {
     setFormData({
@@ -48,8 +48,8 @@ const SignUp = ({ onSignUp }) => {
       // Simulate form validation
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Move to sorting ceremony
-      setCurrentStep('sorting');
+      // Move to element discovery
+      setCurrentStep('discovery');
     } catch (err) {
       setError(err.message || 'Please check your information and try again.');
     } finally {
@@ -57,16 +57,17 @@ const SignUp = ({ onSignUp }) => {
     }
   };
 
-  const handleSortingComplete = async (sortedHouse) => {
+  const handleDiscoveryComplete = async (discoveredElement) => {
     try {
-      // Save user data with sorted house
+      // Save user data with discovered element
       localStorage.setItem('user_authenticated', 'true');
       localStorage.setItem('user_email', formData.email);
       localStorage.setItem('user_name', `${formData.firstName} ${formData.lastName}`);
-      localStorage.setItem('selected_house', sortedHouse);
+      localStorage.setItem('selected_house', discoveredElement); // Keep for backwards compatibility
+      localStorage.setItem('selected_element', discoveredElement);
       
       // Update form data
-      setFormData(prev => ({ ...prev, selectedHouse: sortedHouse }));
+      setFormData(prev => ({ ...prev, selectedElement: discoveredElement }));
       
       // Complete signup and navigate to home
       if (onSignUp) onSignUp();
@@ -80,11 +81,11 @@ const SignUp = ({ onSignUp }) => {
     }
   };
 
-  // Show sorting ceremony if in sorting step
-  if (currentStep === 'sorting') {
+  // Show element discovery if in discovery step
+  if (currentStep === 'discovery') {
     return (
-      <SortingCeremony 
-        onSorted={handleSortingComplete}
+      <ElementDiscovery 
+        onSorted={handleDiscoveryComplete}
         userName={`${formData.firstName} ${formData.lastName}`}
         userData={formData}
       />
@@ -108,8 +109,8 @@ const SignUp = ({ onSignUp }) => {
       <div className="auth-content">
         <div className="auth-header">
           <div className="app-logo">
-            <h1 className="logo-text">Harry Potter</h1>
-            <div className="logo-subtitle">Magical Diary</div>
+            <h1 className="logo-text">Mystical Memoir</h1>
+            <div className="logo-subtitle">Enchanted Journal</div>
           </div>
         </div>
 
@@ -118,7 +119,7 @@ const SignUp = ({ onSignUp }) => {
           <div className="auth-form-header">
             <h2 className="auth-title">Begin Your Journey</h2>
             <p className="auth-subtitle">
-              Enter your details to proceed to the Sorting Ceremony
+              Enter your details to proceed to Element Discovery
             </p>
           </div>
 
@@ -140,7 +141,7 @@ const SignUp = ({ onSignUp }) => {
                   value={formData.firstName}
                   onChange={handleChange}
                   className="magical-input"
-                  placeholder="Harry"
+                  placeholder="Your first name"
                   required
                 />
               </div>
@@ -154,7 +155,7 @@ const SignUp = ({ onSignUp }) => {
                   value={formData.lastName}
                   onChange={handleChange}
                   className="magical-input"
-                  placeholder="Potter"
+                  placeholder="Your last name"
                   required
                 />
               </div>
@@ -169,7 +170,7 @@ const SignUp = ({ onSignUp }) => {
                 value={formData.email}
                 onChange={handleChange}
                 className="magical-input"
-                placeholder="your.email@hogwarts.edu"
+                placeholder="your.email@example.com"
                 required
               />
             </div>
@@ -197,7 +198,7 @@ const SignUp = ({ onSignUp }) => {
                   value={formData.password}
                   onChange={handleChange}
                   className="magical-input"
-                  placeholder="Create a magical password"
+                  placeholder="Create a secure password"
                   required
                 />
               </div>
@@ -219,18 +220,18 @@ const SignUp = ({ onSignUp }) => {
 
             <button
               type="submit"
-              className="auth-button gryffindor-button"
+              className="auth-button mystical-button"
               disabled={isLoading}
             >
               {isLoading ? (
                 <>
                   <span className="loading-spinner"></span>
-                  Preparing for Sorting...
+                  Preparing for Discovery...
                 </>
               ) : (
                 <>
-                  <img src="/image/SortingHat .gif" alt="Sorting Hat" className="button-icon" />
-                  Continue to Sorting Ceremony
+                  <img src="/image/SortingHat .gif" alt="Mystic Oracle" className="button-icon" />
+                  Continue to Element Discovery
                 </>
               )}
             </button>
@@ -239,18 +240,18 @@ const SignUp = ({ onSignUp }) => {
           <div className="auth-footer">
             <div className="auth-footer-buttons">
               <Link to="/login" className="auth-secondary-button">
-                <span className="button-icon">🏰</span>
+                <span className="button-icon">✨</span>
                 Back to Login
               </Link>
             </div>
             <p className="auth-link-text">
-              Already have a magical account?
+              Already have an account?
             </p>
           </div>
 
           <div className="house-badge">
             <div className="house-info">
-              <img src="/image/SortingHat .gif" alt="Sorting Hat" className="house-mascot-only-gif" />
+              <img src="/image/SortingHat .gif" alt="Mystic Oracle" className="house-mascot-only-gif" />
             </div>
           </div>
         </div>

@@ -225,7 +225,7 @@
   }
 }
 
-/* Hogwarts Snow */
+/* Winter Wonderland Snow */
 .snow-overlay {
   position: absolute;
   top: 0;
@@ -358,136 +358,6 @@
   }
   100% { 
     transform: translateX(calc(100vw + 100px)) translateY(0px) rotate(0deg); 
-    opacity: 0;
-  }
-}
-
-/* Great Hall Candles */
-.candle-glow-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.floating-candle {
-  position: absolute;
-  font-size: 1.5rem;
-  animation: candleFloat 15s ease-in-out infinite;
-  filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.6));
-}
-
-.candle-0 { left: 5%; animation-delay: 0s; }
-.candle-1 { left: 15%; animation-delay: 3s; }
-.candle-2 { right: 15%; animation-delay: 6s; }
-.candle-3 { right: 5%; animation-delay: 9s; }
-.candle-4 { left: 50%; animation-delay: 12s; }
-.candle-5 { right: 50%; animation-delay: 15s; }
-
-@keyframes candleFloat {
-  0%, 100% {
-    transform: translateY(100vh) rotate(0deg);
-    opacity: 0;
-  }
-  10% {
-    opacity: 0.8;
-  }
-  50% {
-    transform: translateY(50vh) rotate(180deg);
-    opacity: 0.8;
-  }
-  90% {
-    opacity: 0.8;
-  }
-}
-
-/* Triwizard Tournament Overlay */
-.tournament-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.floating-trophy {
-  position: absolute;
-  font-size: 1.8rem;
-  animation: trophyFloat 12s ease-in-out infinite;
-  filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.8)) drop-shadow(0 0 24px rgba(185, 28, 28, 0.6));
-  opacity: 0.9;
-}
-
-.trophy-0 { left: 10%; top: 20%; animation-delay: 0s; animation-duration: 10s; }
-.trophy-1 { left: 30%; top: 70%; animation-delay: 2s; animation-duration: 12s; }
-.trophy-2 { left: 70%; top: 15%; animation-delay: 4s; animation-duration: 11s; }
-.trophy-3 { left: 85%; top: 60%; animation-delay: 1s; animation-duration: 13s; }
-.trophy-4 { left: 50%; top: 40%; animation-delay: 3s; animation-duration: 9s; }
-.trophy-5 { left: 15%; top: 80%; animation-delay: 5s; animation-duration: 14s; }
-
-@keyframes trophyFloat {
-  0% { 
-    transform: translateY(0) scale(0.9) rotate(0deg);
-    opacity: 0.7;
-  }
-  25% {
-    transform: translateY(-15px) scale(1.1) rotate(5deg);
-    opacity: 0.9;
-  }
-  50% { 
-    transform: translateY(-30px) scale(1) rotate(0deg);
-    opacity: 1;
-  }
-  75% {
-    transform: translateY(-15px) scale(1.1) rotate(-5deg);
-    opacity: 0.9;
-  }
-  100% { 
-    transform: translateY(0) scale(0.9) rotate(0deg);
-    opacity: 0.7;
-  }
-}
-
-/* Champion Elements */
-.champion-element {
-  position: absolute;
-  font-size: 1.6rem;
-  animation: championFloat linear infinite;
-  opacity: 0.8;
-  filter: drop-shadow(0 0 8px rgba(185, 28, 28, 0.8)) drop-shadow(0 0 16px rgba(29, 78, 216, 0.6));
-}
-
-.champion-0 { left: 12%; animation-duration: 16s; animation-delay: 0s; }
-.champion-1 { left: 35%; animation-duration: 20s; animation-delay: 3s; }
-.champion-2 { left: 60%; animation-duration: 18s; animation-delay: 6s; }
-.champion-3 { left: 80%; animation-duration: 22s; animation-delay: 9s; }
-
-@keyframes championFloat {
-  0% {
-    transform: translateY(110vh) translateX(0) rotate(0deg) scale(0.8);
-    opacity: 0;
-  }
-  5% {
-    opacity: 0.8;
-  }
-  20% {
-    transform: translateY(80vh) translateX(-15px) rotate(45deg) scale(1.1);
-  }
-  40% {
-    transform: translateY(60vh) translateX(20px) rotate(180deg) scale(0.9);
-  }
-  60% {
-    transform: translateY(40vh) translateX(-10px) rotate(270deg) scale(1.2);
-  }
-  80% {
-    transform: translateY(20vh) translateX(15px) rotate(315deg) scale(1);
-  }
-  95% {
-    opacity: 0.8;
-  }
-  100% {
-    transform: translateY(-100px) translateX(0) rotate(360deg) scale(0.8);
     opacity: 0;
   }
 }
@@ -637,19 +507,102 @@
   }
 }
 
+/* Mystic Market Floating Elements */
+.market-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.floating-coin {
+  position: absolute;
+  animation: floatCoin 6s ease-in-out infinite;
+  font-size: 1.5rem;
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.8));
+}
+
+.coin-0 { top: 15%; left: 10%; animation-delay: 0s; }
+.coin-1 { top: 25%; right: 15%; animation-delay: 1s; }
+.coin-2 { top: 35%; left: 20%; animation-delay: 2s; }
+.coin-3 { top: 60%; right: 25%; animation-delay: 1.5s; }
+.coin-4 { top: 75%; left: 30%; animation-delay: 0.5s; }
+.coin-5 { top: 45%; right: 10%; animation-delay: 2.5s; }
+
+@keyframes floatCoin {
+  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+  50% { transform: translateY(-15px) rotate(180deg); opacity: 1; }
+}
+
+.floating-book {
+  position: absolute;
+  animation: floatBook 8s ease-in-out infinite;
+  font-size: 1.3rem;
+  filter: drop-shadow(0 0 6px rgba(139, 69, 19, 0.6));
+}
+
+.book-0 { top: 20%; left: 15%; animation-delay: 0s; }
+.book-1 { top: 50%; right: 20%; animation-delay: 2s; }
+.book-2 { top: 70%; left: 25%; animation-delay: 4s; }
+.book-3 { top: 40%; right: 30%; animation-delay: 3s; }
+
+@keyframes floatBook {
+  0%, 100% { transform: translateY(0) rotate(-2deg); opacity: 0.6; }
+  25% { transform: translateY(-8px) rotate(2deg); opacity: 0.8; }
+  75% { transform: translateY(-12px) rotate(-1deg); opacity: 0.9; }
+}
+
+.floating-crystal {
+  position: absolute;
+  animation: floatCrystal 7s ease-in-out infinite;
+  font-size: 1.4rem;
+  filter: drop-shadow(0 0 10px rgba(138, 43, 226, 0.7));
+}
+
+.crystal-0 { top: 10%; left: 25%; animation-delay: 0s; }
+.crystal-1 { top: 30%; right: 10%; animation-delay: 1.4s; }
+.crystal-2 { top: 55%; left: 15%; animation-delay: 2.8s; }
+.crystal-3 { top: 80%; right: 20%; animation-delay: 1s; }
+.crystal-4 { top: 65%; left: 35%; animation-delay: 2s; }
+
+@keyframes floatCrystal {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.8; }
+  33% { transform: translateY(-10px) scale(1.1); opacity: 1; }
+  66% { transform: translateY(-5px) scale(0.95); opacity: 0.9; }
+}
+
+.market-owl {
+  position: absolute;
+  animation: flyMarketOwl 12s linear infinite;
+  font-size: 1.6rem;
+  filter: drop-shadow(0 0 8px rgba(101, 67, 33, 0.6));
+}
+
+.owl-0 { top: 20%; animation-delay: 0s; }
+.owl-1 { top: 40%; animation-delay: 4s; }
+.owl-2 { top: 65%; animation-delay: 8s; }
+
+@keyframes flyMarketOwl {
+  0% { left: -50px; transform: scale(1); }
+  25% { left: 25%; transform: scale(1.1); }
+  50% { left: 50%; transform: scale(1); }
+  75% { left: 75%; transform: scale(1.1); }
+  100% { left: calc(100% + 50px); transform: scale(1); }
+}
+
 /* Performance optimizations */
 .magical-particle,
 .snowflake,
 .winter-element,
-.floating-candle,
 .floating-candle-snow,
 .flying-owl,
 .floating-leaf,
 .dark-smoke,
 .shadow-element,
 .dark-orb,
-.floating-trophy,
-.champion-element,
 .floating-flower,
 .flying-butterfly {
   will-change: transform, opacity;
@@ -696,20 +649,28 @@
     font-size: 1.2rem;
   }
   
-  .floating-trophy {
-    font-size: 1.4rem;
-  }
-  
-  .champion-element {
-    font-size: 1.3rem;
-  }
-  
   .floating-flower {
     font-size: 1.1rem;
   }
   
   .flying-butterfly {
     font-size: 1rem;
+  }
+
+  .floating-coin {
+    font-size: 1.2rem;
+  }
+
+  .floating-book {
+    font-size: 1.1rem;
+  }
+
+  .floating-crystal {
+    font-size: 1.2rem;
+  }
+
+  .market-owl {
+    font-size: 1.3rem;
   }
 }
 
@@ -751,20 +712,28 @@
     font-size: 0.8rem;
   }
   
-  .floating-trophy {
-    font-size: 1.1rem;
-  }
-  
-  .champion-element {
-    font-size: 1rem;
-  }
-  
   .floating-flower {
     font-size: 0.9rem;
   }
   
   .flying-butterfly {
     font-size: 0.8rem;
+  }
+
+  .floating-coin {
+    font-size: 1rem;
+  }
+
+  .floating-book {
+    font-size: 0.9rem;
+  }
+
+  .floating-crystal {
+    font-size: 1rem;
+  }
+
+  .market-owl {
+    font-size: 1.1rem;
   }
 }
 
@@ -773,17 +742,18 @@
   .magical-particle,
   .snowflake,
   .winter-element,
-  .floating-candle,
   .floating-candle-snow,
   .flying-owl,
   .floating-leaf,
   .dark-smoke,
   .shadow-element,
   .dark-orb,
-  .floating-trophy,
-  .champion-element,
   .floating-flower,
-  .flying-butterfly {
+  .flying-butterfly,
+  .floating-coin,
+  .floating-book,
+  .floating-crystal,
+  .market-owl {
     animation-duration: 60s;
     animation-iteration-count: 1;
   }
@@ -799,16 +769,17 @@
   .magical-particle,
   .snowflake,
   .winter-element,
-  .floating-candle,
   .floating-candle-snow,
   .flying-owl,
   .floating-leaf,
   .shadow-element,
   .dark-orb,
-  .floating-trophy,
-  .champion-element,
   .floating-flower,
-  .flying-butterfly {
+  .flying-butterfly,
+  .floating-coin,
+  .floating-book,
+  .floating-crystal,
+  .market-owl {
     filter: contrast(2) brightness(1.5);
   }
 } 

@@ -86,15 +86,15 @@ const DiaryList = () => {
   };
 
   if (loading && diaryEntries.length === 0) {
-    return <LoadingSpinner message="Loading your magical memories..." />;
+    return <LoadingSpinner message="Loading your mystical memories..." />;
   }
 
   return (
     <div className="diary-list">
       <div className="diary-header">
-        <h1 className="magical-title">📖 Your Magical Diary</h1>
+        <h1 className="magical-title">📖 Your Mystical Memoir</h1>
         <p className="diary-subtitle">
-          Capture your thoughts, dreams, and magical moments
+          Capture your thoughts, dreams, and mystical moments
         </p>
         
         <Link to="/diary/new" className="new-entry-btn magical-button">
@@ -106,7 +106,7 @@ const DiaryList = () => {
       <MagicalSearch
         data={diaryEntries}
         onResults={handleSearchResults}
-        placeholder="🔍 Search your magical memories..."
+        placeholder="🔍 Search your mystical memories..."
         searchFields={['title', 'content', 'tags']}
         filters={{
           house: true,
@@ -134,7 +134,7 @@ const DiaryList = () => {
             <h3>No entries found</h3>
             <p>
               {diaryEntries.length === 0
-                ? "Start your magical journey by writing your first diary entry!"
+                ? "Start your mystical journey by writing your first memoir entry!"
                 : "Try adjusting your search terms or filters"}
             </p>
             {diaryEntries.length === 0 && (
@@ -176,10 +176,14 @@ const DiaryList = () => {
                         )}
                         {entry.house && (
                           <span className={`house-indicator ${entry.house}`} title={entry.house}>
-                            {entry.house === 'gryffindor' && '🦁'}
-                            {entry.house === 'slytherin' && '🐍'}
-                            {entry.house === 'ravenclaw' && '🦅'}
-                            {entry.house === 'hufflepuff' && '🦡'}
+                            {entry.house === 'gryffindor' && '🔥'}
+                            {entry.house === 'slytherin' && '🌿'}
+                            {entry.house === 'ravenclaw' && '🌙'}
+                            {entry.house === 'hufflepuff' && '⭐'}
+                            {entry.house === 'ember' && '🔥'}
+                            {entry.house === 'nature' && '🌿'}
+                            {entry.house === 'moonlight' && '🌙'}
+                            {entry.house === 'starlight' && '⭐'}
                           </span>
                         )}
                       </div>

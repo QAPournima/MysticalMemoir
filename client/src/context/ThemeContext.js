@@ -3,69 +3,69 @@ import { clearInvalidThemeCache, forceThemeRefresh } from '../utils/themeUtils';
 
 const ThemeContext = createContext();
 
-const HOUSES = {
-  gryffindor: {
-    name: 'Gryffindor',
+const ELEMENTS = {
+  moonlight: {
+    name: 'Moonlight',
     colors: {
-      primary: '#740001',
-      secondary: '#D3A625',
-      accent: '#EEBA30',
-      light: '#FFC500'
+      primary: '#4A90E2',
+      secondary: '#7BB3F0',
+      accent: '#A8D0F7',
+      light: '#E3F2FD'
     },
-    traits: ['Courage', 'Bravery', 'Nerve', 'Chivalry'],
-    founder: 'Godric Gryffindor',
-    mascot: '🦁',
-    element: 'Fire'
-  },
-  slytherin: {
-    name: 'Slytherin',
-    colors: {
-      primary: '#1B5E20',
-      secondary: '#263238',
-      accent: '#37474F',
-      light: '#66BB6A'
-    },
-    traits: ['Ambition', 'Cunning', 'Leadership', 'Resourcefulness'],
-    founder: 'Salazar Slytherin',
-    mascot: '🐍',
-    element: 'Water'
-  },
-  ravenclaw: {
-    name: 'Ravenclaw',
-    colors: {
-      primary: '#1565C0',
-      secondary: '#455A64',
-      accent: '#607D8B',
-      light: '#90CAF9'
-    },
-    traits: ['Intelligence', 'Wisdom', 'Wit', 'Learning'],
-    founder: 'Rowena Ravenclaw',
-    mascot: '🦅',
+    traits: ['Wisdom', 'Serenity', 'Intuition', 'Reflection'],
+    essence: 'The calm wisdom of moonlight',
+    mascot: '🌙',
     element: 'Air'
   },
-  hufflepuff: {
-    name: 'Hufflepuff',
+  ember: {
+    name: 'Ember',
     colors: {
-      primary: '#FFD800',
-      secondary: '#372E29',
-      accent: '#726255',
-      light: '#ECB939'
+      primary: '#E74C3C',
+      secondary: '#F39C12',
+      accent: '#FFD93D',
+      light: '#FFF3E0'
     },
-    traits: ['Hard Work', 'Patience', 'Loyalty', 'Fair Play'],
-    founder: 'Helga Hufflepuff',
-    mascot: '🦡',
+    traits: ['Passion', 'Courage', 'Energy', 'Leadership'],
+    essence: 'The fierce spirit of flame',
+    mascot: '🔥',
+    element: 'Fire'
+  },
+  nature: {
+    name: 'Nature',
+    colors: {
+      primary: '#27AE60',
+      secondary: '#2ECC71',
+      accent: '#F4D03F',
+      light: '#E8F5E8'
+    },
+    traits: ['Growth', 'Harmony', 'Patience', 'Nurturing'],
+    essence: 'The gentle strength of earth',
+    mascot: '🌿',
     element: 'Earth'
+  },
+  starlight: {
+    name: 'Starlight',
+    colors: {
+      primary: '#9B59B6',
+      secondary: '#8E44AD',
+      accent: '#F1C40F',
+      light: '#F8F4FF'
+    },
+    traits: ['Dreams', 'Magic', 'Creativity', 'Wonder'],
+    essence: 'The infinite possibilities of stars',
+    mascot: '⭐',
+    element: 'Ether'
   }
 };
 
 const MAGICAL_STICKERS = [
-  { id: 1, emoji: '⚡', name: 'Lightning Bolt', category: 'magical' },
+  { id: 1, emoji: '✨', name: 'Sparkles', category: 'magical' },
   { id: 2, emoji: '🪄', name: 'Magic Wand', category: 'magical' },
   { id: 3, emoji: '🦉', name: 'Owl', category: 'creatures' },
-  { id: 4, emoji: '🐍', name: 'Snake', category: 'creatures' },
-  { id: 5, emoji: '🦅', name: 'Eagle', category: 'creatures' },
-  { id: 6, emoji: '🦁', name: 'Lion', category: 'creatures' },
-  { id: 7, emoji: '🦡', name: 'Badger', category: 'creatures' },
+  { id: 4, emoji: '🐺', name: 'Wolf', category: 'creatures' },
+  { id: 5, emoji: '🦋', name: 'Butterfly', category: 'creatures' },
+  { id: 6, emoji: '🐉', name: 'Dragon', category: 'creatures' },
+  { id: 7, emoji: '🦌', name: 'Deer', category: 'creatures' },
   { id: 8, emoji: '🏰', name: 'Castle', category: 'places' },
   { id: 9, emoji: '📜', name: 'Scroll', category: 'items' },
   { id: 10, emoji: '🔮', name: 'Crystal Ball', category: 'magical' },
@@ -76,9 +76,13 @@ const MAGICAL_STICKERS = [
   { id: 15, emoji: '🏆', name: 'Trophy', category: 'items' },
   { id: 16, emoji: '💎', name: 'Gem', category: 'items' },
   { id: 17, emoji: '🌟', name: 'Star', category: 'magical' },
-  { id: 18, emoji: '✨', name: 'Sparkles', category: 'magical' },
+  { id: 18, emoji: '🌙', name: 'Moon', category: 'magical' },
   { id: 19, emoji: '🔥', name: 'Fire', category: 'elements' },
-  { id: 20, emoji: '💧', name: 'Water', category: 'elements' }
+  { id: 20, emoji: '💧', name: 'Water', category: 'elements' },
+  { id: 21, emoji: '🌿', name: 'Leaves', category: 'elements' },
+  { id: 22, emoji: '💫', name: 'Shooting Star', category: 'magical' },
+  { id: 23, emoji: '🌈', name: 'Rainbow', category: 'magical' },
+  { id: 24, emoji: '⚡', name: 'Lightning', category: 'elements' }
 ];
 
 const MOOD_OPTIONS = [
@@ -103,9 +107,9 @@ const WEATHER_OPTIONS = [
 
 const UI_THEMES = {
   default: {
-    name: 'Classic Hogwarts',
-    emoji: '🏰',
-    description: 'The traditional magical experience',
+    name: 'Classic Mystical',
+    emoji: '✨',
+    description: 'The traditional mystical experience',
     colors: {
       primary: '#2C1810',
       secondary: '#8B4513',
@@ -118,10 +122,10 @@ const UI_THEMES = {
     backgroundImage: null,
     atmosphereParticles: ['✨', '🪄', '⚡', '📜']
   },
-  darkArts: {
-    name: 'Dark Arts',
-    emoji: '🖤',
-    description: 'Embrace the shadows and forbidden magic',
+  shadowRealm: {
+    name: 'Shadow Realm',
+    emoji: '🌑',
+    description: 'Embrace the mysterious shadows and forbidden magic',
     colors: {
       primary: '#0A0A0A',
       secondary: '#2D1B2E',
@@ -131,14 +135,14 @@ const UI_THEMES = {
       textPrimary: '#E8E8E8',
       textSecondary: '#B39DDB'
     },
-    backgroundImage: 'url("/webpage background/Darkart.jpg")',
+    backgroundImage: 'url("/webpage%20background/Shadow%20Realm.jpeg")',
     backgroundOverlay: 'radial-gradient(circle at 20% 50%, rgba(74, 20, 140, 0.2) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(50, 0, 50, 0.2) 0%, transparent 50%)',
     atmosphereParticles: ['🕷️', '🦇', '💀', '🐍', '⚡', '🌑', '🔮', '🗝️' ]
   },
-  hogwartsSnow: {
-    name: 'Hogwarts in the Snow',
+  winterWonderland: {
+    name: 'Winter Wonderland',
     emoji: '❄️',
-    description: 'Winter magic blankets the castle',
+    description: 'Mystical magic blankets the land in snow',
     colors: {
       primary: '#1b1b2f',
       secondary: '#3e3e55',
@@ -148,29 +152,12 @@ const UI_THEMES = {
       textPrimary: '#ffffff',
       textSecondary: '#d4af37'
     },
-    backgroundImage: 'url("/webpage background/HogwartsintheSnow.jpg")',
+    backgroundImage: 'url("/webpage%20background/Winter%20Wonderland.jpeg")',
     backgroundOverlay: 'radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.1) 0%, transparent 70%), radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.05) 0%, transparent 60%)',
     atmosphereParticles: ['❄️', '☃️', '🎄', '🦌', '⭐', '🌨️', '✨', '🕯️', '🦉']
   },
-  greatHall: {
-    name: 'Great Hall',
-    emoji: '🕯️',
-    description: 'Grand feasts and floating candles',
-    colors: {
-      primary: '#7C2D12',
-      secondary: '#FBBF24',
-      accent: '#F59E0B',
-      background: 'linear-gradient(135deg, rgba(254, 243, 199, 0.8) 0%, rgba(253, 230, 138, 0.9) 100%)',
-      cardBg: 'rgba(254, 243, 199, 0.85)',
-      textPrimary: '#7C2D12',
-      textSecondary: '#92400E'
-    },
-    backgroundImage: 'url("/webpage background/GreatHall.jpg")',
-    backgroundOverlay: 'radial-gradient(circle at 25% 25%, rgba(251, 191, 36, 0.15) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(245, 158, 11, 0.1) 0%, transparent 50%)',
-    atmosphereParticles: ['🕯️', '🍖', '🍞', '✨', '🦉', '🍷', '🧙‍♂️', '🏆']
-  },
-  diagonAlley: {
-    name: 'Diagon Alley',
+  mysticMarket: {
+    name: 'Mystic Market',
     emoji: '🏪',
     description: 'Bustling magical marketplace',
     colors: {
@@ -182,31 +169,14 @@ const UI_THEMES = {
       textPrimary: '#059669',
       textSecondary: '#7C3AED'
     },
-    backgroundImage: 'url("/webpage background/DiagonAlley.jpg")',
+    backgroundImage: 'url("/webpage%20background/Mystic%20Market.jpeg")',
     backgroundOverlay: 'radial-gradient(circle at 40% 30%, rgba(124, 58, 237, 0.08) 0%, transparent 50%), radial-gradient(circle at 60% 70%, rgba(5, 150, 105, 0.08) 0%, transparent 50%)',
     atmosphereParticles: ['🪙', '📚', '🔮', '⚡', '🦉', '🛍️', '🗝️', '🎪']
   },
-  triwizard: {
-    name: 'Triwizard Tournament',
-    emoji: '🏆',
-    description: 'Champions, challenges, and glory',
-    colors: {
-      primary: '#B91C1C',
-      secondary: '#1D4ED8',
-      accent: '#FBBF24',
-      background: 'linear-gradient(135deg, rgba(254, 242, 242, 0.8) 0%, rgba(219, 234, 254, 0.8) 50%, rgba(254, 243, 199, 0.9) 100%)',
-      cardBg: 'rgba(254, 242, 242, 0.85)',
-      textPrimary: '#B91C1C',
-      textSecondary: '#1D4ED8'
-    },
-    backgroundImage: 'url("/webpage background/TriwizardTournament.jpg")',
-    backgroundOverlay: 'radial-gradient(circle at 20% 40%, rgba(185, 28, 28, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 60%, rgba(29, 78, 216, 0.08) 0%, transparent 50%)',
-    atmosphereParticles: ['🏆', '🔥', '🐉', '⚡', '🪄', '🛡️', '⚔️', '🦅', '🐍']
-  },
-  greenhouse: {
-    name: "Professor Sprout's Greenhouse",
+  enchantedGarden: {
+    name: "Enchanted Garden",
     emoji: '🌿',
-    description: 'Magical plants and herbology wonders',
+    description: 'Mystical plants and botanical wonders',
     colors: {
       primary: '#15803D',
       secondary: '#84CC16',
@@ -216,15 +186,14 @@ const UI_THEMES = {
       textPrimary: '#15803D',
       textSecondary: '#4D7C0F'
     },
-    backgroundImage: 'url("/webpage background/Greenhouse.jpg")',
+    backgroundImage: 'url("/webpage%20background/Enchanted%20Garden.png")',
     backgroundOverlay: 'radial-gradient(circle at 35% 25%, rgba(132, 204, 22, 0.15) 0%, transparent 50%), radial-gradient(circle at 65% 75%, rgba(21, 128, 61, 0.1) 0%, transparent 50%)',
-    atmosphereParticles: ['🌿', '🌱', '🌸', '🍄', '✨', '🦋', '🐛', '🌻', '🌺']
+    atmosphereParticles: ['🌿', '🌱', '🌸', '🍄', '✨', '🦋', '🌻', '🌺']
   }
-
 };
 
 export const ThemeProvider = ({ children }) => {
-  const [currentHouse, setCurrentHouse] = useState('gryffindor');
+  const [currentElement, setCurrentElement] = useState('moonlight');
   const [currentUITheme, setCurrentUITheme] = useState('default');
   const [preferences, setPreferences] = useState({
     fontSize: 'medium',
@@ -241,12 +210,24 @@ export const ThemeProvider = ({ children }) => {
     }
     
     // Load saved preferences
-    const savedHouse = localStorage.getItem('selected_house');
+    const savedElement = localStorage.getItem('selected_element') || localStorage.getItem('selected_house'); // backward compatibility
     const savedUITheme = localStorage.getItem('selected_ui_theme');
     const savedPreferences = localStorage.getItem('user_preferences');
 
-    if (savedHouse) {
-      setCurrentHouse(savedHouse);
+    if (savedElement && ELEMENTS[savedElement]) {
+      setCurrentElement(savedElement);
+    } else if (savedElement) {
+      // If old house name, map to new element
+      const elementMap = {
+        'gryffindor': 'ember',
+        'slytherin': 'nature', 
+        'ravenclaw': 'moonlight',
+        'hufflepuff': 'starlight'
+      };
+      const mappedElement = elementMap[savedElement] || 'moonlight';
+      setCurrentElement(mappedElement);
+      localStorage.setItem('selected_element', mappedElement);
+      localStorage.removeItem('selected_house'); // cleanup old key
     }
 
     if (savedUITheme && UI_THEMES[savedUITheme]) {
@@ -287,12 +268,10 @@ export const ThemeProvider = ({ children }) => {
       
       // Apply theme-specific background animation
       const animationMap = {
-        'Dark Arts': 'darkArtsAnimation',
-        'Hogwarts in the Snow': 'snowAnimation',
-        'Great Hall': 'greatHallAnimation',
-        'Diagon Alley': 'diagonAlleyAnimation',
-        'Triwizard Tournament': 'triwizardAnimation',
-        "Professor Sprout's Greenhouse": 'greenhouseAnimation'
+        'Shadow Realm': 'shadowRealmAnimation',
+        'Winter Wonderland': 'winterWonderlandAnimation',
+        'Mystic Market': 'mysticMarketAnimation',
+        "Enchanted Garden": 'enchantedGardenAnimation'
       };
       
       const animationName = animationMap[theme.name] || 'defaultBackgroundAnimation';
@@ -341,12 +320,10 @@ export const ThemeProvider = ({ children }) => {
       
       // Apply theme-specific background animation
       const animationMap = {
-        'Dark Arts': 'darkArtsAnimation',
-        'Hogwarts in the Snow': 'snowAnimation',
-        'Great Hall': 'greatHallAnimation',
-        'Diagon Alley': 'diagonAlleyAnimation',
-        'Triwizard Tournament': 'triwizardAnimation',
-        "Professor Sprout's Greenhouse": 'greenhouseAnimation'
+        'Shadow Realm': 'shadowRealmAnimation',
+        'Winter Wonderland': 'winterWonderlandAnimation',
+        'Mystic Market': 'mysticMarketAnimation',
+        "Enchanted Garden": 'enchantedGardenAnimation'
       };
       
       const animationName = animationMap[theme.name] || 'defaultBackgroundAnimation';
@@ -392,20 +369,20 @@ export const ThemeProvider = ({ children }) => {
     }, 2000);
   }, [currentUITheme]);
 
-  const changeHouse = (house) => {
-    console.log('🏠 Changing house to:', house);
+  const changeElement = (element) => {
+    console.log('🏠 Changing element to:', element);
     
-    setCurrentHouse(house);
-    localStorage.setItem('selected_house', house);
+    setCurrentElement(element);
+    localStorage.setItem('selected_element', element);
     
-    // Send notification about house change
-    const houseInfo = HOUSES[house];
-    if (houseInfo) {
-      console.log('🔔 Sending house change notification for:', houseInfo.name);
+    // Send notification about element change
+    const elementInfo = ELEMENTS[element];
+    if (elementInfo) {
+      console.log('🔔 Sending element change notification for:', elementInfo.name);
       
-      sendMagicalNotification('House Changed!', {
-        body: `Welcome to ${houseInfo.name}! ${houseInfo.mascot} ${houseInfo.traits[0]} and ${houseInfo.traits[1]} await you! ⚡`,
-        tag: 'house-change'
+      sendMagicalNotification('Element Changed!', {
+        body: `Welcome to ${elementInfo.name}! ${elementInfo.mascot} ${elementInfo.traits[0]} and ${elementInfo.traits[1]} await you! ⚡`,
+        tag: 'element-change'
       });
     }
   };
@@ -451,8 +428,8 @@ export const ThemeProvider = ({ children }) => {
     }
   };
 
-  const getHouseInfo = (house = currentHouse) => {
-    return HOUSES[house] || HOUSES.gryffindor;
+  const getElementInfo = (element = currentElement) => {
+    return ELEMENTS[element] || ELEMENTS.moonlight;
   };
 
   // Magical Notification Service with Owl Icon
@@ -571,16 +548,16 @@ export const ThemeProvider = ({ children }) => {
   };
 
   const value = {
-    currentHouse,
-    changeHouse,
+    currentElement,
+    changeElement,
     currentUITheme,
     changeUITheme,
     getCurrentUITheme,
     preferences,
     updatePreferences,
-    getHouseInfo,
+    getElementInfo,
     sendMagicalNotification,
-    HOUSES,
+    ELEMENTS,
     UI_THEMES,
     MAGICAL_STICKERS,
     MOOD_OPTIONS,
@@ -599,5 +576,12 @@ export const useTheme = () => {
   if (!context) {
     throw new Error('useTheme must be used within a ThemeProvider');
   }
-  return context;
+  return {
+    ...context,
+    // Backwards compatibility aliases
+    currentHouse: context.currentElement,
+    changeHouse: context.changeElement,
+    getHouseInfo: context.getElementInfo,
+    HOUSES: context.ELEMENTS
+  };
 }; 

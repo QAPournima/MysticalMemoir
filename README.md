@@ -1,48 +1,48 @@
-# 🏰 Magical Diary - Harry Potter Themed Digital Journal
+# ✨ Mystical Memoir - Enchanted Digital Journal
 
-A beautiful, feature-rich digital diary application inspired by the magical world of Harry Potter. Create diary entries, manage todo lists, add images, draw artwork, use magical stickers, and share your memories with friends!
+A beautiful, feature-rich digital journal application with mystical themes and magical elements. Create memoir entries, manage enchanted todo lists, add images, draw artwork, use mystical stickers, and share your memories with friends!
 
 ## ✨ Features
 
-### 📖 Diary & Journal
-- **Rich Text Editor**: Write diary entries with full text formatting
+### 📖 Memoir & Journal
+- **Rich Text Editor**: Write memoir entries with full text formatting
 - **Mood & Weather Tracking**: Record your mood and the weather for each entry
-- **House Themes**: Choose between Gryffindor, Slytherin, Ravenclaw, or Hufflepuff themes
+- **Mystical Elements**: Choose between Moonlight, Ember, Nature, or Starlight themes
 - **Bookmarking**: Mark important entries for easy access
-- **Search & Filter**: Find entries by title, content, house, mood, or date
+- **Search & Filter**: Find entries by title, content, element, mood, or date
 - **Auto-save**: Never lose your thoughts with automatic saving
 
-### ✅ Magical Todo Lists
+### ✅ Enchanted Todo Lists
 - **Quest Management**: Create and organize your daily quests and tasks
 - **Progress Tracking**: Visual progress bars for each todo list
-- **House Integration**: Todo lists themed by your selected Hogwarts house
+- **Element Integration**: Todo lists themed by your selected mystical element
 - **Interactive Items**: Check off completed tasks with magical animations
 
 ### 🎨 Creative Features
-- **Image Upload**: Add photos to your diary entries
-- **Drawing Canvas**: Create magical artwork (coming soon!)
-- **Magical Stickers**: Choose from 20+ Harry Potter themed stickers
+- **Image Upload**: Add photos to your memoir entries
+- **Drawing Canvas**: Create mystical artwork
+- **Magical Stickers**: Choose from 20+ mystical themed stickers
 - **Emoji Support**: Express yourself with emojis in your entries
 
 ### 📤 Sharing & Export
-- **WhatsApp Sharing**: Share diary entries directly to WhatsApp
-- **Social Sharing**: Share your magical moments on social media
+- **WhatsApp Sharing**: Share memoir entries directly to WhatsApp
+- **Social Sharing**: Share your mystical moments on social media
 - **Screenshot Export**: Convert entries to beautiful images
 
 ### 📱 Progressive Web App (PWA)
 - **Mobile Responsive**: Perfect experience on phones, tablets, and desktops
-- **Offline Support**: Access your diary even without internet
+- **Offline Support**: Access your memoir even without internet
 - **Install as App**: Add to home screen for native app experience
 - **Cross-Platform**: Works on iOS, Android, Windows, macOS, and Linux
 
-## 🏠 House Themes
+## 🌟 Mystical Elements
 
-Choose your Hogwarts house to customize your entire experience:
+Choose your mystical element to customize your entire experience:
 
-- **🦁 Gryffindor**: Brave reds and golds
-- **🐍 Slytherin**: Ambitious greens and silvers  
-- **🦅 Ravenclaw**: Wise blues and bronzes
-- **🦡 Hufflepuff**: Loyal yellows and blacks
+- **🌙 Moonlight**: Serene blues and silvers - *Wisdom, Serenity*
+- **🔥 Ember**: Passionate reds and oranges - *Passion, Courage*
+- **🌿 Nature**: Harmonious greens and browns - *Growth, Harmony*
+- **⭐ Starlight**: Dreamy purples and golds - *Dreams, Magic*
 
 ## 🚀 Quick Start
 
@@ -54,8 +54,8 @@ Choose your Hogwarts house to customize your entire experience:
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
-   cd harry-potter-diary
+   git clone git@github.com:QAPournima/MysticalMemoir.git
+   cd MysticalMemoir
    ```
 
 2. **Install dependencies**
@@ -70,7 +70,7 @@ Choose your Hogwarts house to customize your entire experience:
 
 4. **Open your browser**
    - Frontend: http://localhost:3000
-   - Backend API: http://localhost:5000
+   - Backend API: http://localhost:5001
 
 ## 🛠️ Development Setup
 
@@ -96,7 +96,7 @@ npm start
 ```
 
 ### Database
-The application uses SQLite for data storage. The database file (`diary.db`) will be automatically created in the `server/database` directory when you first run the server.
+The application uses SQLite for data storage. The database file (`memoir.db`) will be automatically created in the `server/database` directory when you first run the server.
 
 ## 📦 Production Deployment
 
@@ -113,21 +113,21 @@ npm start
 Create a `.env` file in the root directory:
 ```env
 NODE_ENV=production
-PORT=5000
-REACT_APP_API_URL=http://localhost:5000/api
+PORT=5001
+REACT_APP_API_URL=http://localhost:5001/api
 ```
 
 ## 🏗️ Project Structure
 
 ```
-harry-potter-diary/
+mystical-memoir/
 ├── client/                 # React frontend
 │   ├── public/            # Static files
 │   │   ├── manifest.json  # PWA manifest
 │   │   └── sw.js         # Service worker
 │   └── src/
 │       ├── components/    # React components
-│       │   ├── Diary/    # Diary-related components
+│       │   ├── Diary/    # Memoir-related components
 │       │   ├── Todo/     # Todo list components
 │       │   ├── Drawing/  # Drawing canvas components
 │       │   ├── Gallery/  # Image gallery components
@@ -139,7 +139,7 @@ harry-potter-diary/
 │       └── index.js      # App entry point
 ├── server/                # Node.js backend
 │   ├── routes/           # API routes
-│   │   ├── diary.js     # Diary endpoints
+│   │   ├── diary.js     # Memoir endpoints
 │   │   ├── todo.js      # Todo endpoints
 │   │   ├── images.js    # Image upload endpoints
 │   │   └── drawings.js  # Drawing endpoints
@@ -156,27 +156,27 @@ harry-potter-diary/
 Edit `client/src/context/ThemeContext.js` and add new stickers to the `MAGICAL_STICKERS` array:
 
 ```javascript
-{ id: 21, emoji: '⚡', name: 'Lightning Bolt', category: 'magical' }
+{ id: 21, emoji: '✨', name: 'Sparkles', category: 'magical' }
 ```
 
 ### Adding New Moods
 Add new mood options in `client/src/context/ThemeContext.js`:
 
 ```javascript
-{ id: 'excited', emoji: '🤗', name: 'Excited', color: '#FF6347' }
+{ id: 'inspired', emoji: '💫', name: 'Inspired', color: '#9B59B6' }
 ```
 
-### Customizing House Themes
-Modify house colors and properties in `client/src/context/ThemeContext.js`.
+### Customizing Element Themes
+Modify element colors and properties in `client/src/context/ThemeContext.js`.
 
 ## 🔧 API Endpoints
 
-### Diary Entries
-- `GET /api/diary` - Get all diary entries
-- `GET /api/diary/:id` - Get single diary entry
-- `POST /api/diary` - Create new diary entry
-- `PUT /api/diary/:id` - Update diary entry
-- `DELETE /api/diary/:id` - Delete diary entry
+### Memoir Entries
+- `GET /api/diary` - Get all memoir entries
+- `GET /api/diary/:id` - Get single memoir entry
+- `POST /api/diary` - Create new memoir entry
+- `PUT /api/diary/:id` - Update memoir entry
+- `DELETE /api/diary/:id` - Delete memoir entry
 - `PATCH /api/diary/:id/bookmark` - Toggle bookmark
 
 ### Todo Lists
@@ -200,16 +200,16 @@ Modify house colors and properties in `client/src/context/ThemeContext.js`.
 ## 🎯 Roadmap
 
 ### Upcoming Features
-- [ ] **Advanced Drawing Canvas**: Full-featured drawing tools with magical brushes
+- [ ] **Advanced Drawing Canvas**: Full-featured drawing tools with mystical brushes
 - [ ] **Gallery Enhancement**: Beautiful image and drawing gallery with filters
 - [ ] **Cloud Sync**: Sync data across devices
 - [ ] **Export Options**: PDF export, backup/restore functionality
-- [ ] **Social Features**: Share diary entries with friends
-- [ ] **Themes**: Additional magical themes beyond Hogwarts houses
-- [ ] **Spell Checker**: Magical spell checking for diary entries
+- [ ] **Social Features**: Share memoir entries with friends
+- [ ] **Additional Themes**: New mystical and seasonal themes
 - [ ] **Voice Notes**: Record and attach voice memos
-- [ ] **Calendar View**: Monthly calendar view of diary entries
+- [ ] **Calendar View**: Monthly calendar view of memoir entries
 - [ ] **Data Analytics**: Mood trends and writing statistics
+- [ ] **Element Discovery**: Interactive quiz to find your mystical element
 
 ## 🤝 Contributing
 
@@ -224,13 +224,13 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 ## 📱 Mobile Installation
 
 ### iOS
-1. Open Safari and navigate to your diary app
+1. Open Safari and navigate to your memoir app
 2. Tap the Share button
 3. Select "Add to Home Screen"
 4. Tap "Add" to install
 
 ### Android
-1. Open Chrome and navigate to your diary app
+1. Open Chrome and navigate to your memoir app
 2. Tap the menu (three dots)
 3. Select "Add to Home screen"
 4. Tap "Add" to install
@@ -242,7 +242,7 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 **App won't start:**
 - Ensure Node.js is installed (version 14+)
 - Run `npm run install-all` to install dependencies
-- Check that ports 3000 and 5000 are available
+- Check that ports 3000 and 5001 are available
 
 **Images not uploading:**
 - Check server console for errors
@@ -250,7 +250,7 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 - Verify file size is under 10MB
 
 **Database errors:**
-- Delete `server/database/diary.db` to reset the database
+- Delete `server/database/memoir.db` to reset the database
 - Restart the server to recreate tables
 
 ## 📄 License
@@ -259,12 +259,12 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 🙏 Acknowledgments
 
-- Harry Potter universe created by J.K. Rowling
+- Original mystical design and concept
 - Icons and emojis from various open-source projects
 - React and Node.js communities for excellent documentation
 
 ---
 
-Made with ✨ magic and ❤️
+Made with ✨ mystical magic and ❤️
 
-*"Happiness can be found even in the darkest of times, if one only remembers to turn on the light."* - Albus Dumbledore 
+*"In every moment of wonder, there lies the spark of infinite possibilities."* 
