@@ -22,10 +22,10 @@ const ThemeAnimations = () => {
       particleCount: 10
     },
     hogwartsSnow: {
-      leftParticles: ['❄️', '⭐', '🌨️', '❅', '☃️', '🦉'],
-      rightParticles: ['🏰', '✨', '🌟', '❄️', '🔮', '⚡'],
-      colors: ['#E3F2FD', '#BBDEFB', '#90CAF9'],
-      particleCount: 12
+      leftParticles: ['❄️', '☃️', '🎄', '🦌', '⭐', '🌨️', '🕯️'],
+      rightParticles: ['🏰', '✨', '🌟', '❄️', '☃️', '🎄', '🦉'],
+      colors: ['#ffffff', '#d4af37', '#1b1b2f'],
+      particleCount: 16
     },
     greatHall: {
       leftParticles: ['🕯️', '🍖', '🍞', '🏆', '🦉', '✨'],
@@ -179,9 +179,18 @@ const ThemeAnimations = () => {
         
         {currentTheme.name === 'Hogwarts in the Snow' && (
           <div className="snow-overlay">
-            {[...Array(20)].map((_, i) => (
-              <div key={i} className={`snowflake snowflake-${i % 4}`}>❄</div>
+            {[...Array(30)].map((_, i) => (
+              <div key={`snow-${i}`} className={`snowflake snowflake-${i % 6}`}>❄</div>
             ))}
+            {[...Array(8)].map((_, i) => (
+              <div key={`winter-${i}`} className={`winter-element winter-${i % 4}`}>
+                {i % 4 === 0 ? '☃️' : i % 4 === 1 ? '🎄' : i % 4 === 2 ? '🦌' : '⭐'}
+              </div>
+            ))}
+            {[...Array(10)].map((_, i) => (
+              <div key={`candle-${i}`} className={`floating-candle-snow candle-snow-${i}`}>🕯️</div>
+            ))}
+            <div className="flying-owl">🦉</div>
           </div>
         )}
         

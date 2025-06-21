@@ -139,16 +139,16 @@ const UI_THEMES = {
     emoji: '❄️',
     description: 'Winter magic blankets the castle',
     colors: {
-      primary: '#1E3A8A',
-      secondary: '#3B82F6',
-      accent: '#E5E7EB',
-      background: 'linear-gradient(135deg, #EBF8FF 0%, #DBEAFE 100%)',
-      cardBg: 'rgba(255, 255, 255, 0.8)',
-      textPrimary: '#1E3A8A',
-      textSecondary: '#4B5563'
+      primary: '#1b1b2f',
+      secondary: '#3e3e55',
+      accent: '#d4af37',
+      background: 'linear-gradient(to bottom, #1b1b2f 0%, #3e3e55 100%)',
+      cardBg: 'rgba(0, 0, 0, 0.4)',
+      textPrimary: '#ffffff',
+      textSecondary: '#d4af37'
     },
-    backgroundImage: 'radial-gradient(circle at 30% 20%, rgba(219, 234, 254, 0.6) 0%, transparent 50%), radial-gradient(circle at 70% 80%, rgba(191, 219, 254, 0.4) 0%, transparent 50%)',
-    atmosphereParticles: ['❄️', '⭐', '🌨️', '✨', '🦉']
+    backgroundImage: 'radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.1) 0%, transparent 70%), radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.05) 0%, transparent 60%)',
+    atmosphereParticles: ['❄️', '☃️', '🎄', '🦌', '⭐', '🌨️', '✨', '🕯️', '🦉']
   },
   greatHall: {
     name: 'Great Hall',

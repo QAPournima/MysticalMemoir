@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hogwarts in the Snow</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Cinzel Decorative', cursive;
+      background: linear-gradient(to bottom, #1b1b2f, #3e3e55);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem;
+      background: rgba(0,0,0,0.6);
+      border-bottom: 2px solid #d4af37;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      color: #d4af37;
+      text-shadow: 2px 2px 4px #000;
+    }
+
+    main {
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+      background: rgba(0,0,0,0.4);
+      border-radius: 12px;
+      margin-top: 2rem;
+      box-shadow: 0 0 20px rgba(255,255,255,0.1);
+    }
+
+    footer {
+      background: rgba(0,0,0,0.8);
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #aaa;
+      font-family: 'Courier New', Courier, monospace;
+      border-top: 1px solid #444;
+      margin-top: 3rem;
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    .floating-candle {
+      position: absolute;
+      width: 10px;
+      height: 40px;
+      background: #ffefc4;
+      box-shadow: 0 0 10px 2px #fff7d6;
+      border-radius: 5px;
+      animation: floatCandle 6s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatCandle {
+      from { transform: translateY(0); }
+      to { transform: translateY(-30px); }
+    }
+
+    .owl {
+      position: fixed;
+      top: 50px;
+      left: -100px;
+      width: 80px;
+      transition: transform 0.1s;
+      animation: flyOwl 15s linear infinite;
+      z-index: 10;
+    }
+
+    @keyframes flyOwl {
+      0% { transform: translateX(-100px); }
+      100% { transform: translateX(120vw); }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="snow"></canvas>
+  <img src="https://i.ibb.co/ZLtvKrF/owl-flying.png" alt="Owl" class="owl" />
+
+  <header>
+    <h1>Hogwarts in the Snow</h1>
+  </header>
+
+  <main>
+    <!-- Removed content as requested -->
+  </main>
+
+  <footer>
+    Messrs. Moony, Wormtail, Padfoot and Prongs are proud to present the Marauder's Map.
+  </footer>
+
+  <script>
+    const canvas = document.getElementById('snow');
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+    let snowflakes = [];
+
+    function createSnowflakes() {
+      for (let i = 0; i < 100; i++) {
+        snowflakes.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          radius: Math.random() * 3 + 1,
+          speedY: Math.random() * 1.5 + 0.5,
+          opacity: Math.random()
+        });
+      }
+    }
+
+    function drawSnowflakes() {
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+      ctx.beginPath();
+      for (let flake of snowflakes) {
+        ctx.moveTo(flake.x, flake.y);
+        ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2, true);
+      }
+      ctx.fill();
+      updateSnowflakes();
+    }
+
+    function updateSnowflakes() {
+      for (let flake of snowflakes) {
+        flake.y += flake.speedY;
+        if (flake.y > height) {
+          flake.y = 0;
+          flake.x = Math.random() * width;
+        }
+      }
+    }
+
+    function animateSnow() {
+      drawSnowflakes();
+      requestAnimationFrame(animateSnow);
+    }
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      snowflakes = [];
+      createSnowflakes();
+    });
+
+    createSnowflakes();
+    animateSnow();
+
+    // ✨ Floating Candles
+    for (let i = 0; i < 15; i++) {
+      const candle = document.createElement('div');
+      candle.classList.add('floating-candle');
+      candle.style.left = `${Math.random() * 100}vw`;
+      candle.style.top = `${Math.random() * 70 + 10}vh`;
+      candle.style.animationDuration = `${4 + Math.random() * 4}s`;
+      document.body.appendChild(candle);
+    }
+  </script>
+</body>
+</html>
