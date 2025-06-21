@@ -5,16 +5,17 @@
   left: 0;
   width: 100%;
   height: 100vh;
-  overflow: hidden;
+  overflow-y: auto;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: 'Cinzel', 'Georgia', serif;
+  padding: 10px;
 }
 
 /* Magical Background */
 .magical-background {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -99,15 +100,16 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 500px;
+  max-width: 800px;
   padding: 20px;
   z-index: 10;
+  min-height: fit-content;
 }
 
 /* App Logo */
 .auth-header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 
 .app-logo {
@@ -116,7 +118,7 @@
 }
 
 .logo-text {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: bold;
   margin: 0;
   background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
@@ -124,12 +126,18 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: shimmer 3s ease-in-out infinite alternate;
+  text-shadow: 
+    0 0 10px rgba(255, 215, 0, 0.8),
+    0 0 20px rgba(255, 215, 0, 0.6),
+    0 0 30px rgba(255, 215, 0, 0.4),
+    2px 2px 4px rgba(0, 0, 0, 0.8);
+  filter: brightness(1.5) contrast(1.2);
 }
 
 .logo-subtitle {
-  font-size: 1.2rem;
+  font-size: 1rem;
   opacity: 0.9;
-  margin-top: 5px;
+  margin-top: 3px;
   letter-spacing: 2px;
 }
 
@@ -150,12 +158,97 @@
   box-shadow: 
     0 20px 40px rgba(0, 0, 0, 0.5),
     0 0 0 1px rgba(255, 215, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  animation: cardGlow 4s ease-in-out infinite alternate;
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 20px rgba(255, 215, 0, 0.3),
+    0 0 40px rgba(255, 215, 0, 0.1);
+  animation: cardGlow 4s ease-in-out infinite alternate, borderSparkle 2s linear infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: 
+    radial-gradient(circle at 25% 25%, rgba(255, 215, 0, 0.8) 0%, transparent 3%),
+    radial-gradient(circle at 75% 25%, rgba(255, 215, 0, 0.6) 0%, transparent 3%),
+    radial-gradient(circle at 25% 75%, rgba(255, 215, 0, 0.4) 0%, transparent 3%),
+    radial-gradient(circle at 75% 75%, rgba(255, 215, 0, 0.7) 0%, transparent 3%),
+    radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.5) 0%, transparent 3%),
+    radial-gradient(circle at 20% 60%, rgba(255, 215, 0, 0.3) 0%, transparent 2%),
+    radial-gradient(circle at 80% 40%, rgba(255, 215, 0, 0.6) 0%, transparent 2%),
+    radial-gradient(circle at 40% 20%, rgba(255, 215, 0, 0.4) 0%, transparent 2%),
+    radial-gradient(circle at 60% 80%, rgba(255, 215, 0, 0.5) 0%, transparent 2%),
+    radial-gradient(circle at 10% 10%, rgba(255, 215, 0, 0.9) 0%, transparent 1%),
+    radial-gradient(circle at 90% 90%, rgba(255, 215, 0, 0.8) 0%, transparent 1%),
+    radial-gradient(circle at 30% 90%, rgba(255, 215, 0, 0.6) 0%, transparent 1%),
+    radial-gradient(circle at 70% 10%, rgba(255, 215, 0, 0.7) 0%, transparent 1%);
+  animation: sparkleRotate 8s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.auth-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, 
+    transparent 30%, 
+    rgba(255, 215, 0, 0.1) 50%, 
+    transparent 70%);
+  animation: magicalSweep 3s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes sparkleRotate {
+  0% {
+    transform: rotate(0deg) scale(1);
+    opacity: 0.6;
+  }
+  25% {
+    transform: rotate(90deg) scale(1.1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: rotate(180deg) scale(1);
+    opacity: 0.6;
+  }
+  75% {
+    transform: rotate(270deg) scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+    opacity: 0.6;
+  }
+}
+
+@keyframes magicalSweep {
+  0% {
+    transform: translateX(-100%) rotate(-45deg);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateX(100%) rotate(-45deg);
+    opacity: 0;
+  }
 }
 
 .signup-card {
-  max-width: 600px;
+  max-width: 650px;
+  padding: 25px;
+  margin-bottom: 10px;
 }
 
 @keyframes cardGlow {
@@ -174,33 +267,81 @@
   }
 }
 
+@keyframes borderSparkle {
+  0% {
+    border-color: rgba(255, 215, 0, 0.3);
+  }
+  50% {
+    border-color: rgba(255, 215, 0, 0.8);
+  }
+  100% {
+    border-color: rgba(255, 215, 0, 0.3);
+  }
+}
+
 /* Form Header */
 .auth-form-header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
+  position: relative;
+  z-index: 10;
+}
+
+.sorting-hat-container {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+.sorting-hat-gif {
+  width: 80px;
+  height: 100px;
+  object-fit: contain;
+  filter: brightness(1.1) contrast(1.1) drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
+  animation: magicalPulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes magicalPulse {
+  0% {
+    transform: scale(1);
+    filter: brightness(1.1) contrast(1.1) drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
+  }
+  100% {
+    transform: scale(1.05);
+    filter: brightness(1.3) contrast(1.2) drop-shadow(0 0 25px rgba(255, 215, 0, 0.8));
+  }
 }
 
 .auth-title {
-  font-size: 2.5rem;
+  font-size: 2rem;
   color: #FFD700;
-  margin: 0 0 10px 0;
+  margin: 0 0 8px 0;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  position: relative;
+  z-index: 10;
 }
 
 .auth-subtitle {
   color: rgba(255, 255, 255, 0.8);
-  font-size: 1rem;
+  font-size: 0.9rem;
   margin: 0;
-  line-height: 1.5;
+  line-height: 1.4;
+  position: relative;
+  z-index: 10;
 }
 
 /* Form Styling */
 .auth-form {
   width: 100%;
+  position: relative;
+  z-index: 10;
 }
 
 .form-group {
-  margin-bottom: 25px;
+  margin-bottom: 15px;
   flex: 1;
 }
 
@@ -217,8 +358,8 @@
   display: block;
   color: #FFFFFF;
   font-weight: 700;
-  margin-bottom: 10px;
-  font-size: 1.1rem;
+  margin-bottom: 8px;
+  font-size: 1rem;
   text-shadow: 
     2px 2px 4px rgba(0, 0, 0, 1),
     0 0 10px rgba(255, 215, 0, 0.8),
@@ -234,27 +375,80 @@
 
 .magical-input {
   width: 100%;
-  padding: 15px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 215, 0, 0.3);
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid rgba(255, 215, 0, 0.5);
   border-radius: 10px;
-  color: #fff;
+  color: #FFFFFF !important;
   font-size: 1rem;
+  font-weight: 700;
   transition: all 0.3s ease;
-  backdrop-filter: blur(5px);
+  backdrop-filter: none;
   font-family: 'Cinzel', serif;
+  text-shadow: 
+    0 1px 3px rgba(0, 0, 0, 1),
+    0 0 8px rgba(255, 255, 255, 0.8);
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .magical-input:focus {
   outline: none;
   border-color: #FFD700;
-  background: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+  background: rgba(0, 0, 0, 0.95);
+  color: #FFFFFF !important;
+  font-weight: 800;
+  box-shadow: 
+    0 0 25px rgba(255, 215, 0, 0.6),
+    0 0 50px rgba(255, 215, 0, 0.3),
+    0 8px 24px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
+  text-shadow: 
+    0 1px 4px rgba(0, 0, 0, 1),
+    0 0 12px rgba(255, 255, 255, 1),
+    0 0 6px rgba(255, 215, 0, 0.5);
 }
 
 .magical-input::placeholder {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-weight: 600;
+  text-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.8),
+    0 0 6px rgba(255, 255, 255, 0.4);
+}
+
+/* Additional input text visibility fixes */
+.magical-input::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.magical-input::-moz-placeholder {
+  color: rgba(255, 255, 255, 0.9) !important;
+  opacity: 1;
+}
+
+.magical-input:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.magical-input:-moz-placeholder {
+  color: rgba(255, 255, 255, 0.9) !important;
+  opacity: 1;
+}
+
+/* Force text color in all states */
+.magical-input,
+.magical-input:active,
+.magical-input:focus,
+.magical-input:hover,
+input[type="text"].magical-input,
+input[type="email"].magical-input,
+input[type="password"].magical-input,
+input[type="date"].magical-input {
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
 }
 
 /* House Selector */
@@ -296,8 +490,13 @@
 }
 
 .house-mascot {
-  font-size: 2rem;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
   margin-bottom: 8px;
+  border-radius: 50%;
+  background: transparent;
+  filter: brightness(1.1) contrast(1.1);
 }
 
 .house-name {
@@ -309,10 +508,10 @@
 /* Auth Button */
 .auth-button {
   width: 100%;
-  padding: 18px;
+  padding: 15px;
   border: none;
   border-radius: 12px;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: bold;
   color: #fff;
   cursor: pointer;
@@ -324,7 +523,7 @@
   font-family: 'Cinzel', serif;
   text-transform: uppercase;
   letter-spacing: 1px;
-  margin-top: 30px;
+  margin-top: 15px;
   position: relative;
   overflow: hidden;
 }
@@ -346,7 +545,10 @@
 
 .auth-button:hover {
   transform: translateY(-3px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+  box-shadow: 
+    0 15px 30px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(255, 215, 0, 0.4),
+    0 0 40px rgba(255, 215, 0, 0.2);
 }
 
 .auth-button:disabled {
@@ -357,8 +559,8 @@
 
 /* House-specific button colors */
 .gryffindor-button {
-  background: linear-gradient(135deg, #740001, #AE0001, #D3A625);
-  box-shadow: 0 8px 16px rgba(116, 0, 1, 0.4);
+  background: linear-gradient(135deg, #B8860B, #FF6600, #D3A625);
+  box-shadow: 0 8px 16px rgba(255, 102, 0, 0.4);
 }
 
 .slytherin-button {
@@ -377,7 +579,12 @@
 }
 
 .button-icon {
-  font-size: 1.2rem;
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  border-radius: 50%;
+  background: transparent;
+  filter: brightness(1.1) contrast(1.1);
 }
 
 /* Loading Spinner */
@@ -398,7 +605,14 @@
 /* Auth Footer */
 .auth-footer {
   text-align: center;
-  margin-top: 30px;
+  margin-top: 15px;
+  position: relative;
+  z-index: 10;
+}
+
+.auth-footer-buttons {
+  margin-bottom: 10px;
+  margin-top: 8px;
 }
 
 .auth-link-text {
@@ -419,29 +633,126 @@
   text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
 }
 
-/* House Badge */
+/* Secondary Auth Button */
+.auth-secondary-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: rgba(255, 215, 0, 0.2);
+  border: 2px solid rgba(255, 215, 0, 0.8);
+  border-radius: 10px;
+  color: #FFD700;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  font-family: 'Cinzel', serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.auth-secondary-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.auth-secondary-button:hover::before {
+  left: 100%;
+}
+
+.auth-secondary-button:hover {
+  background: rgba(255, 215, 0, 0.15);
+  border-color: #FFD700;
+  color: #FFF;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(255, 215, 0, 0.2);
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+}
+
+/* Small house icon styling for GIF */
+.house-mascot-only-gif {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 215, 0, 0.2);
+  border: 2px solid rgba(255, 215, 0, 0.6);
+  border-radius: 50%;
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+  filter: brightness(1.2);
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+  object-fit: cover;
+  padding: 2px;
+}
+
+.house-mascot-only-gif:hover {
+  background: rgba(255, 215, 0, 0.3);
+  border-color: rgba(255, 215, 0, 0.8);
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+  filter: brightness(1.3);
+}
+
+/* Small house icon styling */
+.house-mascot-only {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  font-size: 18px;
+  background: rgba(255, 215, 0, 0.2);
+  border: 2px solid rgba(255, 215, 0, 0.6);
+  border-radius: 50%;
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+  filter: brightness(1.2);
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+.house-mascot-only:hover {
+  background: rgba(255, 215, 0, 0.3);
+  border-color: rgba(255, 215, 0, 0.8);
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+}
+
+/* Update house badge for compact icon */
 .house-badge {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  background: rgba(255, 215, 0, 0.2);
-  backdrop-filter: blur(10px);
-  border-radius: 50px;
-  padding: 10px 15px;
-  border: 1px solid rgba(255, 215, 0, 0.4);
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  backdrop-filter: none;
+  border-radius: 50%;
+  padding: 0;
+  border: none;
+  z-index: 100;
 }
 
 .house-info {
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  gap: 0;
   color: #FFD700;
   font-weight: 600;
   font-size: 0.9rem;
-}
-
-.house-mascot {
-  font-size: 1.2rem;
 }
 
 /* Error Message */
@@ -449,13 +760,13 @@
   background: rgba(244, 67, 54, 0.2);
   border: 1px solid rgba(244, 67, 54, 0.5);
   border-radius: 8px;
-  padding: 12px;
-  margin-bottom: 20px;
+  padding: 10px;
+  margin-bottom: 15px;
   color: #ffcdd2;
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 0.9rem;
+  gap: 8px;
+  font-size: 0.85rem;
 }
 
 .error-icon {
@@ -463,6 +774,13 @@
 }
 
 /* Responsive Design */
+@media (max-width: 580px) {
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+}
+
 @media (max-width: 768px) {
   .auth-content {
     max-width: 95%;
@@ -470,24 +788,20 @@
   }
   
   .auth-card {
-    padding: 30px 20px;
+    padding: 25px 20px;
   }
   
   .signup-card {
     max-width: 95%;
+    padding: 30px 20px;
   }
   
   .logo-text {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
   }
   
   .auth-title {
-    font-size: 2rem;
-  }
-  
-  .form-row {
-    flex-direction: column;
-    gap: 0;
+    font-size: 1.8rem;
   }
   
   .house-selector {
@@ -495,34 +809,68 @@
   }
   
   .house-badge {
-    position: static;
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    width: fit-content;
+    top: 12px;
+    right: 12px;
+  }
+  
+  .house-mascot-only {
+    width: 30px;
+    height: 30px;
+    font-size: 17px;
+  }
+  
+  .house-mascot-only-gif {
+    width: 30px;
+    height: 30px;
   }
 }
 
 @media (max-width: 480px) {
   .auth-card {
+    padding: 20px 15px;
+  }
+  
+  .signup-card {
+    max-width: 95%;
     padding: 25px 15px;
   }
   
   .logo-text {
-    font-size: 2rem;
-  }
-  
-  .auth-title {
     font-size: 1.8rem;
   }
   
+  .auth-title {
+    font-size: 1.6rem;
+  }
+  
   .magical-input {
-    padding: 12px;
+    padding: 10px;
   }
   
   .auth-button {
-    padding: 15px;
-    font-size: 1rem;
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+  
+  .auth-secondary-button {
+    padding: 10px 18px;
+    font-size: 0.8rem;
+  }
+  
+  .house-badge {
+    top: 8px;
+    right: 8px;
+  }
+  
+  .house-mascot-only {
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
+  }
+  
+  .house-mascot-only-gif {
+    width: 28px;
+    height: 28px;
   }
 }
 
@@ -534,8 +882,12 @@
   }
   
   .magical-input {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: #FFD700;
+    background: rgba(0, 0, 0, 0.95) !important;
+    border-color: #FFD700 !important;
+    color: #FFFFFF !important;
+    text-shadow: 
+      0 1px 4px rgba(0, 0, 0, 1),
+      0 0 12px rgba(255, 255, 255, 1) !important;
   }
 }
 
@@ -550,4 +902,161 @@
   .auth-button:hover {
     transform: none;
   }
+}
+
+/* Additional magical effects for sparkles */
+.auth-card .magical-sparkles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.auth-card .magical-sparkles::before,
+.auth-card .magical-sparkles::after {
+  content: '✨';
+  position: absolute;
+  font-size: 16px;
+  color: #FFD700;
+  animation: floatSparkle 4s ease-in-out infinite;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+}
+
+.auth-card .magical-sparkles::before {
+  top: 20%;
+  left: 15%;
+  animation-delay: 0s;
+}
+
+.auth-card .magical-sparkles::after {
+  top: 70%;
+  right: 20%;
+  animation-delay: 2s;
+}
+
+/* Add more sparkles using pseudo-elements on form elements */
+.auth-form::before {
+  content: '⭐';
+  position: absolute;
+  top: 10%;
+  right: 10%;
+  font-size: 14px;
+  color: #FFD700;
+  animation: floatSparkle 3s ease-in-out infinite;
+  animation-delay: 1s;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+  z-index: 5;
+}
+
+.auth-form::after {
+  content: '🌟';
+  position: absolute;
+  bottom: 15%;
+  left: 8%;
+  font-size: 12px;
+  color: #FFD700;
+  animation: floatSparkle 3.5s ease-in-out infinite;
+  animation-delay: 2.5s;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+  z-index: 5;
+}
+
+/* Golden pulse effect on hover */
+.auth-card:hover {
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 215, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 30px rgba(255, 215, 0, 0.5),
+    0 0 60px rgba(255, 215, 0, 0.2);
+  border-color: rgba(255, 215, 0, 0.6);
+}
+
+/* Magical corner sparkles */
+.auth-card::before {
+  background: 
+    radial-gradient(circle at 25% 25%, rgba(255, 215, 0, 0.8) 0%, transparent 3%),
+    radial-gradient(circle at 75% 25%, rgba(255, 215, 0, 0.6) 0%, transparent 3%),
+    radial-gradient(circle at 25% 75%, rgba(255, 215, 0, 0.4) 0%, transparent 3%),
+    radial-gradient(circle at 75% 75%, rgba(255, 215, 0, 0.7) 0%, transparent 3%),
+    radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.5) 0%, transparent 3%),
+    radial-gradient(circle at 20% 60%, rgba(255, 215, 0, 0.3) 0%, transparent 2%),
+    radial-gradient(circle at 80% 40%, rgba(255, 215, 0, 0.6) 0%, transparent 2%),
+    radial-gradient(circle at 40% 20%, rgba(255, 215, 0, 0.4) 0%, transparent 2%),
+    radial-gradient(circle at 60% 80%, rgba(255, 215, 0, 0.5) 0%, transparent 2%),
+    radial-gradient(circle at 10% 10%, rgba(255, 215, 0, 0.9) 0%, transparent 1%),
+    radial-gradient(circle at 90% 90%, rgba(255, 215, 0, 0.8) 0%, transparent 1%),
+    radial-gradient(circle at 30% 90%, rgba(255, 215, 0, 0.6) 0%, transparent 1%),
+    radial-gradient(circle at 70% 10%, rgba(255, 215, 0, 0.7) 0%, transparent 1%);
+  animation: sparkleRotate 8s linear infinite;
+}
+
+@keyframes floatSparkle {
+  0%, 100% {
+    opacity: 0;
+    transform: translateY(0) scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-20px) scale(1);
+  }
+}
+
+@keyframes borderSparkle {
+  0% {
+    border-color: rgba(255, 215, 0, 0.3);
+  }
+  50% {
+    border-color: rgba(255, 215, 0, 0.8);
+  }
+  100% {
+    border-color: rgba(255, 215, 0, 0.3);
+  }
+}
+
+/* Enhanced magical effects on hover */
+.auth-card:hover .magical-sparkles::before,
+.auth-card:hover .magical-sparkles::after {
+  animation-duration: 2s;
+  font-size: 20px;
+  text-shadow: 0 0 15px rgba(255, 215, 0, 1);
+}
+
+.auth-card:hover .auth-form::before,
+.auth-card:hover .auth-form::after {
+  animation-duration: 1.5s;
+  font-size: 18px;
+  text-shadow: 0 0 12px rgba(255, 215, 0, 0.9);
+}
+
+.auth-card:hover::before {
+  animation-duration: 4s;
+  opacity: 0.8;
+}
+
+.auth-card:hover::after {
+  animation-duration: 1.5s;
+  opacity: 0.6;
+}
+
+/* Special authentication cursors */
+.auth-container {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none"><g transform="rotate(-45 14 14)"><rect x="12" y="2" width="4" height="12" rx="1" fill="%23A0522D" stroke="%23654321" stroke-width="0.5"/><rect x="12" y="14" width="4" height="6" fill="%23C0C0C0" stroke="%23A0A0A0" stroke-width="0.5"/><rect x="12" y="14.5" width="4" height="0.8" fill="%23FFD700"/><rect x="12" y="16" width="4" height="0.8" fill="%23FFD700"/><rect x="12" y="17.5" width="4" height="0.8" fill="%23FFD700"/><rect x="12" y="19" width="4" height="0.8" fill="%23FFD700"/><rect x="12" y="20" width="4" height="3" rx="2" fill="%23FFD700" stroke="%23B8860B" stroke-width="0.5"/></g></svg>'), auto;
+}
+
+.auth-button,
+.start-ceremony-btn,
+.auth-secondary-button {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none"><g transform="rotate(-30 16 16)"><rect x="14" y="2" width="4" height="14" rx="1" fill="%23A0522D" stroke="%23654321" stroke-width="0.5"/><rect x="14" y="16" width="4" height="7" fill="%23C0C0C0" stroke="%23A0A0A0" stroke-width="0.5"/><rect x="14" y="16.5" width="4" height="0.8" fill="%23FFD700"/><rect x="14" y="18" width="4" height="0.8" fill="%23FFD700"/><rect x="14" y="19.5" width="4" height="0.8" fill="%23FFD700"/><rect x="14" y="21" width="4" height="0.8" fill="%23FFD700"/><rect x="14" y="23" width="4" height="3" rx="2" fill="%23FFD700" stroke="%23B8860B" stroke-width="0.5"/><g opacity="0.9"><path d="M6 6 L10 10" stroke="%238AC7FF" stroke-width="2" fill="none"/><path d="M8 4 L4 8" stroke="%238AC7FF" stroke-width="2" fill="none"/><circle cx="7" cy="7" r="1.5" fill="%238AC7FF"/><path d="M22 8 L26 12" stroke="%23FFD700" stroke-width="2" fill="none"/><path d="M24 6 L20 10" stroke="%23FFD700" stroke-width="2" fill="none"/><circle cx="23" cy="9" r="1.2" fill="%23FFD700"/></g></g></svg>'), pointer !important;
+}
+
+/* Enhanced hover cursor for auth buttons */
+.auth-button:hover,
+.start-ceremony-btn:hover,
+.auth-secondary-button:hover {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none"><g transform="rotate(-20 18 18)"><rect x="16" y="2" width="4" height="16" rx="1" fill="%23A0522D" stroke="%23654321" stroke-width="0.5"/><rect x="16" y="18" width="4" height="8" fill="%23C0C0C0" stroke="%23A0A0A0" stroke-width="0.5"/><rect x="16" y="18.5" width="4" height="0.8" fill="%23FFD700"/><rect x="16" y="20" width="4" height="0.8" fill="%23FFD700"/><rect x="16" y="21.5" width="4" height="0.8" fill="%23FFD700"/><rect x="16" y="23" width="4" height="0.8" fill="%23FFD700"/><rect x="16" y="24.5" width="4" height="0.8" fill="%23FFD700"/><rect x="16" y="26" width="4" height="4" rx="2" fill="%23FFD700" stroke="%23B8860B" stroke-width="0.5"/><g opacity="1"><path d="M4 4 Q8 8 12 4 Q16 8 20 4 Q24 8 28 4 Q32 8 36 4" stroke="%238AC7FF" stroke-width="2.5" fill="none"/><path d="M6 10 Q10 14 14 10 Q18 14 22 10 Q26 14 30 10 Q34 14 38 10" stroke="%23FFD700" stroke-width="2" fill="none"/><circle cx="6" cy="6" r="2" fill="%238AC7FF"/><circle cx="30" cy="6" r="1.8" fill="%23FFD700"/><circle cx="12" cy="12" r="1.5" fill="%238AC7FF"/><circle cx="24" cy="12" r="1.2" fill="%23FFD700"/></g></g></svg>'), pointer !important;
 } 

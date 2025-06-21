@@ -50,13 +50,8 @@ const ThemeAnimations = () => {
       rightParticles: ['🌻', '🌺', '🍃', '🌷', '🌹', '✨'],
       colors: ['#15803D', '#84CC16', '#FDE047'],
       particleCount: 11
-    },
-    filmmakers: {
-      leftParticles: ['🎬', '🎭', '📽️', '🎪', '🎨', '✨'],
-      rightParticles: ['📷', '🎥', '🎞️', '🎪', '⭐', '💫'],
-      colors: ['#1F2937', '#6B7280', '#F59E0B'],
-      particleCount: 7
     }
+
   };
 
   useEffect(() => {
@@ -68,8 +63,7 @@ const ThemeAnimations = () => {
       'Great Hall': 'greatHall',
       'Diagon Alley': 'diagonAlley',
       'Triwizard Tournament': 'triwizard',
-      "Professor Sprout's Greenhouse": 'greenhouse',
-      'An Audience With The Filmmakers': 'filmmakers'
+      "Professor Sprout's Greenhouse": 'greenhouse'
     };
     
     const configKey = themeNameMap[currentTheme.name] || 'default';

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
+import AuthBackgroundMusic from '../UI/AuthBackgroundMusic';
 import './Auth.css';
 
 const Login = ({ onLogin }) => {
@@ -50,6 +51,7 @@ const Login = ({ onLogin }) => {
 
   return (
     <div className="auth-container">
+      <AuthBackgroundMusic isPlaying={true} />
       <div className="magical-background">
         <div className="stars"></div>
         <div className="floating-particles">
@@ -70,6 +72,7 @@ const Login = ({ onLogin }) => {
         </div>
 
         <div className="auth-card">
+          <div className="magical-sparkles"></div>
           <div className="auth-form-header">
             <h2 className="auth-title">Welcome Back</h2>
             <p className="auth-subtitle">
@@ -144,15 +147,9 @@ const Login = ({ onLogin }) => {
           <div className="house-badge">
             <div className="house-info">
               {houseInfo ? (
-                <>
-                  <span className="house-mascot">{houseInfo.mascot}</span>
-                  <span className="house-name">{houseInfo.name}</span>
-                </>
+                <span className="house-mascot-only">{houseInfo.mascot}</span>
               ) : (
-                <>
-                  <span className="house-mascot">🏰</span>
-                  <span className="house-name">Hogwarts Student</span>
-                </>
+                <span className="house-mascot-only">🏰</span>
               )}
             </div>
           </div>

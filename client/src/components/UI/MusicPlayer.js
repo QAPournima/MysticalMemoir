@@ -58,6 +58,11 @@ const MusicPlayer = () => {
   const [volume, setVolume] = useState(0.3);
   const [previewTrack, setPreviewTrack] = useState(null);
   const [isPreviewPlaying, setIsPreviewPlaying] = useState(false);
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+  const [isShuffleOn, setIsShuffleOn] = useState(false);
+  const [isRepeatOn, setIsRepeatOn] = useState(false);
+  const [playlist, setPlaylist] = useState([...MUSIC_TRACKS]);
+  const [isPlaylistMode, setIsPlaylistMode] = useState(false);
   
   const backgroundAudioRef = useRef(null);
   const previewAudioRef = useRef(null);
@@ -67,12 +72,16 @@ const MusicPlayer = () => {
     const savedTrack = localStorage.getItem('background_music');
     const savedVolume = localStorage.getItem('music_volume');
     const savedMuted = localStorage.getItem('music_muted');
+    const savedShuffle = localStorage.getItem('music_shuffle');
+    const savedRepeat = localStorage.getItem('music_repeat');
+    const savedPlaylistMode = localStorage.getItem('music_playlist_mode');
     
     if (savedTrack) {
       const track = MUSIC_TRACKS.find(t => t.id === savedTrack);
       if (track) {
         setBackgroundTrack(track);
         setCurrentTrack(track);
+        setCurrentTrackIndex(MUSIC_TRACKS.findIndex(t => t.id === savedTrack));
       }
     }
     
@@ -82,6 +91,18 @@ const MusicPlayer = () => {
     
     if (savedMuted) {
       setIsMuted(savedMuted === 'true');
+    }
+    
+    if (savedShuffle) {
+      setIsShuffleOn(savedShuffle === 'true');
+    }
+    
+    if (savedRepeat) {
+      setIsRepeatOn(savedRepeat === 'true');
+    }
+    
+    if (savedPlaylistMode) {
+      setIsPlaylistMode(savedPlaylistMode === 'true');
     }
   }, []);
 
@@ -105,7 +126,31 @@ const MusicPlayer = () => {
       // Create new audio element
       const audio = new Audio(`/HP background sound/${track.file}`);
       audio.volume = isMuted ? 0 : volume;
-      audio.loop = true;
+      
+      // Handle playlist progression when track ends
+      audio.addEventListener('ended', () => {
+        if (isPlaylistMode) {
+          if (isRepeatOn) {
+            // Replay current track
+            audio.currentTime = 0;
+            audio.play();
+          } else {
+            // Play next track in playlist
+            playNextTrack();
+          }
+        } else {
+          // Single track mode - loop if repeat is on
+          if (isRepeatOn) {
+            audio.currentTime = 0;
+            audio.play();
+          } else {
+            setIsPlaying(false);
+          }
+        }
+      });
+      
+      // Set loop only if not in playlist mode and repeat is on
+      audio.loop = !isPlaylistMode && isRepeatOn;
       
       backgroundAudioRef.current = audio;
       
@@ -204,6 +249,76 @@ const MusicPlayer = () => {
     setPreviewTrack(null);
   };
 
+  // Playlist Functions
+  const shufflePlaylist = () => {
+    const shuffled = [...playlist];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    setPlaylist(shuffled);
+    setCurrentTrackIndex(0);
+  };
+
+  const resetPlaylist = () => {
+    setPlaylist([...MUSIC_TRACKS]);
+    const currentTrackInOriginal = MUSIC_TRACKS.findIndex(track => track.id === currentTrack?.id);
+    setCurrentTrackIndex(currentTrackInOriginal >= 0 ? currentTrackInOriginal : 0);
+  };
+
+  const playNextTrack = () => {
+    if (!isPlaylistMode) return;
+    
+    let nextIndex;
+    if (isShuffleOn) {
+      nextIndex = Math.floor(Math.random() * playlist.length);
+    } else {
+      nextIndex = (currentTrackIndex + 1) % playlist.length;
+    }
+    
+    setCurrentTrackIndex(nextIndex);
+    playBackgroundMusic(playlist[nextIndex]);
+  };
+
+  const playPreviousTrack = () => {
+    if (!isPlaylistMode) return;
+    
+    let prevIndex;
+    if (isShuffleOn) {
+      prevIndex = Math.floor(Math.random() * playlist.length);
+    } else {
+      prevIndex = currentTrackIndex > 0 ? currentTrackIndex - 1 : playlist.length - 1;
+    }
+    
+    setCurrentTrackIndex(prevIndex);
+    playBackgroundMusic(playlist[prevIndex]);
+  };
+
+  const toggleShuffle = () => {
+    const newShuffle = !isShuffleOn;
+    setIsShuffleOn(newShuffle);
+    
+    if (newShuffle) {
+      shufflePlaylist();
+    } else {
+      resetPlaylist();
+    }
+    
+    localStorage.setItem('music_shuffle', newShuffle.toString());
+  };
+
+  const toggleRepeat = () => {
+    const newRepeat = !isRepeatOn;
+    setIsRepeatOn(newRepeat);
+    localStorage.setItem('music_repeat', newRepeat.toString());
+  };
+
+  const togglePlaylistMode = () => {
+    const newPlaylistMode = !isPlaylistMode;
+    setIsPlaylistMode(newPlaylistMode);
+    localStorage.setItem('music_playlist_mode', newPlaylistMode.toString());
+  };
+
   return (
     <div className="music-player">
       {/* Main Music Button */}
@@ -258,6 +373,26 @@ const MusicPlayer = () => {
           </div>
           
           <div className="music-controls">
+            {/* Playlist Mode Toggle */}
+            <button
+              className={`control-btn playlist ${isPlaylistMode ? 'active' : ''}`}
+              onClick={togglePlaylistMode}
+              title={isPlaylistMode ? 'Disable Playlist Mode' : 'Enable Playlist Mode'}
+            >
+              📋
+            </button>
+            
+            {/* Previous Track */}
+            {isPlaylistMode && (
+              <button
+                className="control-btn previous"
+                onClick={playPreviousTrack}
+                title="Previous Track"
+              >
+                ⏮️
+              </button>
+            )}
+            
             <button
               className={`control-btn ${isPlaying ? 'pause' : 'play'}`}
               onClick={isPlaying ? pauseBackgroundMusic : resumeBackgroundMusic}
@@ -265,6 +400,17 @@ const MusicPlayer = () => {
             >
               {isPlaying ? '⏸️' : '▶️'}
             </button>
+            
+            {/* Next Track */}
+            {isPlaylistMode && (
+              <button
+                className="control-btn next"
+                onClick={playNextTrack}
+                title="Next Track"
+              >
+                ⏭️
+              </button>
+            )}
             
             <button
               className="control-btn stop"
@@ -277,6 +423,26 @@ const MusicPlayer = () => {
               title="Stop Music"
             >
               ⏹️
+            </button>
+            
+            {/* Shuffle */}
+            {isPlaylistMode && (
+              <button
+                className={`control-btn shuffle ${isShuffleOn ? 'active' : ''}`}
+                onClick={toggleShuffle}
+                title={isShuffleOn ? 'Disable Shuffle' : 'Enable Shuffle'}
+              >
+                🔀
+              </button>
+            )}
+            
+            {/* Repeat */}
+            <button
+              className={`control-btn repeat ${isRepeatOn ? 'active' : ''}`}
+              onClick={toggleRepeat}
+              title={isRepeatOn ? 'Disable Repeat' : 'Enable Repeat'}
+            >
+              🔁
             </button>
             
             <button
@@ -365,6 +531,35 @@ const MusicPlayer = () => {
               <div className="preview-indicator">
                 <span>🎧 Previewing: {previewTrack.name}</span>
                 <button onClick={stopPreview} className="stop-preview">⏹️</button>
+              </div>
+            )}
+            
+            {/* Playlist Display */}
+            {isPlaylistMode && (
+              <div className="playlist-section">
+                <div className="playlist-header">
+                  <h4>📋 Current Playlist</h4>
+                  <div className="playlist-info">
+                    <span>{playlist.length} tracks</span>
+                    {isShuffleOn && <span>🔀 Shuffled</span>}
+                    {isRepeatOn && <span>🔁 Repeat</span>}
+                  </div>
+                </div>
+                <div className="playlist-tracks">
+                  {playlist.map((track, index) => (
+                    <div
+                      key={`${track.id}-${index}`}
+                      className={`playlist-track ${index === currentTrackIndex ? 'current' : ''}`}
+                    >
+                      <span className="track-number">{index + 1}</span>
+                      <span className="track-icon">{track.icon}</span>
+                      <span className="track-name">{track.name}</span>
+                      {index === currentTrackIndex && (
+                        <span className="current-indicator">🎵</span>
+                      )}
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
             

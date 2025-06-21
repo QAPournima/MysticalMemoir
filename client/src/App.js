@@ -16,6 +16,7 @@ import LoadingSpinner from './components/UI/LoadingSpinner';
 import MusicPlayer from './components/UI/MusicPlayer';
 import InAppNotification from './components/UI/InAppNotification';
 import ThemeAnimations from './components/UI/ThemeAnimations';
+
 import Login from './components/Auth/Login';
 import SignUp from './components/Auth/SignUp';
 
@@ -23,37 +24,53 @@ import SignUp from './components/Auth/SignUp';
 import { DiaryProvider } from './context/DiaryContext';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 
+
 // Inner App component that can access theme context
 function AppContent() {
-  const { getCurrentUITheme } = useTheme();
+  const { getCurrentUITheme, currentHouse, changeHouse } = useTheme();
   const currentTheme = getCurrentUITheme();
 
-  const [currentHouse, setCurrentHouse] = useState('gryffindor');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Load user preferences
-    const savedHouse = localStorage.getItem('selected_house') || 'gryffindor';
-    setCurrentHouse(savedHouse);
-    
     // Check authentication status
     const authStatus = localStorage.getItem('user_authenticated') === 'true';
     setIsAuthenticated(authStatus);
+
+    // Show loading for 2.2 seconds on initial load
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2200);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const handleLogin = () => {
-    setIsAuthenticated(true);
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsAuthenticated(true);
+      setIsLoading(false);
+    }, 1500);
   };
 
   const handleSignUp = () => {
-    setIsAuthenticated(true);
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsAuthenticated(true);
+      setIsLoading(false);
+    }, 1500);
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('user_authenticated');
-    localStorage.removeItem('user_email');
-    localStorage.removeItem('user_name');
-    setIsAuthenticated(false);
+    setIsLoading(true);
+    setTimeout(() => {
+      localStorage.removeItem('user_authenticated');
+      localStorage.removeItem('user_email');
+      localStorage.removeItem('user_name');
+      setIsAuthenticated(false);
+      setIsLoading(false);
+    }, 1200);
   };
 
   const pageVariants = {
@@ -67,6 +84,20 @@ function AppContent() {
     ease: 'anticipate',
     duration: 0.5
   };
+
+  // Show loading spinner on initial load or page refresh
+  if (isLoading) {
+    const loadingMessages = [
+      "Loading magical content...",
+      "Summoning Hogwarts houses...",
+      "Preparing magical diary...",
+      "Casting loading spells...",
+      "Accessing magical archives...",
+      "Weaving house magic..."
+    ];
+    const randomMessage = loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
+    return <LoadingSpinner message={randomMessage} />;
+  }
 
   // Show auth pages if not authenticated
   if (!isAuthenticated) {
@@ -128,7 +159,7 @@ function AppContent() {
           
           <ThemeAnimations />
           
-          <Navbar currentHouse={currentHouse} setCurrentHouse={setCurrentHouse} onLogout={handleLogout} />
+          <Navbar currentHouse={currentHouse} setCurrentHouse={changeHouse} onLogout={handleLogout} />
           <MusicPlayer />
           <InAppNotification />
           
@@ -274,7 +305,7 @@ function AppContent() {
                       variants={pageVariants}
                       transition={pageTransition}
                     >
-                      <Settings currentHouse={currentHouse} setCurrentHouse={setCurrentHouse} />
+                      <Settings currentHouse={currentHouse} setCurrentHouse={changeHouse} />
                     </motion.div>
                   } 
                 />
@@ -288,21 +319,6 @@ function AppContent() {
 }
 
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    // Simulate app initialization
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
-
   return (
     <ThemeProvider>
       <AppContent />

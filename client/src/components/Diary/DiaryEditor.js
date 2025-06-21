@@ -158,6 +158,12 @@ const DiaryEditor = () => {
   const [lastResponseTime, setLastResponseTime] = useState(0);
   const [triggeredWords, setTriggeredWords] = useState(new Set());
   
+  // Draft saving states
+  const [showModeConfirmation, setShowModeConfirmation] = useState(false);
+  const [draftContent, setDraftContent] = useState('');
+  const [draftTitle, setDraftTitle] = useState('');
+  const [pendingModeChange, setPendingModeChange] = useState(false);
+  
   const fileInputRef = useRef(null);
   const editorRef = useRef(null);
   const houseInfo = getHouseInfo(currentHouse);
@@ -422,6 +428,70 @@ const DiaryEditor = () => {
     console.log('🔄 Clearing triggered words for fresh responses');
     setTriggeredWords(new Set());
     setLastResponseTime(0);
+  };
+
+  // Draft Management Functions
+  const saveDraftContent = () => {
+    console.log('💾 Saving current content as draft');
+    setDraftTitle(formData.title);
+    setDraftContent(formData.content);
+  };
+
+  const restoreDraftContent = () => {
+    console.log('📝 Restoring draft content');
+    setFormData(prev => ({
+      ...prev,
+      title: draftTitle,
+      content: draftContent
+    }));
+    // Clear draft after restoration
+    setDraftTitle('');
+    setDraftContent('');
+  };
+
+  const handleModeToggleClick = () => {
+    console.log('🔄 Mode toggle clicked! Current mode:', magicalMode);
+    
+    if (!magicalMode) {
+      // Enabling Interactive Mode - show confirmation if there's content
+      if (formData.title.trim() || formData.content.trim()) {
+        setShowModeConfirmation(true);
+        setPendingModeChange(true);
+      } else {
+        // No content to save, just enable
+        setMagicalMode(true);
+      }
+    } else {
+      // Disabling Interactive Mode - restore draft if exists
+      if (draftTitle || draftContent) {
+        restoreDraftContent();
+        sendMagicalNotification('Draft Restored', {
+          body: `Your original writing has been restored! Continue where you left off. 📝`,
+          tag: 'draft-restore'
+        });
+      }
+      setMagicalMode(false);
+    }
+  };
+
+  const confirmModeChange = () => {
+    console.log('✅ User confirmed mode change');
+    saveDraftContent();
+    setMagicalMode(true);
+    setShowModeConfirmation(false);
+    setPendingModeChange(false);
+    
+    // Send notification about mode change
+    sendMagicalNotification('Interactive Mode Enabled', {
+      body: `Your writing has been saved as a draft. The diary will now respond to your emotions! ✨`,
+      tag: 'interactive-mode'
+    });
+  };
+
+  const cancelModeChange = () => {
+    console.log('❌ User cancelled mode change');
+    setShowModeConfirmation(false);
+    setPendingModeChange(false);
   };
 
   const typewriterEffect = (text, responseId) => {
@@ -1022,12 +1092,9 @@ const DiaryEditor = () => {
           <div className="content-editor magical-card">
             <div className="editor-toolbar">
               <button
-                onClick={() => {
-                  console.log('Interactive button clicked! Current mode:', magicalMode);
-                  setMagicalMode(!magicalMode);
-                }}
+                onClick={handleModeToggleClick}
                 className={`magical-mode-btn ${magicalMode ? 'active' : ''}`}
-                title="Toggle interactive diary mode"
+                title={magicalMode ? 'Exit interactive mode and restore your draft' : 'Enter interactive diary mode'}
                 style={{
                   backgroundColor: magicalMode ? houseColors.accent : houseColors.primary,
                   color: 'white',
@@ -1342,6 +1409,69 @@ const DiaryEditor = () => {
             </label>
           </div>
         </div>
+
+        {/* Interactive Mode Confirmation Modal */}
+        {showModeConfirmation && (
+          <motion.div
+            className="modal-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="confirmation-modal magical-card"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+            >
+              <div className="modal-header">
+                <h3>🖋️ Switch to Interactive Diary Mode?</h3>
+              </div>
+              
+              <div className="modal-content">
+                <p>
+                  <strong>Your current writing will be saved as a draft.</strong>
+                </p>
+                <p>
+                  In Interactive Mode, the diary will respond to emotional words like "happy", "sad", "scared", "love", etc. When you exit Interactive Mode, your original draft will be automatically restored.
+                </p>
+                
+                {(formData.title.trim() || formData.content.trim()) && (
+                  <div className="draft-preview">
+                    <h4>📝 Content to be saved as draft:</h4>
+                    {formData.title.trim() && (
+                      <div className="draft-title">
+                        <strong>Title:</strong> {formData.title.substring(0, 50)}
+                        {formData.title.length > 50 && '...'}
+                      </div>
+                    )}
+                    {formData.content.trim() && (
+                      <div className="draft-content">
+                        <strong>Content:</strong> {formData.content.substring(0, 100)}
+                        {formData.content.length > 100 && '...'}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+              
+              <div className="modal-actions">
+                <button
+                  onClick={cancelModeChange}
+                  className="cancel-btn magical-button"
+                >
+                  ❌ Cancel
+                </button>
+                <button
+                  onClick={confirmModeChange}
+                  className="confirm-btn magical-button"
+                >
+                  ✨ Enable Interactive Mode
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
       </div>
     </div>
   );

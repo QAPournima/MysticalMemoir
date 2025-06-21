@@ -16,8 +16,8 @@
 }
 
 .hogwarts-crest {
-  width: 100px;
-  height: 100px;
+  width: 120px;
+  height: 120px;
   position: relative;
   margin: 0 auto;
   animation: rotate 3s linear infinite;
@@ -25,45 +25,47 @@
 
 .crest-section {
   position: absolute;
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
+  font-size: 28px;
   border-radius: 50%;
   animation: pulse 2s ease-in-out infinite;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .crest-section.gryffindor {
-  top: 0;
+  top: -5px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(116, 0, 1, 0.2);
+  background: rgba(116, 0, 1, 0.3);
   animation-delay: 0s;
 }
 
 .crest-section.slytherin {
-  bottom: 0;
+  bottom: -5px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(13, 74, 45, 0.2);
+  background: rgba(13, 74, 45, 0.3);
   animation-delay: 0.5s;
 }
 
 .crest-section.ravenclaw {
   top: 50%;
-  left: 0;
+  left: -5px;
   transform: translateY(-50%);
-  background: rgba(14, 26, 64, 0.2);
+  background: rgba(14, 26, 64, 0.3);
   animation-delay: 1s;
 }
 
 .crest-section.hufflepuff {
   top: 50%;
-  right: 0;
+  right: -5px;
   transform: translateY(-50%);
-  background: rgba(255, 216, 0, 0.2);
+  background: rgba(255, 216, 0, 0.3);
   animation-delay: 1.5s;
 }
 
@@ -135,10 +137,10 @@
 .loading-progress {
   height: 100%;
   background: linear-gradient(90deg, 
-    var(--gryffindor-primary), 
-    var(--slytherin-primary), 
-    var(--ravenclaw-primary), 
-    var(--hufflepuff-primary)
+    #740001, 
+    #0D4A2D, 
+    #0E1A40, 
+    #FFD800
   );
   border-radius: 3px;
   animation: loading-progress 2s ease-in-out infinite;

@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
 import SortingCeremony from './SortingCeremony';
+import AuthBackgroundMusic from '../UI/AuthBackgroundMusic';
 import './Auth.css';
 
 const SignUp = ({ onSignUp }) => {
   const { HOUSES, getHouseInfo } = useTheme();
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState('form'); // 'form', 'sorting', 'complete'
   const [formData, setFormData] = useState({
     firstName: '',
@@ -66,8 +68,13 @@ const SignUp = ({ onSignUp }) => {
       // Update form data
       setFormData(prev => ({ ...prev, selectedHouse: sortedHouse }));
       
-      // Complete signup
+      // Complete signup and navigate to home
       if (onSignUp) onSignUp();
+      
+      // Navigate to home page after a short delay
+      setTimeout(() => {
+        navigate('/home');
+      }, 100);
     } catch (err) {
       setError('Something went wrong. Please try again.');
     }
@@ -79,12 +86,14 @@ const SignUp = ({ onSignUp }) => {
       <SortingCeremony 
         onSorted={handleSortingComplete}
         userName={`${formData.firstName} ${formData.lastName}`}
+        userData={formData}
       />
     );
   }
 
   return (
     <div className="auth-container">
+      <AuthBackgroundMusic isPlaying={true} />
       <div className="magical-background">
         <div className="stars"></div>
         <div className="floating-particles">
@@ -105,6 +114,7 @@ const SignUp = ({ onSignUp }) => {
         </div>
 
         <div className="auth-card signup-card">
+          <div className="magical-sparkles"></div>
           <div className="auth-form-header">
             <h2 className="auth-title">Begin Your Journey</h2>
             <p className="auth-subtitle">
@@ -207,8 +217,6 @@ const SignUp = ({ onSignUp }) => {
               </div>
             </div>
 
-
-
             <button
               type="submit"
               className="auth-button gryffindor-button"
@@ -221,7 +229,7 @@ const SignUp = ({ onSignUp }) => {
                 </>
               ) : (
                 <>
-                  <span className="button-icon">🎩</span>
+                  <img src="/image/SortingHat .gif" alt="Sorting Hat" className="button-icon" />
                   Continue to Sorting Ceremony
                 </>
               )}
@@ -229,18 +237,20 @@ const SignUp = ({ onSignUp }) => {
           </form>
 
           <div className="auth-footer">
-            <p className="auth-link-text">
-              Already have a magical account?{' '}
-              <Link to="/login" className="auth-link">
-                Sign in here
+            <div className="auth-footer-buttons">
+              <Link to="/login" className="auth-secondary-button">
+                <span className="button-icon">🏰</span>
+                Back to Login
               </Link>
+            </div>
+            <p className="auth-link-text">
+              Already have a magical account?
             </p>
           </div>
 
           <div className="house-badge">
             <div className="house-info">
-              <span className="house-mascot">🎩</span>
-              <span className="house-name">Awaiting Sorting</span>
+              <img src="/image/SortingHat .gif" alt="Sorting Hat" className="house-mascot-only-gif" />
             </div>
           </div>
         </div>

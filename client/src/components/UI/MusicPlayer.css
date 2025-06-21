@@ -551,3 +551,240 @@
     font-size: 1.2rem;
   }
 }
+
+/* Playlist Controls */
+.control-btn.playlist,
+.control-btn.shuffle,
+.control-btn.repeat {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.control-btn.playlist.active,
+.control-btn.shuffle.active,
+.control-btn.repeat.active {
+  background: rgba(76, 175, 80, 0.3);
+  border-color: rgba(76, 175, 80, 0.5);
+  color: #4CAF50;
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.3);
+}
+
+.control-btn.previous:hover,
+.control-btn.next:hover {
+  background: rgba(0, 123, 255, 0.3);
+  border-color: rgba(0, 123, 255, 0.5);
+}
+
+.control-btn.playlist:hover {
+  background: rgba(156, 39, 176, 0.3);
+  border-color: rgba(156, 39, 176, 0.5);
+}
+
+.control-btn.shuffle:hover {
+  background: rgba(255, 152, 0, 0.3);
+  border-color: rgba(255, 152, 0, 0.5);
+}
+
+.control-btn.repeat:hover {
+  background: rgba(76, 175, 80, 0.3);
+  border-color: rgba(76, 175, 80, 0.5);
+}
+
+/* Playlist Section */
+.playlist-section {
+  padding: 15px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.playlist-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.playlist-header h4 {
+  margin: 0;
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  color: #f4e4c1;
+}
+
+.playlist-info {
+  display: flex;
+  gap: 10px;
+  font-size: 0.8rem;
+  color: rgba(244, 228, 193, 0.7);
+}
+
+.playlist-info span {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.playlist-tracks {
+  max-height: 200px;
+  overflow-y: auto;
+  gap: 2px;
+}
+
+.playlist-track {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  font-size: 0.85rem;
+}
+
+.playlist-track:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.playlist-track.current {
+  background: rgba(212, 175, 55, 0.2);
+  border-color: rgba(212, 175, 55, 0.4);
+  color: #f4e4c1;
+  font-weight: 600;
+}
+
+.track-number {
+  min-width: 20px;
+  text-align: center;
+  color: rgba(244, 228, 193, 0.6);
+  font-size: 0.8rem;
+}
+
+.playlist-track.current .track-number {
+  color: #d4af37;
+  font-weight: bold;
+}
+
+.playlist-track .track-icon {
+  font-size: 1rem;
+}
+
+.playlist-track .track-name {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: rgba(244, 228, 193, 0.9);
+}
+
+.playlist-track.current .track-name {
+  color: #f4e4c1;
+}
+
+.current-indicator {
+  font-size: 0.8rem;
+  color: #4CAF50;
+  animation: pulse 2s infinite;
+}
+
+/* Playlist Tracks Scrollbar */
+.playlist-tracks::-webkit-scrollbar {
+  width: 4px;
+}
+
+.playlist-tracks::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+}
+
+.playlist-tracks::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.4);
+  border-radius: 2px;
+}
+
+.playlist-tracks::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 175, 55, 0.6);
+}
+
+/* Enhanced Music Controls Layout */
+.music-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/* Mobile Responsiveness for Playlist */
+@media (max-width: 768px) {
+  .playlist-section {
+    padding: 12px 15px;
+  }
+  
+  .playlist-header h4 {
+    font-size: 0.9rem;
+  }
+  
+  .playlist-info {
+    font-size: 0.75rem;
+    gap: 6px;
+  }
+  
+  .playlist-track {
+    padding: 5px 8px;
+    font-size: 0.8rem;
+  }
+  
+  .track-number {
+    min-width: 18px;
+    font-size: 0.75rem;
+  }
+  
+  .playlist-track .track-icon {
+    font-size: 0.9rem;
+  }
+  
+  .current-indicator {
+    font-size: 0.75rem;
+  }
+  
+  .music-controls {
+    gap: 3px;
+  }
+  
+  .control-btn {
+    width: 26px;
+    height: 26px;
+    font-size: 0.75rem;
+  }
+  
+  .volume-control {
+    min-width: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .playlist-tracks {
+    max-height: 150px;
+  }
+  
+  .music-controls {
+    flex-wrap: wrap;
+    gap: 2px;
+  }
+  
+  .volume-control {
+    order: 10;
+    width: 100%;
+    justify-content: center;
+    margin-top: 6px;
+  }
+  
+  .control-btn {
+    width: 24px;
+    height: 24px;
+    font-size: 0.7rem;
+  }
+}
