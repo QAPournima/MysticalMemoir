@@ -16,6 +16,7 @@ import LoadingSpinner from './components/UI/LoadingSpinner';
 import MusicPlayer from './components/UI/MusicPlayer';
 import InAppNotification from './components/UI/InAppNotification';
 import ThemeAnimations from './components/UI/ThemeAnimations';
+import VideoBackground from './components/UI/VideoBackground';
 
 import Login from './components/Auth/Login';
 import SignUp from './components/Auth/SignUp';
@@ -157,6 +158,7 @@ function AppContent() {
             </div>
           </div>
           
+          <VideoBackground />
           <ThemeAnimations />
           
           <Navbar currentHouse={currentHouse} setCurrentHouse={changeHouse} onLogout={handleLogout} />

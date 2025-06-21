@@ -211,13 +211,13 @@ const UI_THEMES = {
       primary: '#15803D',
       secondary: '#84CC16',
       accent: '#FDE047',
-      background: 'linear-gradient(135deg, rgba(240, 253, 244, 0.8) 0%, rgba(236, 252, 203, 0.9) 100%)',
-      cardBg: 'rgba(240, 253, 244, 0.85)',
+      background: 'linear-gradient(135deg, rgba(240, 253, 244, 0.7) 0%, rgba(236, 252, 203, 0.8) 100%)',
+      cardBg: 'rgba(240, 253, 244, 0.9)',
       textPrimary: '#15803D',
       textSecondary: '#4D7C0F'
     },
-    backgroundImage: 'url("/webpage background/Greenhouse.jpg")',
-    backgroundOverlay: 'radial-gradient(circle at 35% 25%, rgba(132, 204, 22, 0.15) 0%, transparent 50%), radial-gradient(circle at 65% 75%, rgba(21, 128, 61, 0.1) 0%, transparent 50%)',
+    backgroundVideo: '/webpage background/Greenhouse.mp4',
+    backgroundOverlay: 'radial-gradient(circle at 35% 25%, rgba(132, 204, 22, 0.12) 0%, transparent 50%), radial-gradient(circle at 65% 75%, rgba(21, 128, 61, 0.08) 0%, transparent 50%)',
     atmosphereParticles: ['🌿', '🌱', '🌸', '🍄', '✨', '🦋', '🐛', '🌻', '🌺']
   }
 
@@ -226,6 +226,7 @@ const UI_THEMES = {
 export const ThemeProvider = ({ children }) => {
   const [currentHouse, setCurrentHouse] = useState('gryffindor');
   const [currentUITheme, setCurrentUITheme] = useState('default');
+  const [currentVideoBackground, setCurrentVideoBackground] = useState(null);
   const [preferences, setPreferences] = useState({
     fontSize: 'medium',
     autoSave: true,
@@ -273,10 +274,15 @@ export const ThemeProvider = ({ children }) => {
       root.style.setProperty('--theme-text-primary', theme.colors.textPrimary);
       root.style.setProperty('--theme-text-secondary', theme.colors.textSecondary);
       
-      if (theme.backgroundImage) {
+      if (theme.backgroundVideo) {
+        root.style.removeProperty('--theme-background-image');
+        setCurrentVideoBackground(theme.backgroundVideo);
+      } else if (theme.backgroundImage) {
         root.style.setProperty('--theme-background-image', theme.backgroundImage);
+        setCurrentVideoBackground(null);
       } else {
         root.style.removeProperty('--theme-background-image');
+        setCurrentVideoBackground(null);
       }
       
       if (theme.backgroundOverlay) {
@@ -325,11 +331,16 @@ export const ThemeProvider = ({ children }) => {
     root.style.setProperty('--theme-text-primary', theme.colors.textPrimary);
     root.style.setProperty('--theme-text-secondary', theme.colors.textSecondary);
     
-          // Apply background image if exists
-      if (theme.backgroundImage) {
+          // Apply background image or video if exists
+      if (theme.backgroundVideo) {
+        root.style.removeProperty('--theme-background-image');
+        setCurrentVideoBackground(theme.backgroundVideo);
+      } else if (theme.backgroundImage) {
         root.style.setProperty('--theme-background-image', theme.backgroundImage);
+        setCurrentVideoBackground(null);
       } else {
         root.style.removeProperty('--theme-background-image');
+        setCurrentVideoBackground(null);
       }
       
       // Apply background overlay if exists (for layered effects)
@@ -576,6 +587,7 @@ export const ThemeProvider = ({ children }) => {
     currentUITheme,
     changeUITheme,
     getCurrentUITheme,
+    currentVideoBackground,
     preferences,
     updatePreferences,
     getHouseInfo,
