@@ -4,6 +4,20 @@ import { useDiary } from '../../context/DiaryContext';
 import { useTheme } from '../../context/ThemeContext';
 import './TodoList.css';
 
+// Helper function to safely parse JSON
+const safeJSONParse = (jsonString, fallback = []) => {
+  try {
+    if (!jsonString || jsonString.trim() === '') {
+      return fallback;
+    }
+    const parsed = JSON.parse(jsonString);
+    return Array.isArray(parsed) ? parsed : fallback;
+  } catch (error) {
+    console.warn('Invalid JSON data, using fallback:', error);
+    return fallback;
+  }
+};
+
 const TodoList = () => {
   const { todos, createTodo, updateTodo, deleteTodo, fetchTodos } = useDiary();
   const { currentHouse, getHouseInfo, sendMagicalNotification } = useTheme();
@@ -16,6 +30,25 @@ const TodoList = () => {
   const houseInfo = getHouseInfo(currentHouse);
 
   useEffect(() => {
+    // Clean up any corrupted localStorage data
+    try {
+      const storedTodos = localStorage.getItem('magical_quests');
+      if (storedTodos) {
+        const parsed = JSON.parse(storedTodos);
+        if (Array.isArray(parsed)) {
+          // Clean up any todos with invalid items data
+          const cleanedTodos = parsed.map(todo => ({
+            ...todo,
+            items: typeof todo.items === 'string' ? todo.items : '[]'
+          }));
+          localStorage.setItem('magical_quests', JSON.stringify(cleanedTodos));
+        }
+      }
+    } catch (error) {
+      console.warn('Clearing corrupted localStorage data:', error);
+      localStorage.removeItem('magical_quests');
+    }
+    
     fetchTodos();
   }, []);
 
@@ -42,7 +75,7 @@ const TodoList = () => {
     const todo = todos.find(t => t.id === todoId);
     if (!todo) return;
     
-    const items = JSON.parse(todo.items || '[]');
+    const items = safeJSONParse(todo.items);
     const newItems = [...items, { id: Date.now(), text: item, completed: false }];
     
     try {
@@ -57,7 +90,7 @@ const TodoList = () => {
     const todo = todos.find(t => t.id === todoId);
     if (!todo) return;
     
-    const items = JSON.parse(todo.items || '[]');
+    const items = safeJSONParse(todo.items);
     const item = items.find(i => i.id === itemId);
     const updatedItems = items.map(i =>
       i.id === itemId ? { ...i, completed: !i.completed } : i
@@ -139,7 +172,7 @@ const TodoList = () => {
         ) : (
           <div className="todos-grid">
             {todos.map((todo) => {
-              const items = JSON.parse(todo.items || '[]');
+              const items = safeJSONParse(todo.items);
               const completedItems = items.filter(item => item.completed).length;
               const progress = items.length > 0 ? (completedItems / items.length) * 100 : 0;
               
@@ -231,7 +264,7 @@ const TodoList = () => {
               
               <div className="items-list">
                 <AnimatePresence>
-                  {JSON.parse(selectedTodo.items || '[]').map((item) => (
+                  {safeJSONParse(selectedTodo.items).map((item) => (
                     <motion.div
                       key={item.id}
                       className={`todo-item ${item.completed ? 'completed' : ''}`}
