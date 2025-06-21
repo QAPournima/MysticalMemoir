@@ -211,13 +211,14 @@ const UI_THEMES = {
       primary: '#15803D',
       secondary: '#84CC16',
       accent: '#FDE047',
-      background: 'linear-gradient(135deg, #F0FDF4 0%, #ECFCCB 100%)',
-      cardBg: 'rgba(240, 253, 244, 0.9)',
+      background: 'linear-gradient(135deg, rgba(240, 253, 244, 0.8) 0%, rgba(236, 252, 203, 0.9) 100%)',
+      cardBg: 'rgba(240, 253, 244, 0.85)',
       textPrimary: '#15803D',
       textSecondary: '#4D7C0F'
     },
-    backgroundImage: 'radial-gradient(circle at 35% 25%, rgba(132, 204, 22, 0.2) 0%, transparent 50%), radial-gradient(circle at 65% 75%, rgba(21, 128, 61, 0.15) 0%, transparent 50%)',
-    atmosphereParticles: ['🌿', '🌱', '🌸', '🍄', '✨']
+    backgroundImage: 'url("/webpage background/Greenhouse.jpg")',
+    backgroundOverlay: 'radial-gradient(circle at 35% 25%, rgba(132, 204, 22, 0.15) 0%, transparent 50%), radial-gradient(circle at 65% 75%, rgba(21, 128, 61, 0.1) 0%, transparent 50%)',
+    atmosphereParticles: ['🌿', '🌱', '🌸', '🍄', '✨', '🦋', '🐛', '🌻', '🌺']
   }
 
 };
@@ -290,7 +291,8 @@ export const ThemeProvider = ({ children }) => {
         'Hogwarts in the Snow': 'snowAnimation',
         'Great Hall': 'greatHallAnimation',
         'Diagon Alley': 'diagonAlleyAnimation',
-        'Triwizard Tournament': 'triwizardAnimation'
+        'Triwizard Tournament': 'triwizardAnimation',
+        "Professor Sprout's Greenhouse": 'greenhouseAnimation'
       };
       
       const animationName = animationMap[theme.name] || 'defaultBackgroundAnimation';
@@ -343,7 +345,8 @@ export const ThemeProvider = ({ children }) => {
         'Hogwarts in the Snow': 'snowAnimation',
         'Great Hall': 'greatHallAnimation',
         'Diagon Alley': 'diagonAlleyAnimation',
-        'Triwizard Tournament': 'triwizardAnimation'
+        'Triwizard Tournament': 'triwizardAnimation',
+        "Professor Sprout's Greenhouse": 'greenhouseAnimation'
       };
       
       const animationName = animationMap[theme.name] || 'defaultBackgroundAnimation';

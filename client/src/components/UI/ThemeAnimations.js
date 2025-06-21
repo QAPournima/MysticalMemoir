@@ -46,10 +46,10 @@ const ThemeAnimations = () => {
       particleCount: 14
     },
     greenhouse: {
-      leftParticles: ['🌿', '🌱', '🌸', '🍄', '🦋', '🐛'],
-      rightParticles: ['🌻', '🌺', '🍃', '🌷', '🌹', '✨'],
+      leftParticles: ['🌿', '🌱', '🌸', '🍄', '🦋', '🐛', '🌻', '🌺'],
+      rightParticles: ['🌻', '🌺', '🍃', '🌷', '🌹', '✨', '🌿', '🦋'],
       colors: ['#15803D', '#84CC16', '#FDE047'],
-      particleCount: 11
+      particleCount: 14
     }
 
   };
@@ -228,7 +228,15 @@ const ThemeAnimations = () => {
         {(currentTheme.name === "Professor Sprout's Greenhouse" || currentTheme.name?.includes('Greenhouse')) && (
           <div className="nature-overlay">
             {[...Array(8)].map((_, i) => (
-              <div key={i} className={`floating-leaf leaf-${i}`}>🍃</div>
+              <div key={`leaf-${i}`} className={`floating-leaf leaf-${i}`}>🍃</div>
+            ))}
+            {[...Array(6)].map((_, i) => (
+              <div key={`flower-${i}`} className={`floating-flower flower-${i}`}>
+                {i % 3 === 0 ? '🌸' : i % 3 === 1 ? '🌺' : '🌻'}
+              </div>
+            ))}
+            {[...Array(4)].map((_, i) => (
+              <div key={`butterfly-${i}`} className={`flying-butterfly butterfly-${i}`}>🦋</div>
             ))}
           </div>
         )}
