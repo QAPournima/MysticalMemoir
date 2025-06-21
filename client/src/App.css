@@ -199,7 +199,7 @@ body {
   position: relative;
   z-index: 10;
   min-height: 100vh;
-  padding-top: 120px; /* Account for navbar */
+  padding-top: 90px; /* Account for fixed navbar */
   color: var(--theme-text-primary, var(--ink));
   transition: all 0.5s ease;
 }
@@ -373,7 +373,7 @@ body {
 @media (max-width: 768px) {
   .main-content {
     padding: 15px;
-    padding-top: 100px;
+    padding-top: 80px;
   }
   
   .magical-title {
@@ -396,7 +396,7 @@ body {
 
 @media (max-width: 480px) {
   .main-content {
-    padding-top: 90px;
+    padding-top: 70px;
   }
   
   .magical-title {

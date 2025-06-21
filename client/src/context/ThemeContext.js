@@ -132,7 +132,7 @@ const UI_THEMES = {
       textSecondary: '#B39DDB'
     },
     backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(74, 20, 140, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(50, 0, 50, 0.1) 0%, transparent 50%)',
-    atmosphereParticles: ['🕷️', '🦇', '💀', '🐍', '⚡']
+    atmosphereParticles: ['🕷️', '🦇', '💀', '🐍', '⚡' ]
   },
   hogwartsSnow: {
     name: 'Hogwarts in the Snow',

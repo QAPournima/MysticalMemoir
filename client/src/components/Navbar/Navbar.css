@@ -6,8 +6,11 @@
   backdrop-filter: blur(10px);
   border-bottom: 3px solid var(--accent);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
   z-index: 1000;
   transition: all 0.3s ease;
 }
