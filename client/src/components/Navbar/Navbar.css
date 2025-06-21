@@ -115,11 +115,11 @@
   top: 100%;
   left: 0;
   right: 0;
-  background: rgba(244, 236, 216, 0.98);
-  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(15px);
   border: 2px solid var(--accent);
   border-radius: 15px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
   overflow: hidden;
   z-index: 1001;
   margin-top: 5px;
@@ -135,16 +135,16 @@
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  color: #2C1810;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  color: #F4E4C1;
   font-family: var(--font-magical);
   font-weight: 600;
 }
 
 .house-option:hover {
-  background: rgba(232, 220, 192, 0.8);
+  background: rgba(255, 255, 255, 0.15);
   transform: translateX(5px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .house-option.active {
@@ -163,7 +163,7 @@
 }
 
 .house-info .house-name {
-  color: #2C1810;
+  color: #F4E4C1;
   font-size: 1.1rem;
   font-weight: 700;
   margin-bottom: 2px;
@@ -173,7 +173,7 @@
   font-size: 0.8rem;
   opacity: 0.9;
   font-style: italic;
-  color: #4A4A4A;
+  color: #D4C4A8;
   font-weight: 500;
 }
 
