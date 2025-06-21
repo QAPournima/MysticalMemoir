@@ -143,12 +143,13 @@ const UI_THEMES = {
       primary: '#1b1b2f',
       secondary: '#3e3e55',
       accent: '#d4af37',
-      background: 'linear-gradient(to bottom, #1b1b2f 0%, #3e3e55 100%)',
-      cardBg: 'rgba(0, 0, 0, 0.4)',
+      background: 'linear-gradient(to bottom, rgba(27, 27, 47, 0.7) 0%, rgba(62, 62, 85, 0.8) 100%)',
+      cardBg: 'rgba(255, 255, 255, 0.15)',
       textPrimary: '#ffffff',
       textSecondary: '#d4af37'
     },
-    backgroundImage: 'radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.1) 0%, transparent 70%), radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.05) 0%, transparent 60%)',
+    backgroundImage: 'url("/webpage background/HogwartsintheSnow.jpg")',
+    backgroundOverlay: 'radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.1) 0%, transparent 70%), radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.05) 0%, transparent 60%)',
     atmosphereParticles: ['❄️', '☃️', '🎄', '🦌', '⭐', '🌨️', '✨', '🕯️', '🦉']
   },
   greatHall: {
@@ -159,13 +160,14 @@ const UI_THEMES = {
       primary: '#7C2D12',
       secondary: '#FBBF24',
       accent: '#F59E0B',
-      background: 'linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%)',
-      cardBg: 'rgba(254, 243, 199, 0.9)',
+      background: 'linear-gradient(135deg, rgba(254, 243, 199, 0.8) 0%, rgba(253, 230, 138, 0.9) 100%)',
+      cardBg: 'rgba(254, 243, 199, 0.85)',
       textPrimary: '#7C2D12',
       textSecondary: '#92400E'
     },
-    backgroundImage: 'radial-gradient(circle at 25% 25%, rgba(251, 191, 36, 0.2) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(245, 158, 11, 0.15) 0%, transparent 50%)',
-    atmosphereParticles: ['🕯️', '🍖', '🍞', '✨', '🦉']
+    backgroundImage: 'url("/webpage background/GreatHall.jpg")',
+    backgroundOverlay: 'radial-gradient(circle at 25% 25%, rgba(251, 191, 36, 0.15) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(245, 158, 11, 0.1) 0%, transparent 50%)',
+    atmosphereParticles: ['🕯️', '🍖', '🍞', '✨', '🦉', '🍷', '🧙‍♂️', '🏆']
   },
   diagonAlley: {
     name: 'Diagon Alley',
@@ -175,13 +177,14 @@ const UI_THEMES = {
       primary: '#059669',
       secondary: '#7C3AED',
       accent: '#F59E0B',
-      background: 'linear-gradient(135deg, #ECFDF5 0%, #F3E8FF 100%)',
-      cardBg: 'rgba(236, 253, 245, 0.9)',
+      background: 'linear-gradient(135deg, rgba(236, 253, 245, 0.8) 0%, rgba(243, 232, 255, 0.9) 100%)',
+      cardBg: 'rgba(236, 253, 245, 0.85)',
       textPrimary: '#059669',
       textSecondary: '#7C3AED'
     },
-    backgroundImage: 'radial-gradient(circle at 40% 30%, rgba(124, 58, 237, 0.1) 0%, transparent 50%), radial-gradient(circle at 60% 70%, rgba(5, 150, 105, 0.1) 0%, transparent 50%)',
-    atmosphereParticles: ['🪙', '📚', '🔮', '⚡', '🦉']
+    backgroundImage: 'url("/webpage background/DiagonAlley.jpg")',
+    backgroundOverlay: 'radial-gradient(circle at 40% 30%, rgba(124, 58, 237, 0.08) 0%, transparent 50%), radial-gradient(circle at 60% 70%, rgba(5, 150, 105, 0.08) 0%, transparent 50%)',
+    atmosphereParticles: ['🪙', '📚', '🔮', '⚡', '🦉', '🛍️', '🗝️', '🎪']
   },
   triwizard: {
     name: 'Triwizard Tournament',
@@ -279,6 +282,17 @@ export const ThemeProvider = ({ children }) => {
       } else {
         root.style.removeProperty('--theme-background-overlay');
       }
+      
+      // Apply theme-specific background animation
+      const animationMap = {
+        'Dark Arts': 'darkArtsAnimation',
+        'Hogwarts in the Snow': 'snowAnimation',
+        'Great Hall': 'greatHallAnimation',
+        'Diagon Alley': 'diagonAlleyAnimation'
+      };
+      
+      const animationName = animationMap[theme.name] || 'defaultBackgroundAnimation';
+      root.style.setProperty('--theme-background-animation', animationName);
     }, 100);
 
     if (savedPreferences) {
@@ -320,6 +334,17 @@ export const ThemeProvider = ({ children }) => {
       } else {
         root.style.removeProperty('--theme-background-overlay');
       }
+      
+      // Apply theme-specific background animation
+      const animationMap = {
+        'Dark Arts': 'darkArtsAnimation',
+        'Hogwarts in the Snow': 'snowAnimation',
+        'Great Hall': 'greatHallAnimation',
+        'Diagon Alley': 'diagonAlleyAnimation'
+      };
+      
+      const animationName = animationMap[theme.name] || 'defaultBackgroundAnimation';
+      root.style.setProperty('--theme-background-animation', animationName);
     
     console.log('✅ CSS custom properties applied:', {
       primary: theme.colors.primary,

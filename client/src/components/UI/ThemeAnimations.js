@@ -28,16 +28,16 @@ const ThemeAnimations = () => {
       particleCount: 16
     },
     greatHall: {
-      leftParticles: ['🕯️', '🍖', '🍞', '🏆', '🦉', '✨'],
-      rightParticles: ['🕯️', '🍯', '🧺', '🪙', '👑', '🔥'],
+      leftParticles: ['🕯️', '🍖', '🍞', '🏆', '🦉', '✨', '🍷', '🧙‍♂️'],
+      rightParticles: ['🕯️', '🍯', '🧺', '🪙', '👑', '🔥', '🏆', '✨'],
       colors: ['#FBBF24', '#F59E0B', '#D97706'],
-      particleCount: 10
+      particleCount: 12
     },
     diagonAlley: {
-      leftParticles: ['🪙', '📚', '🔮', '🦉', '📜', '⚡'],
-      rightParticles: ['🏪', '🛍️', '💰', '🪄', '📖', '✨'],
+      leftParticles: ['🪙', '📚', '🔮', '🦉', '📜', '⚡', '🛍️', '🗝️'],
+      rightParticles: ['🏪', '🛍️', '💰', '🪄', '📖', '✨', '🎪', '🔮'],
       colors: ['#059669', '#7C3AED', '#F59E0B'],
-      particleCount: 9
+      particleCount: 12
     },
     triwizard: {
       leftParticles: ['🏆', '🔥', '🐉', '⚡', '🪄', '⭐'],
