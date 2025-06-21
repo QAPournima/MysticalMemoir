@@ -215,13 +215,21 @@
 
 .form-label {
   display: block;
-  color: #FFD700;
+  color: #FFFFFF;
   font-weight: 700;
   margin-bottom: 10px;
-  font-size: 1rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+  font-size: 1.1rem;
+  text-shadow: 
+    2px 2px 4px rgba(0, 0, 0, 1),
+    0 0 10px rgba(255, 215, 0, 0.8),
+    0 0 20px rgba(255, 215, 0, 0.4);
   letter-spacing: 0.5px;
   text-transform: uppercase;
+  background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: brightness(1.5);
 }
 
 .magical-input {
