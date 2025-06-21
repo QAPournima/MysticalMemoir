@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTheme } from '../../context/ThemeContext';
 import './Auth.css';
 
 const Login = ({ onLogin }) => {
@@ -10,7 +11,10 @@ const Login = ({ onLogin }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  // No house info needed on login page
+  // Check if user already has a house assigned
+  const { getHouseInfo } = useTheme();
+  const currentHouse = localStorage.getItem('selected_house');
+  const houseInfo = currentHouse ? getHouseInfo(currentHouse) : null;
 
   const handleChange = (e) => {
     setFormData({
@@ -111,7 +115,7 @@ const Login = ({ onLogin }) => {
 
             <button
               type="submit"
-              className="auth-button gryffindor-button"
+              className={`auth-button ${currentHouse ? currentHouse + '-button' : 'gryffindor-button'}`}
               disabled={isLoading}
             >
               {isLoading ? (
@@ -137,7 +141,21 @@ const Login = ({ onLogin }) => {
             </p>
           </div>
 
-
+          <div className="house-badge">
+            <div className="house-info">
+              {houseInfo ? (
+                <>
+                  <span className="house-mascot">{houseInfo.mascot}</span>
+                  <span className="house-name">{houseInfo.name}</span>
+                </>
+              ) : (
+                <>
+                  <span className="house-mascot">🏰</span>
+                  <span className="house-name">Hogwarts Student</span>
+                </>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>
