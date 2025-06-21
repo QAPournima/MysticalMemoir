@@ -16,10 +16,10 @@ const ThemeAnimations = () => {
       particleCount: 8
     },
     darkArts: {
-      leftParticles: ['🕷️', '🦇', '💀', '🐍', '⚡', '🌑'],
-      rightParticles: ['🕯️', '📿', '🔥', '💨', '👁️', '🌫️'],
+      leftParticles: ['🕷️', '🦇', '💀', '🐍', '⚡', '🌑', '🔮', '🗝️'],
+      rightParticles: ['🕯️', '📿', '🔥', '💨', '👁️', '🌫️', '⚰️', '🎭'],
       colors: ['#4A148C', '#2D1B2E', '#6A1B9A'],
-      particleCount: 10
+      particleCount: 12
     },
     hogwartsSnow: {
       leftParticles: ['❄️', '☃️', '🎄', '🦌', '⭐', '🌨️', '🕯️'],
@@ -174,6 +174,16 @@ const ThemeAnimations = () => {
           <>
             <div className="dark-smoke smoke-1"></div>
             <div className="dark-smoke smoke-2"></div>
+            <div className="dark-arts-overlay">
+              {[...Array(8)].map((_, i) => (
+                <div key={`shadow-${i}`} className={`shadow-element shadow-${i % 4}`}>
+                  {i % 4 === 0 ? '🕷️' : i % 4 === 1 ? '🦇' : i % 4 === 2 ? '💀' : '🐍'}
+                </div>
+              ))}
+              {[...Array(6)].map((_, i) => (
+                <div key={`dark-orb-${i}`} className={`dark-orb orb-${i}`}>🔮</div>
+              ))}
+            </div>
           </>
         )}
         

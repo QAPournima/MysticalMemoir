@@ -126,13 +126,14 @@ const UI_THEMES = {
       primary: '#0A0A0A',
       secondary: '#2D1B2E',
       accent: '#4A148C',
-      background: 'linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%)',
-      cardBg: 'rgba(20, 20, 20, 0.9)',
+      background: 'linear-gradient(135deg, rgba(26, 26, 26, 0.8) 0%, rgba(13, 13, 13, 0.9) 100%)',
+      cardBg: 'rgba(20, 20, 20, 0.85)',
       textPrimary: '#E8E8E8',
       textSecondary: '#B39DDB'
     },
-    backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(74, 20, 140, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(50, 0, 50, 0.1) 0%, transparent 50%)',
-    atmosphereParticles: ['🕷️', '🦇', '💀', '🐍', '⚡' ]
+    backgroundImage: 'url("/webpage background/Darkart.jpg")',
+    backgroundOverlay: 'radial-gradient(circle at 20% 50%, rgba(74, 20, 140, 0.2) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(50, 0, 50, 0.2) 0%, transparent 50%)',
+    atmosphereParticles: ['🕷️', '🦇', '💀', '🐍', '⚡', '🌑', '🔮', '🗝️' ]
   },
   hogwartsSnow: {
     name: 'Hogwarts in the Snow',
@@ -272,6 +273,12 @@ export const ThemeProvider = ({ children }) => {
       } else {
         root.style.removeProperty('--theme-background-image');
       }
+      
+      if (theme.backgroundOverlay) {
+        root.style.setProperty('--theme-background-overlay', theme.backgroundOverlay);
+      } else {
+        root.style.removeProperty('--theme-background-overlay');
+      }
     }, 100);
 
     if (savedPreferences) {
@@ -300,12 +307,19 @@ export const ThemeProvider = ({ children }) => {
     root.style.setProperty('--theme-text-primary', theme.colors.textPrimary);
     root.style.setProperty('--theme-text-secondary', theme.colors.textSecondary);
     
-    // Apply background image if exists
-    if (theme.backgroundImage) {
-      root.style.setProperty('--theme-background-image', theme.backgroundImage);
-    } else {
-      root.style.removeProperty('--theme-background-image');
-    }
+          // Apply background image if exists
+      if (theme.backgroundImage) {
+        root.style.setProperty('--theme-background-image', theme.backgroundImage);
+      } else {
+        root.style.removeProperty('--theme-background-image');
+      }
+      
+      // Apply background overlay if exists (for layered effects)
+      if (theme.backgroundOverlay) {
+        root.style.setProperty('--theme-background-overlay', theme.backgroundOverlay);
+      } else {
+        root.style.removeProperty('--theme-background-overlay');
+      }
     
     console.log('✅ CSS custom properties applied:', {
       primary: theme.colors.primary,
