@@ -1,0 +1,165 @@
+.in-app-notifications {
+  position: fixed;
+  top: 90px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.magical-notification {
+  background: var(--theme-card-bg, rgba(244, 236, 216, 0.95));
+  border: 2px solid var(--theme-accent, #D4AF37);
+  border-radius: 15px;
+  padding: 15px;
+  min-width: 320px;
+  max-width: 400px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  pointer-events: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.notification-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.notification-icon {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  animation: owlBob 2s ease-in-out infinite;
+}
+
+@keyframes owlBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.notification-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.notification-title {
+  font-family: var(--font-magical, 'Cinzel', serif);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--theme-primary, #740001);
+  margin: 0 0 5px 0;
+  line-height: 1.2;
+}
+
+.notification-body {
+  font-size: 0.9rem;
+  color: var(--theme-text-secondary, #5D4E37);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.notification-close {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: var(--theme-text-secondary, #5D4E37);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.notification-close:hover {
+  background: var(--theme-accent, #D4AF37);
+  color: white;
+  transform: scale(1.1);
+}
+
+.notification-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--theme-primary, #740001), var(--theme-accent, #D4AF37));
+  border-radius: 0 0 15px 15px;
+  animation: progressBar 4s linear forwards;
+}
+
+@keyframes progressBar {
+  from { width: 100%; }
+  to { width: 0%; }
+}
+
+/* House-specific styling */
+.gryffindor-theme .magical-notification {
+  border-color: #D3A625;
+  box-shadow: 0 8px 32px rgba(116, 0, 1, 0.3);
+}
+
+.slytherin-theme .magical-notification {
+  border-color: #66BB6A;
+  box-shadow: 0 8px 32px rgba(27, 94, 32, 0.3);
+}
+
+.ravenclaw-theme .magical-notification {
+  border-color: #90CAF9;
+  box-shadow: 0 8px 32px rgba(21, 101, 192, 0.3);
+}
+
+.hufflepuff-theme .magical-notification {
+  border-color: #FDE047;
+  box-shadow: 0 8px 32px rgba(255, 216, 0, 0.3);
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .in-app-notifications {
+    right: 10px;
+    left: 10px;
+    top: 80px;
+  }
+  
+  .magical-notification {
+    min-width: auto;
+    max-width: none;
+    padding: 12px;
+  }
+  
+  .notification-title {
+    font-size: 0.9rem;
+  }
+  
+  .notification-body {
+    font-size: 0.8rem;
+  }
+  
+  .notification-icon {
+    font-size: 1.5rem;
+  }
+}
+
+/* Dark theme support */
+@media (prefers-color-scheme: dark) {
+  .magical-notification {
+    background: rgba(32, 32, 32, 0.95);
+    border-color: #D4AF37;
+  }
+  
+  .notification-title {
+    color: #f0f0f0;
+  }
+  
+  .notification-body {
+    color: #cccccc;
+  }
+} 

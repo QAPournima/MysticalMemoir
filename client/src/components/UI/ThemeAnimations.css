@@ -1,0 +1,347 @@
+.theme-animations {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Left and Right Animation Sides */
+.animation-side {
+  position: absolute;
+  top: 0;
+  width: 150px;
+  height: 100%;
+  overflow: hidden;
+}
+
+.left-side {
+  left: 0;
+}
+
+.right-side {
+  right: 0;
+}
+
+/* Magical Particles */
+.magical-particle {
+  position: absolute;
+  animation: floatVertical var(--duration, 20s) linear infinite;
+  animation-delay: var(--delay, 0s);
+  opacity: var(--opacity, 0.7);
+  font-size: var(--size, 1.5rem);
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+  transform: translateX(var(--offset, 0px));
+}
+
+.left-side .magical-particle {
+  left: 10px;
+  animation-name: floatVerticalLeft;
+}
+
+.right-side .magical-particle {
+  right: 10px;
+  animation-name: floatVerticalRight;
+}
+
+/* Floating animations */
+@keyframes floatVerticalLeft {
+  0% {
+    transform: translateY(110vh) translateX(var(--offset, 0px)) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--opacity, 0.8);
+  }
+  90% {
+    opacity: var(--opacity, 0.8);
+  }
+  100% {
+    transform: translateY(-100px) translateX(var(--offset, 0px)) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes floatVerticalRight {
+  0% {
+    transform: translateY(110vh) translateX(calc(-1 * var(--offset, 0px))) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--opacity, 0.8);
+  }
+  90% {
+    opacity: var(--opacity, 0.8);
+  }
+  100% {
+    transform: translateY(-100px) translateX(calc(-1 * var(--offset, 0px))) rotate(-360deg);
+    opacity: 0;
+  }
+}
+
+/* Magical Auras */
+.magical-aura {
+  position: absolute;
+  top: 0;
+  width: 200px;
+  height: 100%;
+  opacity: 0.3;
+  animation: auraGlow 8s ease-in-out infinite alternate;
+}
+
+.left-aura {
+  left: -50px;
+}
+
+.right-aura {
+  right: -50px;
+}
+
+@keyframes auraGlow {
+  0% { opacity: 0.2; }
+  100% { opacity: 0.5; }
+}
+
+/* Theme-Specific Elements */
+
+/* Dark Arts Smoke */
+.dark-smoke {
+  position: absolute;
+  width: 100px;
+  height: 150px;
+  background: radial-gradient(circle, rgba(74, 20, 140, 0.2) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: smokeRise 12s ease-in-out infinite;
+}
+
+.smoke-1 {
+  left: 20px;
+  animation-delay: 0s;
+}
+
+.smoke-2 {
+  right: 20px;
+  animation-delay: 6s;
+}
+
+@keyframes smokeRise {
+  0% {
+    transform: translateY(100vh) scale(0.5);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.3;
+  }
+  80% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(-200px) scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* Hogwarts Snow */
+.snow-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.snowflake {
+  position: absolute;
+  color: #E3F2FD;
+  font-size: 1rem;
+  animation: snowfall linear infinite;
+  opacity: 0.7;
+}
+
+.snowflake-0 { left: 10%; animation-duration: 8s; animation-delay: 0s; }
+.snowflake-1 { left: 20%; animation-duration: 10s; animation-delay: 2s; }
+.snowflake-2 { left: 80%; animation-duration: 12s; animation-delay: 4s; }
+.snowflake-3 { left: 90%; animation-duration: 9s; animation-delay: 6s; }
+
+@keyframes snowfall {
+  0% {
+    transform: translateY(-100px) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.7;
+  }
+  90% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Great Hall Candles */
+.candle-glow-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.floating-candle {
+  position: absolute;
+  font-size: 1.5rem;
+  animation: candleFloat 15s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.6));
+}
+
+.candle-0 { left: 5%; animation-delay: 0s; }
+.candle-1 { left: 15%; animation-delay: 3s; }
+.candle-2 { right: 15%; animation-delay: 6s; }
+.candle-3 { right: 5%; animation-delay: 9s; }
+.candle-4 { left: 50%; animation-delay: 12s; }
+.candle-5 { right: 50%; animation-delay: 15s; }
+
+@keyframes candleFloat {
+  0%, 100% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(50vh) rotate(180deg);
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.8;
+  }
+}
+
+/* Greenhouse Nature */
+.nature-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.floating-leaf {
+  position: absolute;
+  font-size: 1.2rem;
+  color: #15803D;
+  animation: leafDrift 18s linear infinite;
+  opacity: 0.6;
+}
+
+.leaf-0 { left: 8%; animation-delay: 0s; }
+.leaf-1 { left: 12%; animation-delay: 4s; }
+.leaf-2 { left: 88%; animation-delay: 8s; }
+.leaf-3 { left: 92%; animation-delay: 12s; }
+.leaf-4 { left: 5%; animation-delay: 16s; }
+.leaf-5 { left: 95%; animation-delay: 20s; }
+.leaf-6 { left: 2%; animation-delay: 24s; }
+.leaf-7 { left: 98%; animation-delay: 28s; }
+
+@keyframes leafDrift {
+  0% {
+    transform: translateY(-100px) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(50vh) translateX(20px) rotate(180deg);
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(100vh) translateX(-20px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Performance optimizations */
+.magical-particle,
+.snowflake,
+.floating-candle,
+.floating-leaf,
+.dark-smoke {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .animation-side {
+    width: 80px;
+  }
+  
+  .magical-particle {
+    font-size: calc(var(--size, 1rem) * 0.8);
+  }
+  
+  .floating-candle,
+  .floating-leaf {
+    font-size: 1rem;
+  }
+  
+  .snowflake {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .animation-side {
+    width: 60px;
+  }
+  
+  .magical-particle {
+    font-size: calc(var(--size, 1rem) * 0.6);
+  }
+  
+  .floating-candle,
+  .floating-leaf {
+    font-size: 0.8rem;
+  }
+  
+  .snowflake {
+    font-size: 0.6rem;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .magical-particle,
+  .snowflake,
+  .floating-candle,
+  .floating-leaf,
+  .dark-smoke {
+    animation-duration: 60s;
+    animation-iteration-count: 1;
+  }
+  
+  .magical-aura {
+    animation: none;
+    opacity: 0.2;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .magical-particle,
+  .snowflake,
+  .floating-candle,
+  .floating-leaf {
+    filter: contrast(2) brightness(1.5);
+  }
+} 

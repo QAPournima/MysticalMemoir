@@ -1,0 +1,364 @@
+.settings {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.settings-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.settings-subtitle {
+  font-size: 1.2rem;
+  color: var(--secondary);
+  margin-bottom: 30px;
+  font-style: italic;
+}
+
+.settings-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Settings Sections */
+.settings-section {
+  padding: 30px;
+}
+
+.section-title {
+  font-family: var(--font-magical);
+  font-size: 1.8rem;
+  color: var(--primary);
+  margin-bottom: 15px;
+}
+
+.section-description {
+  font-size: 1rem;
+  color: var(--secondary);
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+/* House Selection */
+.house-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.house-card {
+  background: var(--parchment);
+  border: 3px solid var(--accent);
+  border-radius: 15px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.house-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.house-card.selected {
+  border-color: var(--primary);
+  background: linear-gradient(135deg, var(--parchment), var(--dark-parchment));
+  box-shadow: 0 0 20px rgba(116, 0, 1, 0.3);
+}
+
+.house-card .house-mascot {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.house-card .house-name {
+  font-family: var(--font-magical);
+  font-size: 1.3rem;
+  color: var(--primary);
+  margin: 0 0 5px 0;
+}
+
+.house-founder {
+  font-size: 0.9rem;
+  color: var(--secondary);
+  margin: 0 0 10px 0;
+  font-style: italic;
+}
+
+.house-traits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  justify-content: center;
+}
+
+.trait {
+  background: var(--accent);
+  color: var(--primary);
+  padding: 3px 8px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Preferences */
+.preference-item {
+  margin-bottom: 20px;
+}
+
+.preference-item label {
+  display: block;
+  font-family: var(--font-magical);
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.checkbox-label {
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary);
+}
+
+/* Theme Selection */
+.theme-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.theme-card {
+  background: var(--parchment);
+  border: 3px solid var(--accent);
+  border-radius: 15px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.theme-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.theme-card.selected {
+  border-color: var(--primary);
+  background: linear-gradient(135deg, var(--parchment), var(--dark-parchment));
+  box-shadow: 0 0 20px rgba(116, 0, 1, 0.3);
+}
+
+.theme-preview {
+  height: 80px;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.theme-emoji {
+  font-size: 2.5rem;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+  z-index: 2;
+}
+
+.theme-particles {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: flex;
+  gap: 3px;
+  z-index: 1;
+}
+
+.theme-particles .particle {
+  font-size: 0.8rem;
+  opacity: 0.6;
+  animation: float 3s ease-in-out infinite;
+}
+
+.theme-particles .particle:nth-child(2) {
+  animation-delay: 1s;
+}
+
+.theme-particles .particle:nth-child(3) {
+  animation-delay: 2s;
+}
+
+.theme-name {
+  font-family: var(--font-magical);
+  font-size: 1.2rem;
+  margin: 0 0 5px 0;
+  font-weight: 600;
+}
+
+.theme-description {
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.4;
+  font-style: italic;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-3px); }
+}
+
+/* About Section */
+.about-text {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--ink);
+  margin-bottom: 25px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background: var(--dark-parchment);
+  border-radius: 10px;
+  border: 1px solid var(--accent);
+}
+
+.feature-icon {
+  font-size: 1.5rem;
+}
+
+.feature-text {
+  font-size: 0.95rem;
+  color: var(--ink);
+}
+
+.version-info {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid var(--accent);
+}
+
+.version-info p {
+  margin: 5px 0;
+  color: var(--secondary);
+  font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .settings {
+    padding: 15px;
+  }
+
+  .settings-section {
+    padding: 20px;
+  }
+
+  .house-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .house-card {
+    padding: 15px;
+  }
+
+  .house-card .house-mascot {
+    font-size: 2.5rem;
+  }
+
+  .house-card .house-name {
+    font-size: 1.2rem;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .theme-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .theme-card {
+    padding: 15px;
+  }
+
+  .theme-preview {
+    height: 60px;
+  }
+
+  .theme-emoji {
+    font-size: 2rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .settings-header {
+    margin-bottom: 20px;
+  }
+
+  .settings-content {
+    gap: 20px;
+  }
+
+  .settings-section {
+    padding: 15px;
+  }
+
+  .house-card {
+    padding: 12px;
+  }
+
+  .house-card .house-mascot {
+    font-size: 2rem;
+  }
+
+  .section-title {
+    font-size: 1.3rem;
+  }
+
+  .feature-item {
+    padding: 8px;
+  }
+
+  .feature-icon {
+    font-size: 1.3rem;
+  }
+
+  .feature-text {
+    font-size: 0.9rem;
+  }
+} 

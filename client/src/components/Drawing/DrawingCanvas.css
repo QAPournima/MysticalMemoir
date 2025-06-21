@@ -1,0 +1,81 @@
+.drawing-canvas {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.drawing-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.drawing-subtitle {
+  font-size: 1.2rem;
+  color: var(--secondary);
+  margin-bottom: 30px;
+  font-style: italic;
+}
+
+.canvas-container {
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.coming-soon {
+  text-align: center;
+  max-width: 600px;
+  padding: 40px;
+}
+
+.coming-soon-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  animation: float 3s ease-in-out infinite;
+}
+
+.coming-soon h3 {
+  font-family: var(--font-magical);
+  font-size: 2rem;
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+
+.coming-soon p {
+  font-size: 1.1rem;
+  color: var(--secondary);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.coming-soon ul {
+  text-align: left;
+  margin: 20px 0;
+  padding-left: 20px;
+}
+
+.coming-soon li {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: var(--ink);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@media (max-width: 768px) {
+  .drawing-canvas {
+    padding: 15px;
+  }
+  
+  .coming-soon {
+    padding: 30px 20px;
+  }
+  
+  .coming-soon h3 {
+    font-size: 1.6rem;
+  }
+} 

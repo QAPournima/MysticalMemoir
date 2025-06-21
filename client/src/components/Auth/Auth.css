@@ -1,0 +1,543 @@
+/* Auth Container */
+.auth-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cinzel', 'Georgia', serif;
+}
+
+/* Magical Background */
+.magical-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #0c1445 0%, #1a237e 25%, #283593 50%, #3949ab 75%, #0c1445 100%);
+  z-index: -1;
+}
+
+.stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(2px 2px at 20% 30%, #fff, transparent),
+    radial-gradient(2px 2px at 40% 70%, rgba(255,255,255,0.8), transparent),
+    radial-gradient(1px 1px at 90% 40%, #fff, transparent),
+    radial-gradient(1px 1px at 50% 60%, rgba(255,255,255,0.6), transparent),
+    radial-gradient(2px 2px at 10% 10%, rgba(255,255,255,0.9), transparent),
+    radial-gradient(1px 1px at 70% 80%, #fff, transparent),
+    radial-gradient(2px 2px at 80% 10%, rgba(255,255,255,0.7), transparent);
+  background-repeat: repeat;
+  background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px, 400px 400px, 200px 200px, 300px 300px;
+  animation: twinkle 4s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+/* Floating Particles */
+.floating-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.floating-symbol {
+  position: absolute;
+  font-size: 1.5rem;
+  opacity: 0.6;
+  animation: floatMagic 15s linear infinite;
+  filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.6));
+}
+
+.symbol-0 { left: 10%; animation-delay: 0s; }
+.symbol-1 { left: 20%; animation-delay: 2s; }
+.symbol-2 { left: 30%; animation-delay: 4s; }
+.symbol-3 { left: 40%; animation-delay: 6s; }
+.symbol-4 { left: 50%; animation-delay: 8s; }
+.symbol-5 { left: 60%; animation-delay: 10s; }
+.symbol-6 { left: 70%; animation-delay: 12s; }
+.symbol-7 { left: 80%; animation-delay: 14s; }
+.symbol-8 { left: 90%; animation-delay: 16s; }
+.symbol-9 { left: 15%; animation-delay: 18s; }
+
+@keyframes floatMagic {
+  0% {
+    transform: translateY(110vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Auth Content */
+.auth-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  padding: 20px;
+  z-index: 10;
+}
+
+/* App Logo */
+.auth-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.app-logo {
+  color: #FFD700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.logo-text {
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 0;
+  background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s ease-in-out infinite alternate;
+}
+
+.logo-subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  margin-top: 5px;
+  letter-spacing: 2px;
+}
+
+@keyframes shimmer {
+  0% { filter: brightness(1); }
+  100% { filter: brightness(1.3); }
+}
+
+/* Auth Card */
+.auth-card {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  border-radius: 20px;
+  padding: 40px;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 215, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  animation: cardGlow 4s ease-in-out infinite alternate;
+}
+
+.signup-card {
+  max-width: 600px;
+}
+
+@keyframes cardGlow {
+  0% {
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(255, 215, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  100% {
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(255, 215, 0, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      0 0 30px rgba(255, 215, 0, 0.2);
+  }
+}
+
+/* Form Header */
+.auth-form-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.auth-title {
+  font-size: 2.5rem;
+  color: #FFD700;
+  margin: 0 0 10px 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.auth-subtitle {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Form Styling */
+.auth-form {
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 25px;
+  flex: 1;
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+.form-label {
+  display: block;
+  color: #FFD700;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.magical-input {
+  width: 100%;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+  font-family: 'Cinzel', serif;
+}
+
+.magical-input:focus {
+  outline: none;
+  border-color: #FFD700;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.magical-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* House Selector */
+.house-selector {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.house-option {
+  cursor: pointer;
+}
+
+.house-radio {
+  display: none;
+}
+
+.house-card {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.house-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 215, 0, 0.5);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.house-card.selected {
+  border-color: #FFD700;
+  background: rgba(255, 215, 0, 0.2);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+}
+
+.house-mascot {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.house-name {
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Auth Button */
+.auth-button {
+  width: 100%;
+  padding: 18px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: 'Cinzel', serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.auth-button:hover::before {
+  left: 100%;
+}
+
+.auth-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.auth-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* House-specific button colors */
+.gryffindor-button {
+  background: linear-gradient(135deg, #740001, #AE0001, #D3A625);
+  box-shadow: 0 8px 16px rgba(116, 0, 1, 0.4);
+}
+
+.slytherin-button {
+  background: linear-gradient(135deg, #1B5E20, #2E7D32, #C0C0C0);
+  box-shadow: 0 8px 16px rgba(27, 94, 32, 0.4);
+}
+
+.ravenclaw-button {
+  background: linear-gradient(135deg, #0c2f57, #1565C0, #CD7F32);
+  box-shadow: 0 8px 16px rgba(12, 47, 87, 0.4);
+}
+
+.hufflepuff-button {
+  background: linear-gradient(135deg, #FFDB00, #F57C00, #000000);
+  box-shadow: 0 8px 16px rgba(255, 219, 0, 0.4);
+}
+
+.button-icon {
+  font-size: 1.2rem;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Auth Footer */
+.auth-footer {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.auth-link-text {
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.auth-link {
+  color: #FFD700;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.auth-link:hover {
+  color: #FFA500;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+}
+
+/* House Badge */
+.house-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 215, 0, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 50px;
+  padding: 10px 15px;
+  border: 1px solid rgba(255, 215, 0, 0.4);
+}
+
+.house-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #FFD700;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.house-mascot {
+  font-size: 1.2rem;
+}
+
+/* Error Message */
+.error-message {
+  background: rgba(244, 67, 54, 0.2);
+  border: 1px solid rgba(244, 67, 54, 0.5);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 20px;
+  color: #ffcdd2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+}
+
+.error-icon {
+  font-size: 1.1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .auth-content {
+    max-width: 95%;
+    padding: 10px;
+  }
+  
+  .auth-card {
+    padding: 30px 20px;
+  }
+  
+  .signup-card {
+    max-width: 95%;
+  }
+  
+  .logo-text {
+    font-size: 2.5rem;
+  }
+  
+  .auth-title {
+    font-size: 2rem;
+  }
+  
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .house-selector {
+    grid-template-columns: 1fr;
+  }
+  
+  .house-badge {
+    position: static;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 25px 15px;
+  }
+  
+  .logo-text {
+    font-size: 2rem;
+  }
+  
+  .auth-title {
+    font-size: 1.8rem;
+  }
+  
+  .magical-input {
+    padding: 12px;
+  }
+  
+  .auth-button {
+    padding: 15px;
+    font-size: 1rem;
+  }
+}
+
+/* High contrast and accessibility */
+@media (prefers-contrast: high) {
+  .auth-card {
+    background: rgba(0, 0, 0, 0.9);
+    border-color: #FFD700;
+  }
+  
+  .magical-input {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #FFD700;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-symbol,
+  .stars,
+  .auth-card,
+  .logo-text {
+    animation: none;
+  }
+  
+  .auth-button:hover {
+    transform: none;
+  }
+} 

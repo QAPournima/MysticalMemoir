@@ -1,0 +1,671 @@
+/* Sorting Ceremony Container */
+.sorting-ceremony {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cinzel', 'Georgia', serif;
+}
+
+/* Magical Background */
+.magical-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #0a0a23 0%, #1a1a40 25%, #2d1b69 50%, #4a0e4e 75%, #0a0a23 100%);
+  z-index: -1;
+}
+
+.stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(3px 3px at 20% 30%, #fff, transparent),
+    radial-gradient(3px 3px at 40% 70%, rgba(255,255,255,0.8), transparent),
+    radial-gradient(2px 2px at 90% 40%, #fff, transparent),
+    radial-gradient(1px 1px at 50% 60%, rgba(255,255,255,0.6), transparent),
+    radial-gradient(3px 3px at 10% 10%, rgba(255,255,255,0.9), transparent),
+    radial-gradient(2px 2px at 70% 80%, #fff, transparent),
+    radial-gradient(3px 3px at 80% 10%, rgba(255,255,255,0.7), transparent);
+  background-repeat: repeat;
+  background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px, 400px 400px, 200px 200px, 300px 300px;
+  animation: twinkle 4s ease-in-out infinite alternate;
+}
+
+/* Floating Particles */
+.floating-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.floating-symbol {
+  position: absolute;
+  font-size: 1.8rem;
+  opacity: 0.4;
+  animation: floatMagic 20s linear infinite;
+  filter: drop-shadow(0 0 10px rgba(138, 43, 226, 0.6));
+}
+
+.symbol-0 { left: 5%; animation-delay: 0s; }
+.symbol-1 { left: 15%; animation-delay: 3s; }
+.symbol-2 { left: 85%; animation-delay: 6s; }
+.symbol-3 { left: 95%; animation-delay: 9s; }
+.symbol-4 { left: 25%; animation-delay: 12s; }
+.symbol-5 { left: 75%; animation-delay: 15s; }
+.symbol-6 { left: 50%; animation-delay: 18s; }
+.symbol-7 { left: 35%; animation-delay: 21s; }
+
+@keyframes floatMagic {
+  0% {
+    transform: translateY(110vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.4;
+  }
+  90% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Ceremony Content */
+.ceremony-content {
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+  z-index: 10;
+  text-align: center;
+}
+
+/* Intro Screen */
+.intro-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  justify-content: center;
+  gap: 40px;
+}
+
+.ceremony-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.ceremony-title {
+  font-size: 4rem;
+  color: #FFD700;
+  margin: 0;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+  background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s ease-in-out infinite alternate;
+  font-family: 'Cinzel', serif;
+}
+
+.ceremony-subtitle {
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin: 10px 0 0 0;
+}
+
+/* Sorting Hat Container */
+.sorting-hat-container {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  margin: 0 auto;
+}
+
+.sorting-hat {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 8rem;
+  filter: drop-shadow(0 0 30px rgba(138, 43, 226, 0.8));
+  animation: hatFloat 4s ease-in-out infinite alternate;
+  z-index: 2;
+}
+
+@keyframes hatFloat {
+  0% { transform: translate(-50%, -50%) rotate(-2deg); }
+  100% { transform: translate(-50%, -50%) rotate(2deg); }
+}
+
+/* House Emblems */
+.house-emblems {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+}
+
+.house-emblem {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid;
+  box-shadow: 0 0 20px;
+  animation: orbitFloat 6s ease-in-out infinite;
+  cursor: pointer;
+}
+
+.house-emblem.gryffindor {
+  border-color: #740001;
+  box-shadow: 0 0 20px rgba(116, 0, 1, 0.6);
+}
+
+.house-emblem.slytherin {
+  border-color: #1B5E20;
+  box-shadow: 0 0 20px rgba(27, 94, 32, 0.6);
+}
+
+.house-emblem.ravenclaw {
+  border-color: #0c2f57;
+  box-shadow: 0 0 20px rgba(12, 47, 87, 0.6);
+}
+
+.house-emblem.hufflepuff {
+  border-color: #FFDB00;
+  box-shadow: 0 0 20px rgba(255, 219, 0, 0.6);
+}
+
+@keyframes orbitFloat {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.1); }
+}
+
+.emblem-icon {
+  font-size: 2.5rem;
+  margin-bottom: 5px;
+}
+
+.emblem-name {
+  font-size: 0.8rem;
+  color: #FFD700;
+  font-weight: 600;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+/* Intro Text */
+.intro-text {
+  text-align: center;
+  max-width: 600px;
+}
+
+.intro-text h2 {
+  font-size: 2.5rem;
+  color: #FFD700;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  font-family: 'Cinzel', serif;
+}
+
+.intro-text p {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+/* Start Ceremony Button */
+.start-ceremony-btn {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7);
+  color: white;
+  border: none;
+  padding: 18px 40px;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(138, 43, 226, 0.4);
+  font-family: 'Cinzel', serif;
+  margin: 0 auto;
+}
+
+.start-ceremony-btn:hover {
+  background: linear-gradient(135deg, #7c3aed, #a855f7, #c084fc);
+  box-shadow: 0 15px 40px rgba(138, 43, 226, 0.6);
+}
+
+.btn-icon {
+  font-size: 1.4rem;
+}
+
+/* Ceremony Animation */
+.ceremony-animation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.hat-placing {
+  text-align: center;
+}
+
+.large-sorting-hat {
+  font-size: 12rem;
+  filter: drop-shadow(0 0 50px rgba(138, 43, 226, 1));
+  margin-bottom: 40px;
+}
+
+.ceremony-narration {
+  font-size: 1.8rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-style: italic;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+/* Questions Screen */
+.questions-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  justify-content: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.question-header {
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6, #a855f7);
+  transition: width 0.5s ease;
+  border-radius: 10px;
+}
+
+.question-counter {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.question-content {
+  width: 100%;
+  text-align: center;
+}
+
+.hat-thinking {
+  margin-bottom: 30px;
+}
+
+.thinking-hat {
+  font-size: 6rem;
+  filter: drop-shadow(0 0 30px rgba(138, 43, 226, 0.8));
+}
+
+.question-text {
+  font-size: 1.8rem;
+  color: #FFD700;
+  margin-bottom: 40px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  line-height: 1.4;
+  font-family: 'Cinzel', serif;
+}
+
+.answers-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.answer-option {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 215, 0, 0.3);
+  border-radius: 15px;
+  padding: 20px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  line-height: 1.5;
+}
+
+.answer-option:hover {
+  border-color: #FFD700;
+  background: rgba(255, 215, 0, 0.1);
+  box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
+}
+
+/* Sorting Animation */
+.sorting-animation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.dramatic-hat {
+  font-size: 10rem;
+  margin-bottom: 40px;
+  filter: drop-shadow(0 0 50px rgba(138, 43, 226, 1));
+}
+
+.hat-thinking-text {
+  font-size: 2rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-style: italic;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  font-family: 'Cinzel', serif;
+}
+
+/* Result Screen */
+.result-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.house-announcement {
+  margin-bottom: 40px;
+}
+
+.sorted-house-emblem {
+  margin-bottom: 30px;
+}
+
+.house-mascot-large {
+  font-size: 8rem;
+  margin-bottom: 20px;
+  filter: drop-shadow(0 0 30px currentColor);
+}
+
+.house-name-large {
+  font-size: 4rem;
+  margin: 0;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+  font-family: 'Cinzel', serif;
+}
+
+.sorted-house-emblem.gryffindor .house-name-large {
+  color: #AE0001;
+}
+
+.sorted-house-emblem.slytherin .house-name-large {
+  color: #2E7D32;
+}
+
+.sorted-house-emblem.ravenclaw .house-name-large {
+  color: #1565C0;
+}
+
+.sorted-house-emblem.hufflepuff .house-name-large {
+  color: #F57C00;
+}
+
+.sorting-announcement {
+  font-size: 1.8rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.house-traits p {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 15px;
+}
+
+.traits-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.trait-badge {
+  background: rgba(255, 215, 0, 0.2);
+  border: 1px solid rgba(255, 215, 0, 0.5);
+  border-radius: 25px;
+  padding: 8px 16px;
+  color: #FFD700;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Celebration Effects */
+.celebration-effects {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.confetti {
+  position: absolute;
+  font-size: 2rem;
+  color: #FFD700;
+  filter: drop-shadow(0 0 10px currentColor);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .ceremony-title {
+    font-size: 2.8rem;
+  }
+
+  .sorting-hat-container {
+    width: 300px;
+    height: 300px;
+  }
+
+  .sorting-hat {
+    font-size: 6rem;
+  }
+
+  .house-emblem {
+    width: 80px;
+    height: 80px;
+  }
+
+  .emblem-icon {
+    font-size: 2rem;
+  }
+
+  .emblem-name {
+    font-size: 0.7rem;
+  }
+
+  .intro-text h2 {
+    font-size: 2rem;
+  }
+
+  .intro-text p {
+    font-size: 1rem;
+  }
+
+  .start-ceremony-btn {
+    padding: 15px 30px;
+    font-size: 0.9rem;
+  }
+
+  .large-sorting-hat {
+    font-size: 8rem;
+  }
+
+  .question-text {
+    font-size: 1.4rem;
+  }
+
+  .thinking-hat {
+    font-size: 4rem;
+  }
+
+  .dramatic-hat {
+    font-size: 6rem;
+  }
+
+  .house-mascot-large {
+    font-size: 5rem;
+  }
+
+  .house-name-large {
+    font-size: 2.5rem;
+  }
+
+  .answers-grid {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .ceremony-content {
+    padding: 10px;
+  }
+
+  .ceremony-title {
+    font-size: 2.2rem;
+  }
+
+  .sorting-hat-container {
+    width: 250px;
+    height: 250px;
+  }
+
+  .sorting-hat {
+    font-size: 4rem;
+  }
+
+  .house-emblem {
+    width: 60px;
+    height: 60px;
+  }
+
+  .emblem-icon {
+    font-size: 1.5rem;
+  }
+
+  .intro-text h2 {
+    font-size: 1.8rem;
+  }
+
+  .start-ceremony-btn {
+    padding: 12px 25px;
+    font-size: 0.8rem;
+  }
+
+  .question-text {
+    font-size: 1.2rem;
+  }
+
+  .answer-option {
+    padding: 15px;
+    font-size: 1rem;
+  }
+}
+
+/* Animations */
+@keyframes shimmer {
+  0% { filter: brightness(1); }
+  100% { filter: brightness(1.3); }
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+/* Performance optimizations */
+.sorting-hat,
+.house-emblem,
+.floating-symbol,
+.confetti {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* High contrast and accessibility */
+@media (prefers-contrast: high) {
+  .answer-option {
+    background: rgba(0, 0, 0, 0.8);
+    border-color: #FFD700;
+  }
+  
+  .house-emblem {
+    background: rgba(0, 0, 0, 0.9);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-symbol,
+  .sorting-hat,
+  .house-emblem,
+  .thinking-hat,
+  .dramatic-hat {
+    animation: none;
+  }
+  
+  .start-ceremony-btn:hover {
+    transform: none;
+  }
+} 

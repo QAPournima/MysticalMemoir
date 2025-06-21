@@ -1,0 +1,228 @@
+.loading-spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--parchment), var(--dark-parchment));
+  position: relative;
+}
+
+.magical-loading {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin-bottom: 30px;
+}
+
+.hogwarts-crest {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  margin: 0 auto;
+  animation: rotate 3s linear infinite;
+}
+
+.crest-section {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.crest-section.gryffindor {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(116, 0, 1, 0.2);
+  animation-delay: 0s;
+}
+
+.crest-section.slytherin {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(13, 74, 45, 0.2);
+  animation-delay: 0.5s;
+}
+
+.crest-section.ravenclaw {
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  background: rgba(14, 26, 64, 0.2);
+  animation-delay: 1s;
+}
+
+.crest-section.hufflepuff {
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  background: rgba(255, 216, 0, 0.2);
+  animation-delay: 1.5s;
+}
+
+.spinning-wand {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+  animation: spin 2s linear infinite;
+}
+
+.magical-sparkles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.sparkle {
+  position: absolute;
+  font-size: 16px;
+  animation: sparkle-float 3s ease-in-out infinite;
+}
+
+.sparkle:nth-child(1) {
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.sparkle:nth-child(2) {
+  top: 20%;
+  right: 10%;
+  animation-delay: 0.7s;
+}
+
+.sparkle:nth-child(3) {
+  bottom: 20%;
+  left: 15%;
+  animation-delay: 1.4s;
+}
+
+.sparkle:nth-child(4) {
+  bottom: 10%;
+  right: 15%;
+  animation-delay: 2.1s;
+}
+
+.loading-message {
+  font-family: var(--font-magical);
+  font-size: 1.2rem;
+  color: var(--primary, #740001);
+  margin-bottom: 20px;
+  text-align: center;
+  animation: fade-pulse 2s ease-in-out infinite;
+}
+
+.loading-bar {
+  width: 300px;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.loading-progress {
+  height: 100%;
+  background: linear-gradient(90deg, 
+    var(--gryffindor-primary), 
+    var(--slytherin-primary), 
+    var(--ravenclaw-primary), 
+    var(--hufflepuff-primary)
+  );
+  border-radius: 3px;
+  animation: loading-progress 2s ease-in-out infinite;
+}
+
+/* Animations */
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% { 
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+@keyframes sparkle-float {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.6;
+  }
+  25% {
+    transform: translateY(-10px) scale(1.2);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-5px) scale(0.8);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translateY(-15px) scale(1.1);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-pulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+@keyframes loading-progress {
+  0% { width: 0%; }
+  50% { width: 70%; }
+  100% { width: 100%; }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .magical-loading {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .hogwarts-crest {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .crest-section {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+  }
+  
+  .spinning-wand {
+    font-size: 24px;
+  }
+  
+  .loading-message {
+    font-size: 1rem;
+  }
+  
+  .loading-bar {
+    width: 250px;
+  }
+} 

@@ -1,0 +1,381 @@
+.diary-list {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.diary-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.diary-subtitle {
+  font-size: 1.2rem;
+  color: var(--secondary);
+  margin-bottom: 30px;
+  font-style: italic;
+}
+
+.new-entry-btn {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 1.1rem;
+  padding: 15px 30px;
+  margin-bottom: 20px;
+}
+
+/* Filters */
+.diary-filters {
+  margin-bottom: 30px;
+}
+
+.filter-row {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.search-container {
+  flex: 1;
+  min-width: 250px;
+}
+
+.search-input {
+  width: 100%;
+  font-size: 1rem;
+}
+
+.filter-controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filter-select {
+  min-width: 150px;
+  font-size: 0.9rem;
+}
+
+.filter-toggles {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.toggle-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary);
+}
+
+/* Entries Grid */
+.entries-container {
+  margin-top: 30px;
+}
+
+.entries-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 25px;
+}
+
+.diary-entry-card {
+  background: var(--parchment);
+  border-radius: 15px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.diary-entry-card:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.entry-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.entry-date {
+  font-size: 0.9rem;
+  color: var(--secondary);
+  font-weight: 600;
+}
+
+.entry-indicators {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.mood-indicator,
+.weather-indicator,
+.house-indicator {
+  font-size: 1.2rem;
+  padding: 2px 6px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.entry-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.bookmark-btn,
+.delete-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.bookmark-btn:hover,
+.delete-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
+  transform: scale(1.1);
+}
+
+.bookmark-btn.bookmarked {
+  color: var(--primary);
+}
+
+.delete-btn:hover {
+  color: #dc2626;
+}
+
+.entry-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.entry-title {
+  font-family: var(--font-magical);
+  font-size: 1.4rem;
+  color: var(--primary);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.entry-preview {
+  color: var(--ink);
+  line-height: 1.6;
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+
+.entry-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.tag {
+  background: linear-gradient(135deg, var(--accent), var(--light));
+  color: var(--primary);
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.entry-attachments {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.attachment-indicator {
+  font-size: 1rem;
+  opacity: 0.7;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 60px 40px;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  opacity: 0.6;
+}
+
+.empty-state h3 {
+  font-family: var(--font-magical);
+  font-size: 1.8rem;
+  color: var(--primary);
+  margin-bottom: 15px;
+}
+
+.empty-state p {
+  font-size: 1.1rem;
+  color: var(--secondary);
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+/* Error Message */
+.error-message {
+  background: #fee;
+  border: 2px solid #fcc;
+  color: #a00;
+  text-align: center;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+/* Delete Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.delete-modal {
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  padding: 30px;
+}
+
+.delete-modal h3 {
+  font-family: var(--font-magical);
+  font-size: 1.5rem;
+  color: var(--primary);
+  margin-bottom: 15px;
+}
+
+.delete-modal p {
+  font-size: 1rem;
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.cancel-btn {
+  background: var(--accent);
+  color: var(--ink);
+}
+
+.confirm-delete-btn {
+  background: linear-gradient(135deg, #dc2626, #991b1b);
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .diary-list {
+    padding: 15px;
+  }
+
+  .filter-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-controls {
+    justify-content: stretch;
+  }
+
+  .filter-select {
+    min-width: auto;
+    flex: 1;
+  }
+
+  .entries-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .diary-entry-card {
+    padding: 15px;
+  }
+
+  .entry-title {
+    font-size: 1.2rem;
+  }
+
+  .entry-preview {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .diary-header {
+    margin-bottom: 20px;
+  }
+
+  .new-entry-btn {
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+
+  .diary-filters {
+    margin-bottom: 20px;
+  }
+
+  .filter-row {
+    gap: 15px;
+  }
+
+  .filter-controls {
+    gap: 8px;
+  }
+
+  .entries-grid {
+    gap: 15px;
+  }
+
+  .empty-state {
+    padding: 40px 20px;
+  }
+
+  .empty-icon {
+    font-size: 3rem;
+  }
+
+  .delete-modal {
+    padding: 20px;
+  }
+} 
