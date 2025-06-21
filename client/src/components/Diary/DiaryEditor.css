@@ -28,33 +28,13 @@
 
 .header-content {
   display: grid;
-  grid-template-columns: auto 1fr auto;
-  grid-template-areas: "badge title actions";
+  grid-template-columns: 1fr minmax(0, auto);
+  grid-template-areas: "title actions";
   align-items: center;
   margin-bottom: 10px;
-  gap: 20px;
+  gap: 15px;
   width: 100%;
-}
-
-.house-badge {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.2);
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-family: var(--font-magical);
-  font-weight: 600;
-  grid-area: badge;
-  justify-self: start;
-}
-
-.house-mascot {
-  font-size: 1.5rem;
-}
-
-.house-name {
-  font-size: 1rem;
+  min-height: 60px;
 }
 
 .editor-title {
@@ -65,14 +45,38 @@
   grid-area: title;
   justify-self: center;
   text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.house-mascot-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
 }
 
 .editor-actions {
   display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
+  gap: 8px;
+  flex-wrap: nowrap;
   grid-area: actions;
   justify-self: end;
+  flex-shrink: 0;
+  min-width: max-content;
 }
 
 .editor-actions .magical-button {
@@ -752,7 +756,7 @@ select.magical-input option {
 /* Responsive Design */
 @media (max-width: 768px) {
   .diary-editor {
-    padding: 10px;
+    padding: 15px;
   }
 
   .editor-header {
@@ -763,23 +767,25 @@ select.magical-input option {
     grid-template-columns: 1fr;
     grid-template-areas: 
       "title"
-      "badge"
       "actions";
+    gap: 10px;
     text-align: center;
-    gap: 15px;
   }
 
   .editor-title {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
+    justify-self: center;
   }
 
-  .house-badge {
-    justify-self: center;
+  .house-mascot-circle {
+    width: 35px;
+    height: 35px;
+    font-size: 1.3rem;
   }
 
   .editor-actions {
     justify-self: center;
-    justify-content: center;
+    gap: 6px;
   }
 
   .editor-content {
@@ -792,11 +798,11 @@ select.magical-input option {
   }
 
   .editor-toolbar {
-    justify-content: center;
+    flex-wrap: wrap;
   }
 
   .sticker-grid {
-    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
   }
 
   .images-grid {
@@ -806,11 +812,22 @@ select.magical-input option {
 
 @media (max-width: 480px) {
   .editor-header {
-    padding: 10px 15px;
+    padding: 12px 15px;
+  }
+
+  .header-content {
+    gap: 8px;
   }
 
   .editor-title {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
+    gap: 8px;
+  }
+
+  .house-mascot-circle {
+    width: 30px;
+    height: 30px;
+    font-size: 1.2rem;
   }
 
   .editor-content {
@@ -818,7 +835,7 @@ select.magical-input option {
   }
 
   .magical-card {
-    margin-bottom: 20px;
+    padding: 15px;
   }
 
   .editor-actions .magical-button {
@@ -827,12 +844,8 @@ select.magical-input option {
   }
 
   .magical-mode-btn {
-    min-width: 120px !important;
+    padding: 6px 12px !important;
     font-size: 12px !important;
-    padding: 8px 16px !important;
-    white-space: nowrap !important;
-    overflow: visible !important;
-    width: auto !important;
   }
 
   .content-quill .ql-editor {
@@ -842,15 +855,17 @@ select.magical-input option {
 
   .tag-input-container {
     flex-direction: column;
+    gap: 8px;
   }
 
   .picker-container {
-    width: 95%;
     padding: 15px;
+    margin: 10px;
   }
 
   .sticker-picker {
-    padding: 20px;
+    padding: 15px;
+    max-height: 70vh;
   }
 }
 
@@ -1254,6 +1269,66 @@ select.magical-input option {
   text-align: center;
   margin-top: 10px;
   animation: fadeInOut 0.5s ease-in-out;
+}
+
+/* Enhanced Auto-Save Status */
+.editor-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  flex-wrap: wrap;
+}
+
+.auto-save-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 15px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.save-indicator {
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.3s ease;
+}
+
+.save-indicator::before {
+  content: '●';
+  font-size: 0.7rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.force-save-btn {
+  background: rgba(255, 215, 0, 0.2);
+  border: 1px solid rgba(255, 215, 0, 0.5);
+  color: rgba(255, 215, 0, 0.9);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.force-save-btn:hover {
+  background: rgba(255, 215, 0, 0.3);
+  border-color: rgba(255, 215, 0, 0.8);
+  transform: scale(1.05);
+}
+
+.editor-timestamp {
+  flex: 1;
+  min-width: 200px;
 }
 
 @keyframes fadeInOut {

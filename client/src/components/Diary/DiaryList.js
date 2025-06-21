@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useDiary } from '../../context/DiaryContext';
 import { useTheme } from '../../context/ThemeContext';
 import LoadingSpinner from '../UI/LoadingSpinner';
+import MagicalSearch from '../UI/MagicalSearch';
+import MagicalTimestamp, { SimpleTimestamp } from '../UI/MagicalTimestamp';
 import './DiaryList.css';
 
 const DiaryList = () => {
@@ -18,16 +20,31 @@ const DiaryList = () => {
   
   const { MOOD_OPTIONS, WEATHER_OPTIONS } = useTheme();
   
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterHouse, setFilterHouse] = useState('all');
-  const [filterMood, setFilterMood] = useState('all');
-  const [showBookmarked, setShowBookmarked] = useState(false);
-  const [sortBy, setSortBy] = useState('date');
+  const [searchResults, setSearchResults] = useState([]);
   const [showDeleteModal, setShowDeleteModal] = useState(null);
+
+  // Helper function to safely parse JSON
+  const safeJsonParse = (jsonString, fallback = []) => {
+    try {
+      if (!jsonString || jsonString === 'null' || jsonString === 'undefined') {
+        return fallback;
+      }
+      const parsed = JSON.parse(jsonString);
+      return Array.isArray(parsed) ? parsed : fallback;
+    } catch (error) {
+      console.warn('Failed to parse JSON:', jsonString, error);
+      return fallback;
+    }
+  };
 
   useEffect(() => {
     fetchDiaryEntries();
   }, []);
+
+  useEffect(() => {
+    // Initialize search results with all entries
+    setSearchResults(diaryEntries);
+  }, [diaryEntries]);
 
   const getMoodEmoji = (moodId) => {
     const mood = MOOD_OPTIONS.find(m => m.id === moodId);
@@ -39,28 +56,9 @@ const DiaryList = () => {
     return weather ? weather.emoji : '☀️';
   };
 
-  const filteredEntries = diaryEntries.filter(entry => {
-    const matchesSearch = entry.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         entry.content.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesHouse = filterHouse === 'all' || entry.house === filterHouse;
-    const matchesMood = filterMood === 'all' || entry.mood === filterMood;
-    const matchesBookmark = !showBookmarked || entry.bookmarked;
-    
-    return matchesSearch && matchesHouse && matchesMood && matchesBookmark;
-  });
-
-  const sortedEntries = [...filteredEntries].sort((a, b) => {
-    switch (sortBy) {
-      case 'date':
-        return new Date(b.date) - new Date(a.date);
-      case 'title':
-        return a.title.localeCompare(b.title);
-      case 'mood':
-        return (a.mood || '').localeCompare(b.mood || '');
-      default:
-        return 0;
-    }
-  });
+  const handleSearchResults = (results, stats) => {
+    setSearchResults(results);
+  };
 
   const handleDelete = async (id) => {
     try {
@@ -104,68 +102,23 @@ const DiaryList = () => {
         </Link>
       </div>
 
-      {/* Filters and Search */}
-      <div className="diary-filters magical-card">
-        <div className="filter-row">
-          <div className="search-container">
-            <input
-              type="text"
-              placeholder="🔍 Search your memories..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="search-input magical-input"
-            />
-          </div>
-          
-          <div className="filter-controls">
-            <select
-              value={filterHouse}
-              onChange={(e) => setFilterHouse(e.target.value)}
-              className="filter-select magical-input"
-            >
-              <option value="all">All Houses</option>
-              <option value="gryffindor">🦁 Gryffindor</option>
-              <option value="slytherin">🐍 Slytherin</option>
-              <option value="ravenclaw">🦅 Ravenclaw</option>
-              <option value="hufflepuff">🦡 Hufflepuff</option>
-            </select>
-            
-            <select
-              value={filterMood}
-              onChange={(e) => setFilterMood(e.target.value)}
-              className="filter-select magical-input"
-            >
-              <option value="all">All Moods</option>
-              {MOOD_OPTIONS.map(mood => (
-                <option key={mood.id} value={mood.id}>
-                  {mood.emoji} {mood.name}
-                </option>
-              ))}
-            </select>
-            
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="filter-select magical-input"
-            >
-              <option value="date">Sort by Date</option>
-              <option value="title">Sort by Title</option>
-              <option value="mood">Sort by Mood</option>
-            </select>
-          </div>
-        </div>
-        
-        <div className="filter-toggles">
-          <label className="toggle-label">
-            <input
-              type="checkbox"
-              checked={showBookmarked}
-              onChange={(e) => setShowBookmarked(e.target.checked)}
-            />
-            <span className="toggle-text">🔖 Show only bookmarked</span>
-          </label>
-        </div>
-      </div>
+      {/* Enhanced Search */}
+      <MagicalSearch
+        data={diaryEntries}
+        onResults={handleSearchResults}
+        placeholder="🔍 Search your magical memories..."
+        searchFields={['title', 'content', 'tags']}
+        filters={{
+          house: true,
+          mood: true,
+          weather: true,
+          bookmarked: true,
+          dateRange: true
+        }}
+        enableHistory={true}
+        enableSorting={true}
+        className="diary-search"
+      />
 
       {/* Entries List */}
       <div className="entries-container">
@@ -175,16 +128,16 @@ const DiaryList = () => {
           </div>
         )}
         
-        {sortedEntries.length === 0 ? (
+        {searchResults.length === 0 ? (
           <div className="empty-state magical-card">
             <div className="empty-icon">📝</div>
             <h3>No entries found</h3>
             <p>
-              {searchTerm || filterHouse !== 'all' || filterMood !== 'all' || showBookmarked
-                ? "Try adjusting your filters or search terms"
-                : "Start your magical journey by writing your first diary entry!"}
+              {diaryEntries.length === 0
+                ? "Start your magical journey by writing your first diary entry!"
+                : "Try adjusting your search terms or filters"}
             </p>
-            {!searchTerm && filterHouse === 'all' && filterMood === 'all' && !showBookmarked && (
+            {diaryEntries.length === 0 && (
               <Link to="/diary/new" className="magical-button">
                 ✨ Write Your First Entry
               </Link>
@@ -193,7 +146,7 @@ const DiaryList = () => {
         ) : (
           <div className="entries-grid">
             <AnimatePresence>
-              {sortedEntries.map((entry) => (
+              {searchResults.map((entry) => (
                 <motion.div
                   key={entry.id}
                   className="diary-entry-card magical-card"
@@ -205,20 +158,24 @@ const DiaryList = () => {
                 >
                   <div className="entry-header">
                     <div className="entry-meta">
-                      <span className="entry-date">{formatDate(entry.date)}</span>
+                      <SimpleTimestamp 
+                        date={entry.created_at || entry.date} 
+                        format="short"
+                        showIcon={true}
+                      />
                       <div className="entry-indicators">
                         {entry.mood && (
-                          <span className="mood-indicator">
+                          <span className="mood-indicator" title={MOOD_OPTIONS.find(m => m.id === entry.mood)?.name}>
                             {getMoodEmoji(entry.mood)}
                           </span>
                         )}
                         {entry.weather && (
-                          <span className="weather-indicator">
+                          <span className="weather-indicator" title={WEATHER_OPTIONS.find(w => w.id === entry.weather)?.name}>
                             {getWeatherEmoji(entry.weather)}
                           </span>
                         )}
                         {entry.house && (
-                          <span className={`house-indicator ${entry.house}`}>
+                          <span className={`house-indicator ${entry.house}`} title={entry.house}>
                             {entry.house === 'gryffindor' && '🦁'}
                             {entry.house === 'slytherin' && '🐍'}
                             {entry.house === 'ravenclaw' && '🦅'}
@@ -250,32 +207,57 @@ const DiaryList = () => {
                   <Link to={`/diary/${entry.id}`} className="entry-link">
                     <h3 className="entry-title">{entry.title}</h3>
                     <p className="entry-preview">
-                      {entry.content.substring(0, 150)}
+                      {entry.content.replace(/<[^>]*>/g, '').substring(0, 150)}
                       {entry.content.length > 150 && '...'}
                     </p>
                   </Link>
                   
-                  {entry.tags && JSON.parse(entry.tags).length > 0 && (
-                    <div className="entry-tags">
-                      {JSON.parse(entry.tags).slice(0, 3).map((tag, index) => (
-                        <span key={index} className="tag">#{tag}</span>
-                      ))}
-                    </div>
-                  )}
+                  {(() => {
+                    const tags = safeJsonParse(entry.tags);
+                    return tags.length > 0 && (
+                      <div className="entry-tags">
+                        {tags.slice(0, 3).map((tag, index) => (
+                          <span key={index} className="tag">#{tag}</span>
+                        ))}
+                        {tags.length > 3 && (
+                          <span className="tag more">+{tags.length - 3} more</span>
+                        )}
+                      </div>
+                    );
+                  })()}
                   
-                  {(entry.images || entry.drawings || entry.stickers) && (
-                    <div className="entry-attachments">
-                      {entry.images && JSON.parse(entry.images).length > 0 && (
-                        <span className="attachment-indicator">📸</span>
-                      )}
-                      {entry.drawings && JSON.parse(entry.drawings).length > 0 && (
-                        <span className="attachment-indicator">🎨</span>
-                      )}
-                      {entry.stickers && JSON.parse(entry.stickers).length > 0 && (
-                        <span className="attachment-indicator">✨</span>
-                      )}
-                    </div>
-                  )}
+                  {(() => {
+                    const images = safeJsonParse(entry.images);
+                    const drawings = safeJsonParse(entry.drawings);
+                    const stickers = safeJsonParse(entry.stickers);
+                    const hasAttachments = images.length > 0 || drawings.length > 0 || stickers.length > 0;
+                    
+                    return hasAttachments && (
+                      <div className="entry-attachments">
+                        {images.length > 0 && (
+                          <span className="attachment-indicator" title="Has images">📸</span>
+                        )}
+                        {drawings.length > 0 && (
+                          <span className="attachment-indicator" title="Has drawings">🎨</span>
+                        )}
+                        {stickers.length > 0 && (
+                          <span className="attachment-indicator" title="Has stickers">✨</span>
+                        )}
+                      </div>
+                    );
+                  })()}
+
+                  {/* Timestamps for created/updated */}
+                  <div className="entry-timestamps">
+                    <MagicalTimestamp
+                      createdAt={entry.created_at}
+                      updatedAt={entry.updated_at}
+                      showCalendar={false}
+                      showRelative={true}
+                      size="small"
+                      className="entry-timestamp"
+                    />
+                  </div>
                 </motion.div>
               ))}
             </AnimatePresence>

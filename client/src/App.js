@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import './App.css';
+import useAutoLogout from './hooks/useAutoLogout';
 
 // Components  
 import Navbar from './components/Navbar/Navbar';
@@ -72,6 +73,14 @@ function AppContent() {
       setIsLoading(false);
     }, 1200);
   };
+
+  // Auto-logout functionality (only active when authenticated)
+  const {
+    showWarning,
+    timeLeft,
+    extendSession,
+    formatTime
+  } = useAutoLogout(handleLogout, 60 * 60 * 1000); // 1 hour timeout
 
   const pageVariants = {
     initial: { opacity: 0, y: 20 },
@@ -162,6 +171,48 @@ function AppContent() {
           <Navbar currentHouse={currentHouse} setCurrentHouse={changeHouse} onLogout={handleLogout} />
           <MusicPlayer />
           <InAppNotification />
+          
+          {/* Inactivity Warning Modal */}
+          {showWarning && (
+            <div className="inactivity-warning-overlay">
+              <motion.div
+                className="inactivity-warning-modal magical-card"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+              >
+                <div className="warning-icon">⏱️</div>
+                <h3>Inactivity Warning</h3>
+                <p>
+                  You will be automatically logged out in <strong>{formatTime()}</strong> due to inactivity.
+                </p>
+                <p>Click "Stay Active" to continue your magical journey!</p>
+                <div className="warning-actions">
+                  <button
+                    onClick={extendSession}
+                    className="extend-session-btn magical-button"
+                  >
+                    🪄 Stay Active
+                  </button>
+                  <button
+                    onClick={handleLogout}
+                    className="logout-now-btn magical-button secondary"
+                  >
+                    Logout Now
+                  </button>
+                </div>
+                <div className="countdown-bar">
+                  <div 
+                    className="countdown-progress"
+                    style={{ 
+                      width: `${(timeLeft / (5 * 60)) * 100}%`,
+                      transition: 'width 1s linear'
+                    }}
+                  ></div>
+                </div>
+              </motion.div>
+            </div>
+          )}
           
           <main className="main-content">
             <AnimatePresence mode="wait">

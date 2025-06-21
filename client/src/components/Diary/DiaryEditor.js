@@ -8,6 +8,8 @@ import { useDiary } from '../../context/DiaryContext';
 import { useTheme } from '../../context/ThemeContext';
 import { WhatsappShareButton, WhatsappIcon } from 'react-share';
 import html2canvas from 'html2canvas';
+import useAutoSave from '../../hooks/useAutoSave';
+import MagicalTimestamp from '../UI/MagicalTimestamp';
 import './DiaryEditor.css';
 
 // Magical diary responses inspired by interactive diary concept
@@ -142,10 +144,9 @@ const DiaryEditor = () => {
   const [showStickerPicker, setShowStickerPicker] = useState(false);
   const [tagInput, setTagInput] = useState('');
   const [saving, setSaving] = useState(false);
-  const [autoSaveTimer, setAutoSaveTimer] = useState(null);
-  const [lastSaved, setLastSaved] = useState(null);
   const [selectedStickers, setSelectedStickers] = useState([]);
   const [uploadingImage, setUploadingImage] = useState(false);
+  const [currentEntry, setCurrentEntry] = useState(null);
   
   // Magical diary interaction states
   const [magicalMode, setMagicalMode] = useState(false);
@@ -162,6 +163,24 @@ const DiaryEditor = () => {
   const [showModeConfirmation, setShowModeConfirmation] = useState(false);
   const [draftContent, setDraftContent] = useState('');
   const [draftTitle, setDraftTitle] = useState('');
+
+  // Auto-save functionality
+  const autoSaveFunction = async (data) => {
+    if (isEditing && data.title.trim()) {
+      await updateDiaryEntry(id, data);
+    }
+  };
+
+  const {
+    isSaving: isAutoSaving,
+    hasUnsavedChanges,
+    getSaveStatus,
+    forceSave
+  } = useAutoSave(autoSaveFunction, formData, {
+    delay: 3000, // 3 seconds delay
+    enabled: isEditing && !magicalMode,
+    showNotifications: true
+  });
   const [pendingModeChange, setPendingModeChange] = useState(false);
   
   const fileInputRef = useRef(null);
@@ -219,28 +238,7 @@ const DiaryEditor = () => {
     };
   }, [formData.content, magicalMode]);
 
-  useEffect(() => {
-    // Auto-save functionality
-    if (formData.title || formData.content) {
-      if (autoSaveTimer) {
-        clearTimeout(autoSaveTimer);
-      }
-      
-      const timer = setTimeout(() => {
-        if (isEditing) {
-          handleAutoSave();
-        }
-      }, 3000);
-      
-      setAutoSaveTimer(timer);
-    }
-    
-    return () => {
-      if (autoSaveTimer) {
-        clearTimeout(autoSaveTimer);
-      }
-    };
-  }, [formData.title, formData.content]);
+  // Removed old auto-save useEffect - now handled by useAutoSave hook
 
   const checkForMagicalResponse = (content) => {
     if (!magicalMode) {
@@ -764,6 +762,7 @@ const DiaryEditor = () => {
       
       const entry = diaryEntries.find(e => e.id === id);
       if (entry) {
+        setCurrentEntry(entry);
         setFormData({
           title: entry.title,
           content: entry.content,
@@ -784,16 +783,7 @@ const DiaryEditor = () => {
     }
   };
 
-  const handleAutoSave = async () => {
-    if (!formData.title && !formData.content) return;
-    
-    try {
-      await updateDiaryEntry(id, formData);
-      setLastSaved(new Date());
-    } catch (error) {
-      console.error('Auto-save failed:', error);
-    }
-  };
+  // handleAutoSave function removed - now handled by useAutoSave hook
 
   const handleSave = async () => {
     if (!formData.title.trim()) {
@@ -968,12 +958,8 @@ const DiaryEditor = () => {
       <div className="editor-container" ref={editorRef}>
         <div className="editor-header magical-card">
           <div className="header-content">
-            <div className="house-badge">
-              <span className="house-mascot">{houseInfo.mascot}</span>
-              <span className="house-name">{houseInfo.name}</span>
-            </div>
-            
             <h1 className="editor-title">
+              <span className="house-mascot-circle">{houseInfo.mascot}</span>
               {isEditing ? '✏️ Edit Entry' : '✨ New Magical Entry'}
             </h1>
             
@@ -1003,13 +989,42 @@ const DiaryEditor = () => {
                 {saving ? '💾 Saving...' : '💾 Save'}
               </button>
             </div>
+
+            {/* Auto-save status and timestamps */}
+            <div className="editor-status">
+              {isEditing && (
+                <div className="auto-save-status">
+                  <span 
+                    className="save-indicator"
+                    style={{ color: getSaveStatus().color }}
+                  >
+                    {getSaveStatus().text}
+                  </span>
+                  {hasUnsavedChanges && (
+                    <button
+                      onClick={forceSave}
+                      className="force-save-btn"
+                      title="Force save now"
+                    >
+                      💾
+                    </button>
+                  )}
+                </div>
+              )}
+              
+              {currentEntry && (
+                <MagicalTimestamp
+                  createdAt={currentEntry.created_at}
+                  updatedAt={currentEntry.updated_at}
+                  showCalendar={false}
+                  size="small"
+                  className="editor-timestamp"
+                />
+              )}
+            </div>
           </div>
           
-          {lastSaved && (
-            <div className="auto-save-indicator">
-              ✅ Auto-saved at {lastSaved.toLocaleTimeString()}
-            </div>
-          )}
+          {/* Auto-save indicator now handled by useAutoSave hook */}
           
           {magicalMode && (
             <div className="magical-mode-indicator magical-active">

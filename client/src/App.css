@@ -754,4 +754,202 @@ body.loading {
 .auth-button:hover,
 .start-ceremony-btn:hover {
   cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none"><g transform="rotate(-30 16 16)"><rect x="14" y="2" width="4" height="20" rx="2" fill="%23FFD700" stroke="%23D4AF37" stroke-width="2"/><circle cx="16" cy="4" r="3" fill="%23FFF8DC"/><path d="M12 22 L20 22 L18 28 L14 28 Z" fill="%238B4513"/><circle cx="16" cy="24" r="2" fill="%23A0522D"/><g opacity="1"><path d="M6 6 Q10 10 14 6 Q18 10 22 6" stroke="%23FFD700" stroke-width="2.5" fill="none"/><path d="M8 12 Q12 16 16 12 Q20 16 24 12" stroke="%23FFD700" stroke-width="2" fill="none"/><circle cx="8" cy="4" r="2" fill="%23FFD700"/><circle cx="24" cy="8" r="1.5" fill="%23FFD700"/><circle cx="12" cy="14" r="1.2" fill="%23FFD700"/></g></g></svg>'), pointer !important;
+}
+
+/* Inactivity Warning Modal Styles */
+.inactivity-warning-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(15px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.inactivity-warning-modal {
+  background: rgba(0, 0, 0, 0.9);
+  border: 2px solid rgba(255, 215, 0, 0.8);
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 450px;
+  width: 90%;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.95);
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(255, 215, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.inactivity-warning-modal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+.warning-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.inactivity-warning-modal h3 {
+  color: rgba(255, 215, 0, 0.9);
+  font-family: var(--font-magical);
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.inactivity-warning-modal p {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.inactivity-warning-modal p:last-of-type {
+  margin-bottom: 25px;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.warning-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.extend-session-btn {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.4));
+  border: 2px solid rgba(255, 215, 0, 0.8);
+  color: rgba(255, 215, 0, 0.95);
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 140px;
+}
+
+.extend-session-btn:hover {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 215, 0, 0.5));
+  border-color: rgba(255, 215, 0, 1);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+}
+
+.logout-now-btn {
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.2), rgba(220, 38, 38, 0.4));
+  border: 2px solid rgba(220, 38, 38, 0.8);
+  color: rgba(220, 38, 38, 0.95);
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 140px;
+}
+
+.logout-now-btn:hover {
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.3), rgba(220, 38, 38, 0.5));
+  border-color: rgba(220, 38, 38, 1);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(220, 38, 38, 0.4);
+}
+
+.countdown-bar {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  height: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.countdown-progress {
+  background: linear-gradient(90deg, rgba(255, 215, 0, 0.8), rgba(255, 165, 0, 0.8));
+  height: 100%;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+  transition: width 1s linear;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Responsive design for inactivity warning */
+@media (max-width: 768px) {
+  .inactivity-warning-modal {
+    padding: 25px 20px;
+    max-width: 350px;
+  }
+
+  .warning-icon {
+    font-size: 2.5rem;
+  }
+
+  .inactivity-warning-modal h3 {
+    font-size: 1.3rem;
+  }
+
+  .warning-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .extend-session-btn,
+  .logout-now-btn {
+    width: 100%;
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .inactivity-warning-modal {
+    padding: 20px 15px;
+    max-width: 320px;
+  }
+
+  .warning-icon {
+    font-size: 2rem;
+  }
+
+  .inactivity-warning-modal h3 {
+    font-size: 1.2rem;
+  }
+
+  .inactivity-warning-modal p {
+    font-size: 0.9rem;
+  }
 } 
