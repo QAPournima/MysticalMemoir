@@ -40,10 +40,10 @@ const ThemeAnimations = () => {
       particleCount: 12
     },
     triwizard: {
-      leftParticles: ['🏆', '🔥', '🐉', '⚡', '🪄', '⭐'],
-      rightParticles: ['🏆', '🛡️', '⚔️', '🦅', '🐍', '🦡'],
+      leftParticles: ['🏆', '🔥', '🐉', '⚡', '🪄', '⭐', '🛡️', '⚔️'],
+      rightParticles: ['🏆', '🛡️', '⚔️', '🦅', '🐍', '🦡', '🐉', '🔥'],
       colors: ['#B91C1C', '#1D4ED8', '#FBBF24'],
-      particleCount: 8
+      particleCount: 14
     },
     greenhouse: {
       leftParticles: ['🌿', '🌱', '🌸', '🍄', '🦋', '🐛'],
@@ -208,6 +208,19 @@ const ThemeAnimations = () => {
           <div className="candle-glow-overlay">
             {[...Array(6)].map((_, i) => (
               <div key={i} className={`floating-candle candle-${i}`}>🕯️</div>
+            ))}
+          </div>
+        )}
+        
+        {currentTheme.name === 'Triwizard Tournament' && (
+          <div className="tournament-overlay">
+            {[...Array(6)].map((_, i) => (
+              <div key={`trophy-${i}`} className={`floating-trophy trophy-${i}`}>🏆</div>
+            ))}
+            {[...Array(8)].map((_, i) => (
+              <div key={`champion-${i}`} className={`champion-element champion-${i % 4}`}>
+                {i % 4 === 0 ? '🔥' : i % 4 === 1 ? '🐉' : i % 4 === 2 ? '⚡' : '🪄'}
+              </div>
             ))}
           </div>
         )}

@@ -194,13 +194,14 @@ const UI_THEMES = {
       primary: '#B91C1C',
       secondary: '#1D4ED8',
       accent: '#FBBF24',
-      background: 'linear-gradient(135deg, #FEF2F2 0%, #DBEAFE 50%, #FEF3C7 100%)',
-      cardBg: 'rgba(254, 242, 242, 0.9)',
+      background: 'linear-gradient(135deg, rgba(254, 242, 242, 0.8) 0%, rgba(219, 234, 254, 0.8) 50%, rgba(254, 243, 199, 0.9) 100%)',
+      cardBg: 'rgba(254, 242, 242, 0.85)',
       textPrimary: '#B91C1C',
       textSecondary: '#1D4ED8'
     },
-    backgroundImage: 'radial-gradient(circle at 20% 40%, rgba(185, 28, 28, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 60%, rgba(29, 78, 216, 0.1) 0%, transparent 50%)',
-    atmosphereParticles: ['🏆', '🔥', '🐉', '⚡', '🪄']
+    backgroundImage: 'url("/webpage background/TriwizardTournament.jpg")',
+    backgroundOverlay: 'radial-gradient(circle at 20% 40%, rgba(185, 28, 28, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 60%, rgba(29, 78, 216, 0.08) 0%, transparent 50%)',
+    atmosphereParticles: ['🏆', '🔥', '🐉', '⚡', '🪄', '🛡️', '⚔️', '🦅', '🐍']
   },
   greenhouse: {
     name: "Professor Sprout's Greenhouse",
@@ -288,7 +289,8 @@ export const ThemeProvider = ({ children }) => {
         'Dark Arts': 'darkArtsAnimation',
         'Hogwarts in the Snow': 'snowAnimation',
         'Great Hall': 'greatHallAnimation',
-        'Diagon Alley': 'diagonAlleyAnimation'
+        'Diagon Alley': 'diagonAlleyAnimation',
+        'Triwizard Tournament': 'triwizardAnimation'
       };
       
       const animationName = animationMap[theme.name] || 'defaultBackgroundAnimation';
@@ -340,7 +342,8 @@ export const ThemeProvider = ({ children }) => {
         'Dark Arts': 'darkArtsAnimation',
         'Hogwarts in the Snow': 'snowAnimation',
         'Great Hall': 'greatHallAnimation',
-        'Diagon Alley': 'diagonAlleyAnimation'
+        'Diagon Alley': 'diagonAlleyAnimation',
+        'Triwizard Tournament': 'triwizardAnimation'
       };
       
       const animationName = animationMap[theme.name] || 'defaultBackgroundAnimation';
