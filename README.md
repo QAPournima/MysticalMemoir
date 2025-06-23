@@ -257,7 +257,7 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 
 This project is licensed under a Proprietary Commercial License - see the LICENSE file for details.
 
-Copyright (c) 2025 Zap⚡️ (Advanced AI Tools for Software Quality). All rights reserved.
+Copyright (c) 2025 Zap⚡️ (Advanced AI Tools for Tech). All rights reserved.
 
 ## 🙏 Acknowledgments
 
