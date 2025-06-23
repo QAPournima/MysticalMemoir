@@ -119,11 +119,28 @@ export const DiaryProvider = ({ children }) => {
   // Diary Entries Actions
   const fetchDiaryEntries = async (filters = {}) => {
     try {
+      console.log('📡 DiaryContext: Starting fetchDiaryEntries...');
       dispatch({ type: 'SET_LOADING', payload: true });
       const params = new URLSearchParams(filters);
-      const response = await axios.get(`${API_URL}/diary?${params}`);
+      const url = `${API_URL}/diary?${params}`;
+      console.log('🌐 DiaryContext: Calling URL:', url);
+      
+      const response = await axios.get(url);
+      console.log('📦 DiaryContext: Received response:', {
+        status: response.status,
+        dataLength: response.data?.length,
+        firstEntry: response.data?.[0]?.title
+      });
+      
       dispatch({ type: 'SET_DIARY_ENTRIES', payload: response.data });
+      console.log('✅ DiaryContext: Diary entries set in context');
     } catch (error) {
+      console.error('❌ DiaryContext: Error fetching diary entries:', error);
+      console.error('📊 DiaryContext: Error details:', {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status
+      });
       dispatch({ type: 'SET_ERROR', payload: error.message });
     }
   };

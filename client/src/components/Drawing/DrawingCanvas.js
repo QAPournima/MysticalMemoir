@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useParams } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
 import { useDiary } from '../../context/DiaryContext';
 import './DrawingCanvas.css';
@@ -46,8 +47,9 @@ const DrawingCanvas = () => {
   const [showGalleryNavigation, setShowGalleryNavigation] = useState(false);
   
   const { currentHouse, getHouseInfo, sendMagicalNotification } = useTheme();
-  const { saveDrawing: saveDrawingToDatabase } = useDiary();
+  const { saveDrawing: saveDrawingToDatabase, drawings, fetchDrawings } = useDiary();
   const houseInfo = getHouseInfo(currentHouse);
+  const { id: drawingId } = useParams(); // Get drawing ID from URL
 
   // Extended house-themed color palettes
   const colorPalettes = {
@@ -277,6 +279,74 @@ const DrawingCanvas = () => {
       window.removeEventListener('drawingDeleted', handleDrawingDeleted);
     };
   }, []);
+
+  // Load specific drawing from URL parameter
+  useEffect(() => {
+    const loadSpecificDrawing = async () => {
+      console.log('🎨 DrawingCanvas: Loading specific drawing, drawingId:', drawingId);
+      console.log('🎨 DrawingCanvas: Current drawings count:', drawings.length);
+      
+      if (drawingId && drawings.length === 0) {
+        // Fetch drawings if not already loaded
+        console.log('🌐 DrawingCanvas: Fetching drawings from database...');
+        try {
+          await fetchDrawings();
+          console.log('✅ DrawingCanvas: Drawings fetched successfully');
+        } catch (error) {
+          console.error('❌ DrawingCanvas: Error fetching drawings:', error);
+          sendMagicalNotification('Failed to Load Artwork', {
+            body: 'Could not fetch artwork from the gallery. Please try again.',
+            tag: 'drawing-load-error'
+          });
+          return;
+        }
+      }
+
+      if (drawingId && drawings.length > 0) {
+        console.log('🔍 DrawingCanvas: Searching for drawing with ID:', drawingId);
+        console.log('🎨 DrawingCanvas: Available drawings:', drawings.map(d => ({ id: d.id, title: d.title })));
+        
+        // Find the specific drawing by ID
+        const drawingToLoad = drawings.find(drawing => 
+          drawing.id === parseInt(drawingId) || 
+          drawing.id === drawingId || 
+          drawing.id.toString() === drawingId
+        );
+        
+        console.log('🎯 DrawingCanvas: Found drawing:', drawingToLoad);
+        
+        if (drawingToLoad) {
+          // Convert the drawing data to the format expected by loadDrawing
+          const formattedDrawing = {
+            dataURL: drawingToLoad.canvas_data || drawingToLoad.image_data,
+            name: drawingToLoad.title || `Artwork ${drawingId}`
+          };
+          
+          console.log('📋 DrawingCanvas: Formatted drawing for loading:', {
+            name: formattedDrawing.name,
+            hasDataURL: !!formattedDrawing.dataURL,
+            dataURLPreview: formattedDrawing.dataURL ? formattedDrawing.dataURL.substring(0, 50) + '...' : 'No data'
+          });
+          
+          // Load the drawing onto the canvas
+          setTimeout(() => {
+            console.log('🖼️ DrawingCanvas: Calling loadDrawing function...');
+            loadDrawing(formattedDrawing);
+          }, 500); // Small delay to ensure canvas is ready
+        } else {
+          console.warn('⚠️ DrawingCanvas: Drawing not found with ID:', drawingId);
+          sendMagicalNotification('Artwork Not Found', {
+            body: `Could not find artwork with ID ${drawingId}. It may have been deleted.`,
+            tag: 'drawing-not-found'
+          });
+        }
+      }
+    };
+
+    if (drawingId) {
+      loadSpecificDrawing();
+    }
+  }, [drawingId, drawings, fetchDrawings, sendMagicalNotification]);
 
   // Keyboard shortcuts effect
   useEffect(() => {
@@ -912,17 +982,34 @@ const DrawingCanvas = () => {
   };
 
   const loadDrawing = (drawing) => {
+    console.log('🖼️ LoadDrawing: Called with drawing:', {
+      name: drawing.name,
+      hasDataURL: !!drawing.dataURL,
+      dataURLLength: drawing.dataURL ? drawing.dataURL.length : 0
+    });
+    
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     const img = new Image();
     
     img.onload = () => {
+      console.log('✅ LoadDrawing: Image loaded successfully, drawing to canvas');
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.drawImage(img, 0, 0);
       // Save as new state in history
       saveCanvasState();
+      console.log('✅ LoadDrawing: Canvas updated and state saved');
     };
     
+    img.onerror = (error) => {
+      console.error('❌ LoadDrawing: Error loading image:', error);
+      sendMagicalNotification('Failed to Load Image', {
+        body: 'The artwork image could not be loaded. It may be corrupted.',
+        tag: 'image-load-error'
+      });
+    };
+    
+    console.log('🌐 LoadDrawing: Setting image source...');
     img.src = drawing.dataURL;
     
     sendMagicalNotification('Artwork Loaded!', {
@@ -1138,7 +1225,7 @@ const DrawingCanvas = () => {
                 </button>
               </div>
               <div className="tool-buttons-grid">
-                {(toolsExpanded ? drawingTools : drawingTools.slice(0, 3)).map((drawTool) => (
+                {(toolsExpanded ? (drawingTools || []) : (drawingTools || []).slice(0, 3)).map((drawTool) => (
                   <button 
                     key={drawTool.name}
                     className={`tool-btn ${tool === drawTool.name ? 'active' : ''}`}
@@ -1281,7 +1368,7 @@ const DrawingCanvas = () => {
             <div className="tool-section">
               <label>{houseInfo.name} Colors:</label>
               <div className="color-palette-extended">
-                {colorPalettes[currentHouse].map((color, index) => (
+                {(colorPalettes[currentHouse] || []).map((color, index) => (
                   <button
                     key={index}
                     className={`color-btn ${currentColor === color ? 'active' : ''}`}

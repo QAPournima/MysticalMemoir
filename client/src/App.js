@@ -39,28 +39,39 @@ function AppContent() {
     const authStatus = localStorage.getItem('user_authenticated') === 'true';
     setIsAuthenticated(authStatus);
 
-    // Show loading for 2.2 seconds on initial load
+    // Reduce loading time on initial load
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2200);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, []);
 
+  // Listen for authentication changes
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const authStatus = localStorage.getItem('user_authenticated') === 'true';
+      setIsAuthenticated(authStatus);
+    };
+
+    // Listen for storage changes (for cross-tab authentication)
+    window.addEventListener('storage', handleStorageChange);
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
+
   const handleLogin = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsAuthenticated(true);
-      setIsLoading(false);
-    }, 1500);
+    // Immediately update authentication state
+    setIsAuthenticated(true);
+    setIsLoading(false);
   };
 
   const handleSignUp = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsAuthenticated(true);
-      setIsLoading(false);
-    }, 1500);
+    // Immediately update authentication state
+    setIsAuthenticated(true);
+    setIsLoading(false);
   };
 
   const handleLogout = () => {
@@ -217,21 +228,8 @@ function AppContent() {
           <main className="main-content">
             <AnimatePresence mode="wait">
               <Routes>
-                <Route 
-                  path="/" 
-                  element={
-                    <motion.div
-                      key="home"
-                      initial="initial"
-                      animate="in"
-                      exit="out"
-                      variants={pageVariants}
-                      transition={pageTransition}
-                    >
-                      <Home />
-                    </motion.div>
-                  } 
-                />
+                {/* Redirect root to /home */}
+                <Route path="/" element={<Navigate to="/home" replace />} />
                 
                 <Route 
                   path="/home" 
@@ -318,6 +316,22 @@ function AppContent() {
                   element={
                     <motion.div
                       key="drawing"
+                      initial="initial"
+                      animate="in"
+                      exit="out"
+                      variants={pageVariants}
+                      transition={pageTransition}
+                    >
+                      <DrawingCanvas />
+                    </motion.div>
+                  } 
+                />
+                
+                <Route 
+                  path="/drawing/:id" 
+                  element={
+                    <motion.div
+                      key="drawing-edit"
                       initial="initial"
                       animate="in"
                       exit="out"

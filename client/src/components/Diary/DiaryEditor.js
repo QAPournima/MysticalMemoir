@@ -194,6 +194,14 @@ const DiaryEditor = () => {
     }
   }, [id, isEditing]);
 
+  // Ensure selectedStickers is always an array
+  useEffect(() => {
+    if (!Array.isArray(selectedStickers)) {
+      console.warn('selectedStickers is not an array, resetting to empty array');
+      setSelectedStickers([]);
+    }
+  }, [selectedStickers]);
+
   // Update CSS custom properties when house changes
   useEffect(() => {
     const root = document.documentElement;
@@ -776,7 +784,18 @@ const DiaryEditor = () => {
           stickers: entry.stickers ? JSON.parse(entry.stickers) : [],
           bookmarked: entry.bookmarked === 1
         });
-        setSelectedStickers(entry.stickers ? JSON.parse(entry.stickers) : []);
+        // Safely parse stickers - ensure it's always an array
+        let parsedStickers = [];
+        try {
+          if (entry.stickers) {
+            const parsed = JSON.parse(entry.stickers);
+            parsedStickers = Array.isArray(parsed) ? parsed : [];
+          }
+        } catch (error) {
+          console.warn('Failed to parse stickers:', error);
+          parsedStickers = [];
+        }
+        setSelectedStickers(parsedStickers);
       }
     } catch (error) {
       console.error('Error loading entry:', error);
@@ -807,15 +826,16 @@ const DiaryEditor = () => {
           body: `Your entry "${entryData.title}" has been mystically preserved! ✨`,
           tag: 'memoir-update'
         });
+        navigate('/diary');
       } else {
         await createDiaryEntry(entryData);
         sendMagicalNotification('New Memoir Entry Created', {
           body: `Your mystical thoughts about "${entryData.title}" have been recorded! 📖`,
           tag: 'memoir-create'
         });
+        // Navigate to home so user can see their new entry in the Recent Chronicles
+        navigate('/home');
       }
-      
-      navigate('/diary');
     } catch (error) {
       console.error('Error saving entry:', error);
       alert('Failed to save entry. Please try again.');
@@ -874,8 +894,9 @@ const DiaryEditor = () => {
       content: prev.content + sticker.emoji + ' '
     }));
     
-    // Also add to stickers collection for tracking
-    const newStickers = [...selectedStickers, sticker];
+    // Also add to stickers collection for tracking - ensure selectedStickers is an array
+    const currentStickers = Array.isArray(selectedStickers) ? selectedStickers : [];
+    const newStickers = [...currentStickers, sticker];
     setSelectedStickers(newStickers);
     setFormData(prev => ({
       ...prev,
@@ -887,7 +908,9 @@ const DiaryEditor = () => {
   };
 
   const handleRemoveSticker = (stickerIndex) => {
-    const newStickers = selectedStickers.filter((_, index) => index !== stickerIndex);
+    // Ensure selectedStickers is an array before filtering
+    const currentStickers = Array.isArray(selectedStickers) ? selectedStickers : [];
+    const newStickers = currentStickers.filter((_, index) => index !== stickerIndex);
     setSelectedStickers(newStickers);
     setFormData(prev => ({
       ...prev,
@@ -1330,13 +1353,13 @@ const DiaryEditor = () => {
           )}
 
           {/* Selected Stickers */}
-          {selectedStickers.length > 0 && (
+          {Array.isArray(selectedStickers) && selectedStickers.length > 0 && (
             <div className="selected-stickers magical-card">
               <h4>Selected Stickers</h4>
               <div className="sticker-list">
                 {selectedStickers.map((sticker, index) => (
                   <div key={index} className="selected-sticker">
-                    <span className="sticker-emoji">{sticker.emoji}</span>
+                    <span className="sticker-emoji">{sticker?.emoji || '❓'}</span>
                     <button
                       onClick={() => handleRemoveSticker(index)}
                       className="remove-sticker-btn"

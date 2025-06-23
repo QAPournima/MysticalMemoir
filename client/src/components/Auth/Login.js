@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext';
 import AuthBackgroundMusic from '../UI/AuthBackgroundMusic';
 import './Auth.css';
@@ -11,6 +11,7 @@ const Login = ({ onLogin }) => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   // Check if user already has a house assigned
   const { getHouseInfo } = useTheme();
@@ -32,13 +33,21 @@ const Login = ({ onLogin }) => {
 
     try {
       // Simulate login API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await new Promise(resolve => setTimeout(resolve, 1000));
       
       // For demo purposes, accept any email/password
       if (formData.email && formData.password) {
+        // Set authentication in localStorage
         localStorage.setItem('user_authenticated', 'true');
         localStorage.setItem('user_email', formData.email);
-        if (onLogin) onLogin();
+        
+        // Call the parent onLogin function
+        if (onLogin) {
+          onLogin();
+        }
+        
+        // Navigate to home page
+        navigate('/home', { replace: true });
       } else {
         throw new Error('Please fill in all fields');
       }

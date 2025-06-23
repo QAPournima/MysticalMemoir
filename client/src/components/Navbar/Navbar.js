@@ -13,7 +13,7 @@ const Navbar = ({ currentHouse, setCurrentHouse, onLogout }) => {
   const currentElementInfo = getElementInfo(currentHouse);
 
   const navigationItems = [
-    { path: '/', label: 'Home', icon: '🏠' },
+    { path: '/home', label: 'Home', icon: '🏠' },
     { path: '/diary', label: 'Memoir', icon: '📖' },
     { path: '/todos', label: 'Tasks', icon: '📝' },
     { path: '/drawing', label: 'Draw', icon: '🎨' },
@@ -40,7 +40,7 @@ const Navbar = ({ currentHouse, setCurrentHouse, onLogout }) => {
       <div className="navbar-container">
         {/* Logo and Title */}
         <div className="navbar-brand">
-          <Link to="/" className="brand-link">
+          <Link to="/home" className="brand-link">
             <div className="brand-icon">✨</div>
             <div className="brand-text">
               <h1 className="brand-title">Mystical Memoir</h1>
